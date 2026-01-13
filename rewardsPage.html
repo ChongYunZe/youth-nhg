@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NHG Youth – Rewards</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      --container: 1120px;
+
+      --ink: #0f172a;
+      --muted: #64748b;
+      --cardBorder: #e6eaf2;
+      --cardShadow: 0 10px 26px rgba(15,23,42,.08);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font-family:inherit; }
+
+    .container{
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ===== Header (same as your previous page) ===== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{
+      height: 64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      color: rgba(255,255,255,.72);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .nav a{ padding:10px 10px; border-radius: 10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+    .nav a.active{
+      color:#fff;
+      background: rgba(255,255,255,.08);
+    }
+
+    .actions{ display:flex; align-items:center; gap:10px; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+    .btn-primary:hover{ background: linear-gradient(90deg, #2A5BFF, #4F82FF); }
+
+    .hamburger{
+      display:none;
+      width:42px;height:42px;border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      cursor:pointer;
+    }
+
+    .mobile-nav{ display:none; padding: 12px 0 14px; border-top: 1px solid var(--border); }
+    .mobile-nav a{
+      display:block;
+      padding: 10px 4px;
+      color: rgba(255,255,255,.72);
+      font-weight:700;
+    }
+    .mobile-nav a:hover{ color:#fff; }
+    .mobile-nav.show{ display:block; }
+
+    /* ===== Page tabs (Points Overview / Redeem Your Points) ===== */
+    .pageTabsWrap{
+      background: #fff;
+      border-bottom: 1px solid var(--cardBorder);
+    }
+    .pageTabs{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+      padding: 12px 0;
+    }
+    .pageTabs a{
+      font-size: 12px;
+      font-weight: 800;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 10px;
+      position: relative;
+      opacity: .9;
+    }
+    .pageTabs a:hover{ background: #f8fafc; opacity: 1; }
+    .pageTabs a.active{
+      color: var(--primary);
+      background: rgba(45,99,255,.06);
+    }
+    .pageTabs a.active:after{
+      content:"";
+      position:absolute;
+      left: 10px;
+      right: 10px;
+      bottom: -12px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    /* ===== Points hero (matches your figma: short blue banner + illustration) ===== */
+    .pointsHero{
+      background: linear-gradient(180deg, #2A5BFF 0%, #1F4DCC 100%);
+      color:#fff;
+    }
+    .pointsHero-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+      padding: 20px 0;
+      min-height: 150px;
+    }
+    .pointsLeft small{
+      display:block;
+      font-weight:800;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 6px;
+    }
+    .pointsValue{
+      font-size: 40px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -.6px;
+      margin: 0 0 10px;
+    }
+    .pointsHint{
+      margin:0;
+      color: rgba(255,255,255,.88);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .pointsHero-illus{
+      width: 270px;
+      max-width: 40%;
+      align-self: stretch;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-end;
+      overflow:hidden;
+    }
+    .pointsHero-illus img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right bottom;
+      display:block;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.22));
+    }
+
+    /* ===== Catalogue ===== */
+    main{ padding-bottom: 22px; }
+
+    .catalogueHead{
+      padding: 22px 0 10px;
+      text-align:center;
+    }
+    .catalogueHead h2{
+      margin:0;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -.2px;
+      color: #0f172a;
+    }
+
+    .catalogueGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 12px 0 22px;
+    }
+
+    .rewardCard{
+      border:1px solid var(--cardBorder);
+      border-radius: 16px;
+      background:#fff;
+      box-shadow: var(--cardShadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 290px;
+    }
+
+    .rewardImg{
+      height: 140px;
+      background:#f3f6ff;
+      display:grid;
+      place-items:center;
+      padding: 10px;
+    }
+    .rewardImg img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display:block;
+    }
+
+    .rewardBody{
+      padding: 12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      flex: 1 1 auto;
+    }
+    .rewardTitle{
+      margin:0;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -.1px;
+      color: #0f172a;
+      line-height: 1.25;
+      min-height: 32px;
+    }
+    .rewardMeta{
+      margin:0;
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .rewardMeta strong{ color:#0f172a; font-weight: 900; }
+
+    .redeemBtn{
+      margin-top: auto;
+      width: 100%;
+      border: 0;
+      cursor:pointer;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      color:#fff;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      box-shadow: 0 12px 26px rgba(45,99,255,.26);
+      transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+    }
+    .redeemBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .redeemBtn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      box-shadow: none;
+      transform:none;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(15,23,42,.92);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    /* ===== Footer (same as your previous page) ===== */
+    footer{
+      margin-top: 18px;
+      background: #0b1220;
+      color: rgba(255,255,255,.82);
+    }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+      align-items:start;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{
+      margin:0;
+      max-width: 34ch;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .footerCol h5{
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,.86);
+    }
+    .footerCol a:not(.socialBtn){
+      display:block;
+      padding: 6px 0;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+
+    .footer__social{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 2px;
+    }
+    .footerCol a.socialBtn{
+      width: 28px;
+      height: 28px;
+      display:grid;
+      place-items:center;
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+    .footerCol a.socialBtn:hover{ background: rgba(255,255,255,.08); color:#fff; }
+    .footerCol a.socialBtn svg{ display:block; width:14px; height:14px; }
+
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+
+      .pointsHero-inner{ min-height: 0; padding: 18px 0; }
+      .pointsHero-illus{ display:none; }
+
+      .catalogueGrid{ grid-template-columns: 1fr; }
+
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+      .pageTabs{ justify-content:flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== Header (reused) ===== -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <span>NHG Youth</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="events.html">Events</a>
+          <a href="rewards.html" class="active">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+          <a href="about.html">About</a>
+        </nav>
+
+        <div class="actions">
+          <button class="btn" type="button" onclick="scrollToId('catalogue')">View Rewards</button>
+          <button class="btn btn-primary" type="button" onclick="scrollToId('catalogue')">Redeem</button>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="index.html" onclick="closeMobileNav()">Home</a>
+        <a href="events.html" onclick="closeMobileNav()">Events</a>
+        <a href="rewards.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
+        <a href="about.html" onclick="closeMobileNav()">About</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Secondary tabs (like your figma) ===== -->
+  <div class="pageTabsWrap">
+    <div class="container">
+      <div class="pageTabs" role="tablist" aria-label="Rewards tabs">
+        <!-- If you have a points overview page, point this to it -->
+        <a href="points.html" role="tab" aria-selected="false">Points Overview</a>
+        <a href="rewards.html" class="active" role="tab" aria-selected="true">Redeem Your Points</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Points banner ===== -->
+  <section class="pointsHero" aria-label="Current points banner">
+    <div class="container">
+      <div class="pointsHero-inner">
+        <div class="pointsLeft">
+          <small>Current Points:</small>
+          <div class="pointsValue" id="pointsValue">7299</div>
+          <p class="pointsHint">Redeem points for vouchers, perks, and health rewards.</p>
+        </div>
+
+        <div class="pointsHero-illus" aria-hidden="true">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/1923e4200ad3d9ada73ea34bebe356680ff38362?width=1184"
+            alt=""
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Catalogue ===== -->
+  <main id="catalogue">
+    <div class="container">
+      <div class="catalogueHead">
+        <h2>Catalogue</h2>
+      </div>
+
+      <div class="catalogueGrid">
+        <!-- Row 1 -->
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&w=1400&q=80" alt="$10 FairPrice Cash Voucher">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">$10 FairPrice Cash Voucher</h3>
+            <p class="rewardMeta">Redeem with partner stores • <strong>2888 points</strong></p>
+            <button class="redeemBtn" data-name="$10 FairPrice Cash Voucher" data-cost="2888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1400&q=80" alt="$10 FairPrice Cash Voucher (Alt)">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">$10 FairPrice Cash Voucher (Alt)</h3>
+            <p class="rewardMeta">Limited weekly drops • <strong>2888 points</strong></p>
+            <button class="redeemBtn" data-name="$10 FairPrice Cash Voucher (Alt)" data-cost="2888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
+            <p class="rewardMeta">Mobile redemption • <strong>1486 points</strong></p>
+            <button class="redeemBtn" data-name="$2 Luckin Coffee Credit" data-cost="1486">Redeem</button>
+          </div>
+        </article>
+
+        <!-- Row 2 -->
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1523289333742-be1143f6b766?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle>Shopee Free Shipping Voucher</h3>
+            <p class="rewardMeta">Online use • <strong>888 points</strong></p>
+            <button class="redeemBtn" data-name="Shopee Free Shipping Voucher" data-cost="888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
+            <p class="rewardMeta">Grocery delivery • <strong>888 points</strong></p>
+            <button class="redeemBtn" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Exchange Coupon">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">$2 Luckin Coffee Exchange Coupon</h3>
+            <p class="rewardMeta">Valid for 30 days • <strong>218 points</strong></p>
+            <button class="redeemBtn" data-name="$2 Luckin Coffee Exchange Coupon" data-cost="218">Redeem</button>
+          </div>
+        </article>
+
+        <!-- Row 3 -->
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour (Wellness / Health)">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">Free Site Tour (Health &amp; Wellness)</h3>
+            <p class="rewardMeta">Book a slot • <strong>2888 points</strong></p>
+            <button class="redeemBtn" data-name="Free Site Tour (Health & Wellness)" data-cost="2888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1527156231393-7023794f363c?auto=format&fit=crop&w=1400&q=80" alt="Mr Bean Coupon Booklet">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">Mr Bean Coupon Booklet</h3>
+            <p class="rewardMeta">In-store redemption • <strong>888 points</strong></p>
+            <button class="redeemBtn" data-name="Mr Bean Coupon Booklet" data-cost="888">Redeem</button>
+          </div>
+        </article>
+
+        <article class="rewardCard">
+          <div class="rewardImg">
+            <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
+          </div>
+          <div class="rewardBody">
+            <h3 class="rewardTitle">Free Health Screening Package</h3>
+            <p class="rewardMeta">NHG Polyclinics • <strong>8888 points</strong></p>
+            <button class="redeemBtn" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Footer (reused) ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+            <span class="footer__brandName">NHG Youth</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="index.html#modules">Online Courses</a>
+          <a href="rewards.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="#">Help Center</a>
+          <a href="#">Contact Us</a>
+          <a href="#">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> NHG Youth</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Smooth scroll helper
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      closeMobileNav();
+    }
+
+    // Mobile nav
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+
+    function closeMobileNav(){
+      if(mobileNav) mobileNav.classList.remove("show");
+    }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
+
+    // ===== Points + Redeem logic (basic, demo-ready) =====
+    const POINTS_KEY = "nhg_points";
+    const defaultPoints = 7299;
+
+    function getPoints(){
+      const saved = Number(localStorage.getItem(POINTS_KEY));
+      return Number.isFinite(saved) && saved >= 0 ? saved : defaultPoints;
+    }
+    function setPoints(v){
+      localStorage.setItem(POINTS_KEY, String(Math.max(0, Math.floor(v))));
+      renderPoints();
+    }
+
+    const pointsValueEl = document.getElementById("pointsValue");
+    const toastEl = document.getElementById("toast");
+
+    function showToast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => toastEl.classList.remove("show"), 1800);
+    }
+
+    function renderPoints(){
+      const pts = getPoints();
+      pointsValueEl.textContent = pts;
+
+      // Disable buttons if not enough points
+      document.querySelectorAll(".redeemBtn").forEach(btn => {
+        const cost = Number(btn.dataset.cost || 0);
+        btn.disabled = pts < cost;
+        btn.textContent = btn.disabled ? "Not enough points" : "Redeem";
+      });
+    }
+
+    document.querySelectorAll(".redeemBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.dataset.name || "Reward";
+        const cost = Number(btn.dataset.cost || 0);
+        const pts = getPoints();
+
+        if(pts < cost){
+          showToast("Not enough points to redeem this reward.");
+          return;
+        }
+
+        // Deduct + confirm (demo)
+        setPoints(pts - cost);
+        showToast(`Redeemed: ${name} (-${cost} pts)`);
+
+        // OPTIONAL: store redeemed history
+        const historyKey = "nhg_redeemed";
+        const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+        history.unshift({ name, cost, ts: Date.now() });
+        localStorage.setItem(historyKey, JSON.stringify(history.slice(0, 30)));
+      });
+    });
+
+    // Init
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderPoints();
+  </script>
+</body>
+</html>
