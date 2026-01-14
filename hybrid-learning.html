@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hybrid Learning Hub – Health Made Fun</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --good: #5DE4A5;
+
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      --container: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font-family:inherit; }
+
+    .container{
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{
+      height: 64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      color: rgba(255,255,255,.72);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .nav a{ padding:10px 10px; border-radius: 10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+
+    .actions{ display:flex; align-items:center; gap:10px; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+    .btn-primary:hover{ background: linear-gradient(90deg, #2A5BFF, #4F82FF); }
+
+    .hamburger{
+      display:none;
+      width:42px;height:42px;border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      cursor:pointer;
+    }
+
+    /* Page hero */
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff;
+      box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 54px 0; }
+    .pageHero h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      letter-spacing: -0.8px;
+      line-height: 1.12;
+    }
+    .pageHero p{
+      margin:0;
+      color: rgba(255,255,255,.86);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 75ch;
+      font-weight: 600;
+    }
+
+    section{ padding: 28px 0; color:#0f172a; }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: -.3px;
+      color:#0f172a;
+    }
+    .section-head p{
+      margin:0;
+      color: #64748b;
+      font-weight:600;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 62ch;
+    }
+
+    /* Cards grid */
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border:1px solid #e6eaf2;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height: 180px;
+    }
+    .card h3{ margin:0; font-size: 15px; letter-spacing: -.2px; color:#0f172a; }
+    .card p{ margin:0; color: #475569; font-size: 13px; line-height: 1.55; font-weight:600; }
+
+    .card-ic{
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      background: rgba(45,99,255,.10);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--primary);
+      flex: 0 0 auto;
+    }
+    .card-ic svg{ width:18px; height:18px; display:block; }
+
+    .metaRow{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding-top: 6px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #e6eaf2;
+      background: #f8fafc;
+      color: rgba(15,23,42,.72);
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .linkBtn{
+      border: 1px solid rgba(45,99,255,.25);
+      background: rgba(45,99,255,.06);
+      color: var(--primary);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .linkBtn:hover{ transform: translateY(-1px); background: rgba(45,99,255,.10); border-color: rgba(45,99,255,.32); }
+
+    .journey{
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-xl);
+      background:#fff;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      margin-top: 14px;
+    }
+    .journey h3{ margin:0 0 8px; font-size: 14px; letter-spacing: -.2px; }
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .step{
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      padding: 12px;
+      background:#fff;
+    }
+    .step strong{ display:block; font-size: 12px; font-weight: 900; margin-bottom: 6px; color:#0f172a; }
+    .step span{ display:block; font-size: 12px; font-weight: 650; color:#475569; line-height:1.5; }
+
+    footer{
+      margin-top: 18px;
+      background: #0b1220;
+      color: rgba(255,255,255,.82);
+    }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+      align-items:start;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{
+      margin:0;
+      max-width: 34ch;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .footerCol h5{
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,.86);
+    }
+    .footerCol a:not(.socialBtn){
+      display:block;
+      padding: 6px 0;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+
+    .footer__social{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 2px;
+    }
+    .footerCol a.socialBtn{
+      width: 28px;
+      height: 28px;
+      display:grid;
+      place-items:center;
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+    .footerCol a.socialBtn:hover{ background: rgba(255,255,255,.08); color:#fff; }
+    .footerCol a.socialBtn svg{ display:block; width:14px; height:14px; }
+
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .mobile-nav{ display: none; }
+
+    @media (max-width: 980px){
+      .grid-3{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+
+      .mobile-nav{
+        display:none;
+        padding: 12px 0 14px;
+        border-top: 1px solid var(--border);
+      }
+      .mobile-nav a{
+        display:block;
+        padding: 10px 4px;
+        color: rgba(255,255,255,.72);
+        font-weight:700;
+      }
+      .mobile-nav a:hover{ color:#fff; }
+      .mobile-nav.show{ display:block; }
+
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Same navbar (updated links to real pages) -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Youth NHG</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html#modules">Events</a>
+          <a href="hybrid-learning.html">Online Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="index.html#ambassador">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="#categories">Explore</a>
+          <a class="btn btn-primary" href="#categories">Get Started</a>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="index.html#modules" onclick="closeMobileNav()">Events</a>
+        <a href="hybrid-learning.html" onclick="closeMobileNav()">Online Learning</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="index.html#ambassador" onclick="closeMobileNav()">Ambassadors</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page hero -->
+  <div class="pageHero">
+    <div class="container">
+      <h1>Hybrid Learning Hub</h1>
+      <p>
+        Choose a quick category that fits your schedule. Everything is designed to be bite-sized
+        (5–15 minutes) and builds toward skills + certificates over time.
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <section id="categories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Pick a category</h2>
+            <p>Clear next steps + small wins. Start anywhere, then follow the recommended “What’s next?” path.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <!-- Short courses -->
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 7h10M7 11h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Short Courses</h3>
+            <p>3–10 min micro-modules with one key takeaway + a quick quiz. Built for busy youth schedules.</p>
+            <div class="metaRow">
+              <span class="pill">⏱ 5–10 mins</span>
+              <a class="linkBtn" href="short-courses.html">Explore →</a>
+            </div>
+          </article>
+
+          <!-- Micro-webinars -->
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 5h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Micro-Webinars</h3>
+            <p>10–15 min focused sessions by professionals + youth facilitators. One topic, one takeaway.</p>
+            <div class="metaRow">
+              <span class="pill">🎥 10–15 mins</span>
+              <a class="linkBtn" href="micro-webinars.html">Explore →</a>
+            </div>
+          </article>
+
+          <!-- Quizzes / challenges -->
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Quizzes & Challenges</h3>
+            <p>Weekly low-effort check-ins (3–5 questions) or mini challenges (2–7 days). Quick + trackable.</p>
+            <div class="metaRow">
+              <span class="pill">✅ 3–8 mins</span>
+              <a class="linkBtn" href="quizzes.html">Explore →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- A simple “journey” panel that matches your feedback -->
+        <div class="journey" style="margin-top:16px;">
+          <h3>Suggested youth journey (to improve retention)</h3>
+          <div style="color:#475569;font-size:13px;font-weight:650;line-height:1.55;">
+            Start small, then build up levels over time. Every completion shows your progress and next step.
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <strong>1) Discover</strong>
+              <span>See a category that fits your mood + time.</span>
+            </div>
+            <div class="step">
+              <strong>2) Do 1 activity</strong>
+              <span>Complete a 5–15 min session.</span>
+            </div>
+            <div class="step">
+              <strong>3) Reflect</strong>
+              <span>Answer 1 takeaway question.</span>
+            </div>
+            <div class="step">
+              <strong>4) Progress</strong>
+              <span>Unlock a badge / level milestone.</span>
+            </div>
+            <div class="step">
+              <strong>5) Repeat</strong>
+              <span>Get a “What’s next?” recommendation.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ Same footer -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+            <span class="footer__brandName">Youth NHG</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="index.html#modules">Events</a>
+          <a href="hybrid-learning.html">Online Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="index.html#ambassador">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> Youth NHG</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+
+    function closeMobileNav(){
+      if(mobileNav) mobileNav.classList.remove("show");
+    }
+    hamburger?.addEventListener("click", () => {
+      mobileNav.classList.toggle("show");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

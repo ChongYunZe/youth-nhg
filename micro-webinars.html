@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Micro-Webinars – Hybrid Learning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --container: 1120px;
+    }
+    *{ box-sizing:border-box; }
+    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:#fff; color:#0f172a; }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
+
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{ display:flex; gap:18px; align-items:center; color: rgba(255,255,255,.72); font-weight:600; font-size:14px; }
+    .nav a{ padding:10px 10px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+
+    .actions{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+    .hamburger{ display:none; width:42px;height:42px;border-radius:12px; border:1px solid var(--border); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; }
+    .mobile-nav{ display:none; }
+
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff; box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 44px 0; }
+    .pageHero h1{ margin:0 0 10px; font-size: clamp(26px, 3vw, 40px); letter-spacing:-.8px; }
+    .pageHero p{ margin:0; color: rgba(255,255,255,.86); font-weight:600; line-height:1.8; max-width: 78ch; }
+
+    section{ padding: 26px 0; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .card{
+      border:1px solid #e6eaf2; background:#fff;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+      display:flex; flex-direction:column; gap:10px;
+      min-height: 190px;
+    }
+    .card h3{ margin:0; font-size:15px; }
+    .card p{ margin:0; color:#475569; font-size:13px; font-weight:600; line-height:1.55; }
+
+    .meta{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top: 6px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #e6eaf2;
+      background: #f8fafc;
+      color: rgba(15,23,42,.72);
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .linkBtn{
+      border: 1px solid rgba(45,99,255,.25);
+      background: rgba(45,99,255,.06);
+      color: var(--primary);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      cursor:pointer;
+    }
+
+    .note{
+      margin-top: 14px;
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      color:#475569;
+      font-weight:650;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    footer{ margin-top: 18px; background:#0b1220; color: rgba(255,255,255,.82); }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{ margin:0; max-width:34ch; color: rgba(255,255,255,.58); font-size:12px; line-height:1.7; font-weight:600; }
+    .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
+    .footerCol a:not(.socialBtn){ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+    .footer__social{ display:flex; gap:10px; }
+    .footerCol a.socialBtn{
+      width: 28px; height: 28px; display:grid; place-items:center;
+      border-radius: 8px; border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04); color: rgba(255,255,255,.78);
+    }
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .grid-3{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+      .mobile-nav{ display:none; padding: 12px 0 14px; border-top: 1px solid var(--border); }
+      .mobile-nav a{ display:block; padding: 10px 4px; color: rgba(255,255,255,.72); font-weight:700; }
+      .mobile-nav a:hover{ color:#fff; }
+      .mobile-nav.show{ display:block; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Youth NHG</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html#modules">Events</a>
+          <a href="hybrid-learning.html">Online Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="index.html#ambassador">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="hybrid-learning.html">Back</a>
+          <a class="btn btn-primary" href="hybrid-learning.html">Hybrid Hub</a>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="index.html#modules" onclick="closeMobileNav()">Events</a>
+        <a href="hybrid-learning.html" onclick="closeMobileNav()">Online Learning</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="index.html#ambassador" onclick="closeMobileNav()">Ambassadors</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="pageHero">
+    <div class="container">
+      <h1>Micro-Webinars</h1>
+      <p>
+        10–15 minute focused sessions (one topic, one takeaway). These are designed to fit between classes and reduce drop-off.
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="grid-3">
+          <article class="card">
+            <h3>Stress Reset in 12 Minutes</h3>
+            <p>Led by a professional + youth facilitator. Includes 1 poll + 1 takeaway prompt.</p>
+            <div class="meta">
+              <span class="pill">📅 Wed 7pm</span>
+              <a class="linkBtn" href="#" onclick="alert('Demo: Link this button to a Registration page in Wix.'); return false;">Register →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Sleep & Screen Use (10 Minutes)</h3>
+            <p>Simple changes that work during exam weeks. Ends with a quick self-check.</p>
+            <div class="meta">
+              <span class="pill">📅 Sat 11am</span>
+              <a class="linkBtn" href="#" onclick="alert('Demo: Link to Registration page + confirmation message.'); return false;">Register →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Plan School + CCA (15 Minutes)</h3>
+            <p>A realistic planning method for busy youth schedules. One worksheet-style takeaway.</p>
+            <div class="meta">
+              <span class="pill">📅 Sun 4pm</span>
+              <a class="linkBtn" href="#" onclick="alert('Demo: Link to Registration page + follow-up reminder.'); return false;">Register →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="note">
+          <strong style="color:#0f172a;">Make it feel meaningful without adding time:</strong>
+          End each webinar with one reflection question (e.g., “What’s one change you’ll try this week?”) and a clear next step
+          (e.g., “Try the weekly quiz next”) to support repeat engagement.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+            <span class="footer__brandName">Youth NHG</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="index.html#modules">Events</a>
+          <a href="hybrid-learning.html">Online Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="index.html#ambassador">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
+            <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
+            <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> Youth NHG</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
