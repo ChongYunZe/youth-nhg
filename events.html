@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hybrid Learning Hub – Health Made Fun</title>
+  <title>Events – NHG Youth</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,6 +115,7 @@
       color:#fff;
       cursor:pointer;
     }
+    .mobile-nav{ display:none; }
 
     /* Page hero */
     .pageHero{
@@ -134,8 +135,26 @@
       color: rgba(255,255,255,.86);
       font-size: 14px;
       line-height: 1.8;
-      max-width: 75ch;
+      max-width: 78ch;
       font-weight: 600;
+    }
+    .heroRow{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .heroPill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.90);
+      font-weight: 800;
+      font-size: 12px;
     }
 
     section{ padding: 28px 0; color:#0f172a; }
@@ -159,7 +178,7 @@
       font-weight:600;
       font-size: 13px;
       line-height: 1.5;
-      max-width: 62ch;
+      max-width: 72ch;
     }
 
     /* Cards grid */
@@ -177,7 +196,7 @@
       display:flex;
       flex-direction:column;
       gap: 10px;
-      min-height: 180px;
+      min-height: 200px;
     }
     .card h3{ margin:0; font-size: 15px; letter-spacing: -.2px; color:#0f172a; }
     .card p{ margin:0; color: #475569; font-size: 13px; line-height: 1.55; font-weight:600; }
@@ -230,29 +249,43 @@
     }
     .linkBtn:hover{ transform: translateY(-1px); background: rgba(45,99,255,.10); border-color: rgba(45,99,255,.32); }
 
-    .journey{
+    .infoBox{
+      margin-top: 14px;
       border:1px solid #e6eaf2;
       border-radius: var(--radius-xl);
-      background:#fff;
-      padding: 16px;
+      background: #ffffff;
+      padding: 14px;
       box-shadow: 0 12px 30px rgba(15,23,42,.08);
-      margin-top: 14px;
+      color:#475569;
+      font-weight:650;
+      font-size:13px;
+      line-height:1.65;
     }
-    .journey h3{ margin:0 0 8px; font-size: 14px; letter-spacing: -.2px; }
-    .steps{
-      display:grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+
+    /* Simple filter row (front-end only) */
+    .filters{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap: wrap;
+      margin: 10px 0 0;
     }
-    .step{
+    .chip{
       border:1px solid #e6eaf2;
-      border-radius: 16px;
-      padding: 12px;
-      background:#fff;
+      background: #fff;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      color: rgba(15,23,42,.72);
+      cursor:pointer;
     }
-    .step strong{ display:block; font-size: 12px; font-weight: 900; margin-bottom: 6px; color:#0f172a; }
-    .step span{ display:block; font-size: 12px; font-weight: 650; color:#475569; line-height:1.5; }
+    .chip.active{
+      border-color: rgba(45,99,255,.25);
+      background: rgba(45,99,255,.06);
+      color: var(--primary);
+    }
 
     footer{
       margin-top: 18px;
@@ -325,15 +358,10 @@
       flex-wrap:wrap;
     }
 
-    .mobile-nav{ display: none; }
-
     @media (max-width: 980px){
       .grid-3{ grid-template-columns: 1fr; }
-      .steps{ grid-template-columns: 1fr; }
-
       .nav{ display:none; }
       .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
-
       .mobile-nav{
         display:none;
         padding: 12px 0 14px;
@@ -357,7 +385,7 @@
 </head>
 
 <body>
-  <!-- ✅ Same navbar (updated links to real pages) -->
+  <!-- ✅ Same navbar (links updated to pages) -->
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
@@ -374,8 +402,8 @@
         </nav>
 
         <div class="actions">
-          <a class="btn" href="#categories">Explore</a>
-          <a class="btn btn-primary" href="#categories">Get Started</a>
+          <a class="btn" href="#popup">Pop-ups</a>
+          <a class="btn btn-primary" href="#workshops">Workshops</a>
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
       </div>
@@ -392,107 +420,201 @@
   <!-- Page hero -->
   <div class="pageHero">
     <div class="container">
-      <h1>Hybrid Learning Hub</h1>
+      <h1>Events</h1>
       <p>
-        Choose a quick category that fits your schedule. Everything is designed to be bite-sized
-        (5–15 minutes) and builds toward skills + certificates over time.
+        Discover youth-friendly events that fit your schedule — quick pop-up missions and hands-on workshops.
+        Scan a QR at events to earn points and track your progress.
       </p>
+
+      <div class="heroRow" aria-label="Event highlights">
+        <span class="heroPill">⏱ Most sessions: 10–20 mins</span>
+        <span class="heroPill">📍 Schools • CCs • Public spaces</span>
+        <span class="heroPill">🎯 One clear takeaway</span>
+      </div>
     </div>
   </div>
 
   <main>
-    <section id="categories">
+    <!-- POP-UP EVENTS -->
+    <section id="popup">
       <div class="container">
         <div class="section-head">
           <div>
-            <h2>Pick a category</h2>
-            <p>Clear next steps + small wins. Start anywhere, then follow the recommended “What’s next?” path.</p>
+            <h2>Pop-up Events</h2>
+            <p>
+              Short, engaging missions that can be completed on-site. Keep it quick, reward the action, then guide the next step
+              through a QR scan.
+            </p>
+          </div>
+
+          <div class="filters" aria-label="Filters (demo)">
+            <button class="chip active" type="button" data-filter="all">All</button>
+            <button class="chip" type="button" data-filter="school">School</button>
+            <button class="chip" type="button" data-filter="cc">Community Club</button>
+            <button class="chip" type="button" data-filter="public">Public Space</button>
+          </div>
+        </div>
+
+        <div class="grid-3" id="popupGrid">
+          <article class="card" data-type="school">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Stress Reset Station</h3>
+            <p>10-minute guided reset: breathing + grounding. Ends with 1 reflection prompt.</p>
+            <div class="metaRow">
+              <span class="pill">🏫 Campus • 10 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Stress Reset Station', 'Pop-up Event')">Join →</button>
+            </div>
+          </article>
+
+          <article class="card" data-type="cc">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 21V3h10v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Burnout Score Check</h3>
+            <p>Fast 3–5 question check-in. Get a quick “next step” recommendation.</p>
+            <div class="metaRow">
+              <span class="pill">🏘 CC • 12 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Burnout Score Check', 'Pop-up Event')">Join →</button>
+            </div>
+          </article>
+
+          <article class="card" data-type="public">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Healthy Swap Challenge</h3>
+            <p>Quick interactive choices: drinks/snacks swaps. Ends with a QR scan for points.</p>
+            <div class="metaRow">
+              <span class="pill">🛍 Public • 15 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Healthy Swap Challenge', 'Pop-up Event')">Join →</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="infoBox">
+          <strong style="color:#0f172a;">Design note (for feasibility + engagement):</strong>
+          Keep pop-ups <strong>10–15 minutes</strong>, avoid “roadshow booth” vibes, and always end with a <strong>clear next step</strong>
+          (QR scan → points → “Try a quiz” / “Join a micro-webinar”). Pilot during real school/CC events to test space + time flow.
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSHOPS -->
+    <section id="workshops">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Workshops</h2>
+            <p>
+              Hands-on sessions designed to be fun and quick. Trend-based activities that feel practical and youth-friendly.
+            </p>
           </div>
         </div>
 
         <div class="grid-3">
-          <!-- Short courses -->
           <article class="card">
             <div class="card-ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10M7 11h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Short Courses</h3>
-            <p>3–10 min micro-modules with one key takeaway + a quick quiz. Built for busy youth schedules.</p>
+            <h3>Fitness Mini Challenge</h3>
+            <p>10–20 min guided movement with a simple goal + friendly coaching.</p>
             <div class="metaRow">
-              <span class="pill">⏱ 5–10 mins</span>
-              <a class="linkBtn" href="short-courses.html">Explore →</a>
+              <span class="pill">💪 20 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Fitness Mini Challenge', 'Workshop')">Sign up →</button>
             </div>
           </article>
 
-          <!-- Micro-webinars -->
           <article class="card">
             <div class="card-ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 5h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Micro-Webinars</h3>
-            <p>10–15 min focused sessions by professionals + youth facilitators. One topic, one takeaway.</p>
+            <h3>Nutrition Swap Game</h3>
+            <p>Learn quick food swaps using interactive picks + real examples.</p>
             <div class="metaRow">
-              <span class="pill">🎥 10–15 mins</span>
-              <a class="linkBtn" href="micro-webinars.html">Explore →</a>
+              <span class="pill">🥗 15 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Nutrition Swap Game', 'Workshop')">Sign up →</button>
             </div>
           </article>
 
-          <!-- Quizzes / challenges -->
           <article class="card">
             <div class="card-ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M5 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Quizzes & Challenges</h3>
-            <p>Weekly low-effort check-ins (3–5 questions) or mini challenges (2–7 days). Quick + trackable.</p>
+            <h3>Build a 1-Day Reset Plan</h3>
+            <p>Quick planning activity for exam stress + burnout. Ends with one takeaway prompt.</p>
             <div class="metaRow">
-              <span class="pill">✅ 3–8 mins</span>
-              <a class="linkBtn" href="quizzes.html">Explore →</a>
+              <span class="pill">🗓 15–20 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Build a 1-Day Reset Plan', 'Workshop')">Sign up →</button>
             </div>
           </article>
         </div>
 
-        <!-- A simple “journey” panel that matches your feedback -->
-        <div class="journey" style="margin-top:16px;">
-          <h3>Suggested youth journey (to improve retention)</h3>
-          <div style="color:#475569;font-size:13px;font-weight:650;line-height:1.55;">
-            Start small, then build up levels over time. Every completion shows your progress and next step.
+        <div class="infoBox">
+          <strong style="color:#0f172a;">Quality + retention:</strong>
+          Standardise facilitator scripts + training (especially youth ambassadors), keep workshops <strong>10–20 mins</strong>,
+          and end with a <strong>reflection prompt</strong> + recommended next step (e.g. “Take this week’s quiz”).
+          This reinforces meaning without adding time.
+        </div>
+      </div>
+    </section>
+
+    <!-- Simple “Join” modal (front-end demo only) -->
+    <section aria-label="Hidden modal">
+      <div id="joinModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 999; padding: 24px;">
+        <div style="max-width: 560px; margin: 8vh auto; background:#fff; border-radius: 18px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); overflow:hidden;">
+          <div style="padding: 16px 18px; background: #f8fafc; border-bottom: 1px solid #e6eaf2; display:flex; align-items:center; justify-content:space-between; gap: 10px;">
+            <div style="font-weight: 900; color:#0f172a;">Join event</div>
+            <button type="button" onclick="closeJoin()" style="border:0; background:transparent; font-weight:900; cursor:pointer; color:#64748b;">✕</button>
           </div>
 
-          <div class="steps">
-            <div class="step">
-              <strong>1) Discover</strong>
-              <span>See a category that fits your mood + time.</span>
+          <div style="padding: 16px 18px;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 10px;">
+              <span id="modalType" style="display:inline-flex; align-items:center; padding: 7px 10px; border-radius:999px; background: rgba(45,99,255,.06); border:1px solid rgba(45,99,255,.25); color: var(--primary); font-weight: 900; font-size: 12px;"></span>
+              <!-- <span style="display:inline-flex; align-items:center; padding: 7px 10px; border-radius:999px; background:#f8fafc; border:1px solid #e6eaf2; color: rgba(15,23,42,.72); font-weight: 900; font-size: 12px;">Demo flow</span> -->
             </div>
-            <div class="step">
-              <strong>2) Do 1 activity</strong>
-              <span>Complete a 5–15 min session.</span>
+
+            <h3 id="modalTitle" style="margin:0 0 8px; font-size: 16px; letter-spacing:-.2px;">Event Title</h3>
+            <!-- <p style="margin:0 0 14px; color:#475569; font-weight:650; font-size:13px; line-height:1.6;">
+              This is a placeholder sign-up. In Wix, this button can open a form (name/email) and store responses in a database.
+            </p> -->
+
+            <div style="display:grid; gap:10px;">
+              <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
+                Name
+                <input type="text" placeholder="e.g. Name" style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
+              </label>
+              <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
+                Email
+                <input type="text" placeholder="e.g. name@email.com" style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
+              </label>
             </div>
-            <div class="step">
-              <strong>3) Reflect</strong>
-              <span>Answer 1 takeaway question.</span>
-            </div>
-            <div class="step">
-              <strong>4) Progress</strong>
-              <span>Unlock a badge / level milestone.</span>
-            </div>
-            <div class="step">
-              <strong>5) Repeat</strong>
-              <span>Get a “What’s next?” recommendation.</span>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top: 14px; flex-wrap:wrap;">
+              <button class="linkBtn" type="button" onclick="closeJoin()" style="border-color:#e6eaf2; background:#fff; color:#334155;">Cancel</button>
+              <button class="linkBtn" type="button" onclick="confirmJoin()">Confirm →</button>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -562,17 +684,53 @@
   </footer>
 
   <script>
+    // Mobile nav
     const hamburger = document.getElementById("hamburger");
     const mobileNav = document.getElementById("mobileNav");
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
 
-    function closeMobileNav(){
-      if(mobileNav) mobileNav.classList.remove("show");
-    }
-    hamburger?.addEventListener("click", () => {
-      mobileNav.classList.toggle("show");
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Filter chips (demo)
+    const chips = document.querySelectorAll(".chip");
+    const popupGrid = document.getElementById("popupGrid");
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.toggle("active", c === chip));
+        const filter = chip.dataset.filter;
+
+        popupGrid.querySelectorAll(".card").forEach(card => {
+          const type = card.dataset.type;
+          const show = (filter === "all") || (type === filter);
+          card.style.display = show ? "flex" : "none";
+        });
+      });
     });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Join modal (demo)
+    const joinModal = document.getElementById("joinModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalType = document.getElementById("modalType");
+
+    function openJoin(title, type){
+      modalTitle.textContent = title;
+      modalType.textContent = type;
+      joinModal.style.display = "block";
+    }
+    function closeJoin(){
+      joinModal.style.display = "none";
+    }
+    function confirmJoin(){
+      closeJoin();
+      alert("✅ Registered (demo). In Wix, this would submit a form and show a confirmation page.");
+    }
+
+    // Close modal by clicking background
+    joinModal.addEventListener("click", (e) => {
+      if(e.target === joinModal) closeJoin();
+    });
   </script>
 </body>
 </html>

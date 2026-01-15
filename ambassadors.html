@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Youth Ambassadors – NHG Youth</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --good: #5DE4A5;
+
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      --container: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#ffffff;
+      color:#0f172a;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button{ font-family:inherit; cursor:pointer; }
+
+    .container{
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ===== NAVBAR (same as other pages) ===== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      font-weight:600;
+      font-size:14px;
+      color: rgba(255,255,255,.72);
+    }
+    .nav a{ padding:10px;border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+
+    .actions{ display:flex; gap:10px; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:14px;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border:0;
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+
+    /* ===== PAGE HERO ===== */
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff;
+      box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 56px 0; }
+    .pageHero h1{
+      margin:0 0 12px;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing:-.8px;
+    }
+    .pageHero p{
+      margin:0;
+      max-width: 75ch;
+      font-size:14px;
+      line-height:1.8;
+      color: rgba(255,255,255,.88);
+      font-weight:600;
+    }
+
+    section{ padding: 36px 0; }
+
+    .section-head{
+      margin-bottom:18px;
+    }
+    .section-head h2{
+      margin:0 0 6px;
+      font-size:20px;
+      letter-spacing:-.3px;
+    }
+    .section-head p{
+      margin:0;
+      color:#64748b;
+      font-size:13px;
+      font-weight:600;
+      max-width:72ch;
+    }
+
+    /* ===== GRID ===== */
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:16px;
+    }
+
+    .card{
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-lg);
+      padding:18px;
+      background:#fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .card h3{ margin:0;font-size:15px; }
+    .card p{ margin:0;font-size:13px;color:#475569;font-weight:600;line-height:1.55; }
+
+    .pill{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      background: rgba(45,99,255,.08);
+      color: var(--primary);
+      border:1px solid rgba(45,99,255,.25);
+      width: fit-content;
+    }
+
+    /* ===== APPLY PANEL ===== */
+    .apply{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .panel{
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-xl);
+      padding:20px;
+      background:#fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+    }
+    .list{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      font-size:13px;
+      font-weight:600;
+      color:#475569;
+    }
+
+    /* ===== FOOTER (same) ===== */
+    footer{
+      background:#0b1220;
+      color: rgba(255,255,255,.82);
+      margin-top:40px;
+    }
+    .footer__inner{
+      padding:28px 0;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap:26px;
+    }
+    .footer__brandRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .footer__desc{
+      font-size:12px;
+      color: rgba(255,255,255,.58);
+      font-weight:600;
+      max-width:34ch;
+    }
+    .footerCol h5{
+      margin:0 0 10px;
+      font-size:12px;
+      font-weight:900;
+    }
+    .footerCol a{
+      display:block;
+      font-size:12px;
+      padding:6px 0;
+      color: rgba(255,255,255,.58);
+      font-weight:600;
+    }
+    .footerCol a:hover{ color:#fff; }
+
+    .footerBottom{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:12px 0;
+      font-size:11px;
+      color: rgba(255,255,255,.45);
+      display:flex;
+      justify-content:space-between;
+    }
+
+    @media(max-width:900px){
+      .grid-3{ grid-template-columns:1fr; }
+      .apply{ grid-template-columns:1fr; }
+      .footer__inner{ grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:520px){
+      .footer__inner{ grid-template-columns:1fr; }
+      .nav{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <div class="logo"></div>
+        <span>NHG Youth</span>
+      </a>
+
+      <nav class="nav">
+        <a href="events.html">Events</a>
+        <a href="hybrid-learning.html">Hybrid Learning</a>
+        <a href="rewardsPage.html">Rewards</a>
+        <a href="ambassadors.html">Ambassadors</a>
+      </nav>
+
+      <div class="actions">
+        <a class="btn" href="#roles">Roles</a>
+        <a class="btn btn-primary" href="#apply">Apply</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="pageHero">
+  <div class="container">
+    <h1>Youth Ambassadors</h1>
+    <p>
+      Be the bridge between youth and wellbeing. Lead quick activities, support events,
+      and make health conversations relatable — while earning CCA points and leadership experience.
+    </p>
+  </div>
+</div>
+
+<main>
+
+  <!-- ROLES -->
+  <section id="roles">
+    <div class="container">
+      <div class="section-head">
+        <h2>What Youth Ambassadors Do</h2>
+        <p>Clear, bite-sized responsibilities to ensure consistency and quality across events.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <span class="pill">Pop-ups</span>
+          <h3>Host Drop-in Activities</h3>
+          <p>Facilitate 10–20 minute wellness missions at schools, community clubs, and public spaces.</p>
+        </div>
+
+        <div class="card">
+          <span class="pill">Workshops</span>
+          <h3>Support Hands-on Sessions</h3>
+          <p>Assist trainers during fitness, nutrition, and lifestyle workshops using gamified formats.</p>
+        </div>
+
+        <div class="card">
+          <span class="pill">Community</span>
+          <h3>Peer Engagement</h3>
+          <p>Encourage participation, answer questions, and gather feedback to improve activities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section id="apply">
+    <div class="container">
+      <div class="section-head">
+        <h2>Apply to Be an Ambassador</h2>
+        <p>A structured role with training, clear commitments, and recognised contributions.</p>
+      </div>
+
+      <div class="apply">
+        <div class="panel">
+          <h3>What You’ll Gain</h3>
+          <ul class="list">
+            <li>✔ CCA / portfolio recognition</li>
+            <li>✔ Leadership & facilitation skills</li>
+            <li>✔ Exposure to community health initiatives</li>
+            <li>✔ Certificates and programme badges</li>
+          </ul>
+
+          <div style="height:16px"></div>
+          <button class="btn btn-primary" onclick="alert('Demo: this would open a form or member sign-up in Wix.')">
+            Apply Now →
+          </button>
+        </div>
+
+        <div class="panel">
+          <h3>Commitment & Training</h3>
+          <ul class="list">
+            <li>• Short training briefing before events</li>
+            <li>• Flexible sign-up based on availability</li>
+            <li>• Standardised facilitation guides</li>
+            <li>• Ongoing support from NHG coordinators</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brandRow">
+          <div class="logo" style="width:28px;height:28px;"></div>
+          <strong>NHG Youth</strong>
+        </div>
+        <p class="footer__desc">
+          Empowering Singapore’s youth through innovative health programmes and community engagement.
+        </p>
+      </div>
+
+      <div class="footerCol">
+        <h5>Programme</h5>
+        <a href="events.html">Events</a>
+        <a href="hybrid-learning.html">Hybrid Learning</a>
+        <a href="rewardsPage.html">Rewards</a>
+        <a href="ambassadors.html">Ambassadors</a>
+      </div>
+
+      <div class="footerCol">
+        <h5>Support</h5>
+        <a href="#">Help Centre</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+      </div>
+
+      <div class="footerCol">
+        <h5>Connect</h5>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+
+    <div class="footerBottom">
+      <span>© <span id="year"></span> NHG Youth</span>
+      <span>All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
