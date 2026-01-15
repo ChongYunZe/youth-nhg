@@ -216,11 +216,13 @@
       color: rgba(255,255,255,.58);
       font-weight:600;
       max-width:34ch;
+      margin:0;
     }
     .footerCol h5{
       margin:0 0 10px;
       font-size:12px;
       font-weight:900;
+      color: rgba(255,255,255,.86);
     }
     .footerCol a{
       display:block;
@@ -238,6 +240,139 @@
       color: rgba(255,255,255,.45);
       display:flex;
       justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* =========================
+       ✅ POPUP MODAL FORM
+       ========================= */
+    .modalOverlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.55);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 200;
+    }
+    .modalOverlay.show{ display:flex; }
+
+    .modal{
+      width: min(560px, 100%);
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e6eaf2;
+      box-shadow: 0 30px 90px rgba(15,23,42,.35);
+      padding: 22px 22px 18px;
+      position: relative;
+    }
+    .modalClose{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid #e6eaf2;
+      background: #fff;
+      font-weight: 900;
+      color: rgba(15,23,42,.65);
+    }
+    .modalClose:hover{
+      background: #f8fafc;
+      color:#0f172a;
+    }
+
+    .modalHead{
+      text-align:center;
+      padding: 6px 10px 14px;
+    }
+    .modalHead h3{
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: -.4px;
+    }
+    .modalHead p{
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(15,23,42,.60);
+    }
+
+    .form{
+      max-width: 360px;
+      margin: 0 auto;
+      display:grid;
+      gap: 14px;
+      padding: 2px 10px 10px;
+    }
+    .field label{
+      display:block;
+      font-size: 13px;
+      font-weight: 900;
+      margin: 0 0 6px;
+      color:#0f172a;
+    }
+    .input{
+      width:100%;
+      border: 1px solid rgba(15,23,42,.25);
+      border-radius: 8px;
+      padding: 10px 10px;
+      font-size: 13px;
+      font-weight: 650;
+      outline:none;
+    }
+    .input::placeholder{ color: rgba(15,23,42,.45); font-weight: 650; }
+    .input:focus{
+      border-color: rgba(45,99,255,.65);
+      box-shadow: 0 0 0 4px rgba(45,99,255,.12);
+    }
+
+    .formError{
+      display:none;
+      border: 1px solid rgba(239,68,68,.25);
+      background: rgba(239,68,68,.06);
+      color: #b91c1c;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .submitBtn{
+      width: fit-content;
+      justify-self: center;
+      border: 0;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-weight: 900;
+      font-size: 12px;
+      box-shadow: 0 14px 36px rgba(45,99,255,.28);
+    }
+    .submitBtn:disabled{ opacity:.55; cursor:not-allowed; box-shadow:none; }
+
+    .successMsg{
+      display:none;
+      border: 1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.07);
+      color: #166534;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 850;
+      font-size: 12.5px;
+      line-height: 1.5;
+      max-width: 360px;
+      margin: 10px auto 0;
+      text-align:center;
     }
 
     @media(max-width:900px){
@@ -248,6 +383,7 @@
     @media(max-width:520px){
       .footer__inner{ grid-template-columns:1fr; }
       .nav{ display:none; }
+      .form{ padding-left: 0; padding-right: 0; }
     }
   </style>
 </head>
@@ -340,7 +476,9 @@
           </ul>
 
           <div style="height:16px"></div>
-          <button class="btn btn-primary" onclick="alert('Demo: this would open a form or member sign-up in Wix.')">
+
+          <!-- ✅ Open popup -->
+          <button class="btn btn-primary" id="openAmbassadorForm" type="button">
             Apply Now →
           </button>
         </div>
@@ -359,6 +497,50 @@
   </section>
 
 </main>
+
+<!-- ✅ POPUP MODAL -->
+<div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" role="document">
+    <button class="modalClose" id="closeModalBtn" type="button" aria-label="Close">✕</button>
+
+    <div class="modalHead">
+      <h3 id="modalTitle">Register Your Interest</h3>
+      <p>Takes less than 1 minute. No long term commitment.</p>
+    </div>
+
+    <div class="formError" id="formError"></div>
+
+    <form class="form" id="ambassadorForm" novalidate>
+      <div class="field">
+        <label for="fullName">Full name</label>
+        <input class="input" id="fullName" name="fullName" type="text" placeholder="e.g. Lim Yong Xin" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="input" id="email" name="email" type="email" placeholder="example@gmail.com" required />
+      </div>
+
+      <div class="field">
+        <label for="school">School / Workplace</label>
+        <input class="input" id="school" name="school" type="text" placeholder="e.g. Nanyang Technological University" required />
+      </div>
+
+      <div class="field">
+        <label for="telegram">Telegram Handle (*optional)</label>
+        <input class="input" id="telegram" name="telegram" type="text" placeholder="@YourName" />
+      </div>
+
+      <button class="submitBtn" id="submitBtn" type="submit" disabled>
+        Sign up as Youth Ambassador
+      </button>
+    </form>
+
+    <div class="successMsg" id="successMsg">
+      Submitted! We’ll reach out soon.
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -406,6 +588,132 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // ===== Modal open/close =====
+  const overlay = document.getElementById("modalOverlay");
+  const openBtn = document.getElementById("openAmbassadorForm");
+  const closeBtn = document.getElementById("closeModalBtn");
+
+  const form = document.getElementById("ambassadorForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const errorBox = document.getElementById("formError");
+  const successMsg = document.getElementById("successMsg");
+
+  const fullName = document.getElementById("fullName");
+  const email = document.getElementById("email");
+  const school = document.getElementById("school");
+  const telegram = document.getElementById("telegram");
+
+  let lastFocusedEl = null;
+
+  function openModal(){
+    lastFocusedEl = document.activeElement;
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+    successMsg.style.display = "none";
+
+    // Reset submit button state based on current inputs
+    validateLive();
+    setTimeout(() => fullName.focus(), 0);
+  }
+
+  function closeModal(){
+    overlay.classList.remove("show");
+    document.body.style.overflow = "";
+    if (lastFocusedEl) lastFocusedEl.focus();
+  }
+
+  openBtn.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+
+  // click outside modal closes
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Esc closes
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("show")) closeModal();
+  });
+
+  // Simple focus trap inside modal (Tab cycling)
+  overlay.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    const focusables = overlay.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
+    const list = Array.from(focusables).filter(el => !el.disabled && el.offsetParent !== null);
+    if (list.length === 0) return;
+
+    const first = list[0];
+    const last = list[list.length - 1];
+
+    if (e.shiftKey && document.activeElement === first){
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last){
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // ===== Validation =====
+  function isEmailValid(val){
+    // Simple, practical email check
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+  }
+
+  function validateLive(){
+    const nameOk = fullName.value.trim().length >= 2;
+    const emailOk = isEmailValid(email.value);
+    const schoolOk = school.value.trim().length >= 2;
+
+    submitBtn.disabled = !(nameOk && emailOk && schoolOk);
+    return { nameOk, emailOk, schoolOk };
+  }
+
+  [fullName, email, school, telegram].forEach(el => {
+    el.addEventListener("input", () => {
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+      validateLive();
+    });
+  });
+
+  // ===== Submit (demo) =====
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = validateLive();
+
+    if (!v.nameOk || !v.emailOk || !v.schoolOk){
+      errorBox.textContent = "Please fill in Full name, a valid Email, and School/Workplace before submitting.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    // Here you would send to your backend / Google Forms / Wix collection.
+    // Demo: show success and clear form.
+    successMsg.style.display = "block";
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    // Optional: store locally (remove if you don't want this)
+    try{
+      localStorage.setItem("nhg_ambassador_interest_v1", JSON.stringify({
+        fullName: fullName.value.trim(),
+        email: email.value.trim(),
+        school: school.value.trim(),
+        telegram: telegram.value.trim(),
+        submittedAt: new Date().toISOString()
+      }));
+    }catch(_){}
+
+    form.reset();
+    submitBtn.disabled = true;
+
+    // Auto-close after a short moment (optional)
+    setTimeout(() => closeModal(), 1200);
+  });
 </script>
 
 </body>
