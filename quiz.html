@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Burnout Check Quiz – Hybrid Learning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --container: 1120px;
+    }
+    *{ box-sizing:border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#fff;
+      color:#0f172a;
+
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main{ flex: 1; }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
+
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{ display:flex; gap:18px; align-items:center; color: rgba(255,255,255,.72); font-weight:600; font-size:14px; }
+    .nav a{ padding:10px 10px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+    .actions{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+    .hamburger{ display:none; width:42px;height:42px;border-radius:12px; border:1px solid var(--border); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; }
+    .mobile-nav{ display:none; }
+
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff; box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 34px 0; }
+    .pageHero h1{ margin:0 0 8px; font-size: clamp(24px, 3vw, 36px); letter-spacing:-.8px; }
+    .pageHero p{ margin:0; color: rgba(255,255,255,.86); font-weight:600; line-height:1.8; max-width: 78ch; }
+
+    section{ padding: 22px 0 30px; }
+    .wrap{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .panel{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+      padding: 16px;
+    }
+    .panel h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.2px;
+    }
+    .muted{
+      color:#475569;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .badgeRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #e6eaf2;
+      background: #f8fafc;
+      color: rgba(15,23,42,.72);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .qCard{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+      margin-top: 12px;
+    }
+    .qTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .qTitle{
+      font-weight: 900;
+      font-size: 14px;
+      margin:0;
+      letter-spacing: -.2px;
+    }
+    .qIndex{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(15,23,42,.55);
+      border:1px solid #e6eaf2;
+      background:#f8fafc;
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    .choices{ display:grid; gap: 10px; }
+    .choice{
+      border: 1px solid #e6eaf2;
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      cursor:pointer;
+      transition: transform .05s ease, border-color .12s ease, background .12s ease;
+    }
+    .choice:hover{
+      transform: translateY(-1px);
+      border-color: rgba(45,99,255,.25);
+      background: rgba(45,99,255,.03);
+    }
+    .choice input{ margin-top: 3px; }
+    .choice span{
+      font-size: 13px;
+      font-weight: 700;
+      color:#0f172a;
+      line-height: 1.45;
+    }
+
+    .actionsRow{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-end;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .primaryBtn{
+      border: 1px solid rgba(45,99,255,.25);
+      background: linear-gradient(90deg, rgba(45,99,255,.10), rgba(75,123,255,.10));
+      color: var(--primary);
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 13px;
+      cursor:pointer;
+    }
+    .primaryBtn:disabled{ opacity: .45; cursor:not-allowed; }
+
+    .error{
+      margin-top: 10px;
+      border: 1px solid rgba(239,68,68,.25);
+      background: rgba(239,68,68,.06);
+      color: #b91c1c;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 850;
+      font-size: 12.5px;
+      line-height: 1.5;
+      display:none;
+    }
+    .success{
+      margin-top: 10px;
+      border: 1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.07);
+      color: #166534;
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-weight: 850;
+      font-size: 12.5px;
+      line-height: 1.5;
+      display:none;
+    }
+    .review{
+      margin-top: 12px;
+      border-top: 1px solid #e6eaf2;
+      padding-top: 12px;
+      display:none;
+    }
+    .reviewItem{
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      padding: 12px;
+      background:#fff;
+      margin-top: 10px;
+    }
+    .reviewItem h4{ margin:0 0 8px; font-size: 13px; font-weight: 900; }
+    .reviewLine{ font-size: 12.5px; font-weight: 750; color:#475569; line-height: 1.55; margin: 4px 0; }
+    .reviewLine b{ color:#0f172a; }
+
+    .sideStat{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid #e6eaf2;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+      margin-top: 12px;
+    }
+    .sideStat .big{ font-size: 22px; font-weight: 950; letter-spacing: -.5px; }
+    .sideStat .small{ color:#475569; font-size: 12px; font-weight: 750; margin-top: 4px; }
+
+    .progressBar{
+      height: 10px;
+      width: 100%;
+      border-radius: 999px;
+      border:1px solid #e6eaf2;
+      background: #f8fafc;
+      overflow:hidden;
+      margin-top: 10px;
+    }
+    .progressFill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-radius: 999px;
+      transition: width .2s ease;
+    }
+
+    footer{ margin-top: 18px; background:#0b1220; color: rgba(255,255,255,.82); }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{ margin:0; max-width:34ch; color: rgba(255,255,255,.58); font-size:12px; line-height:1.7; font-weight:600; }
+    .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
+    .footerCol a:not(.socialBtn){ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+    .footer__social{ display:flex; gap:10px; }
+    .footerCol a.socialBtn{
+      width: 28px; height: 28px; display:grid; place-items:center;
+      border-radius: 8px; border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04); color: rgba(255,255,255,.78);
+    }
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+      .mobile-nav{ display:none; padding: 12px 0 14px; border-top: 1px solid var(--border); }
+      .mobile-nav a{ display:block; padding: 10px 4px; color: rgba(255,255,255,.72); font-weight:700; }
+      .mobile-nav a:hover{ color:#fff; }
+      .mobile-nav.show{ display:block; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+
+      .wrap{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <span>NHG Youth</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="quizzes.html">Back</a>
+          <a class="btn btn-primary" href="hybrid-learning.html">Hybrid Hub</a>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="events.html" onclick="closeMobileNav()">Events</a>
+        <a href="hybrid-learning.html" onclick="closeMobileNav()">Hybrid Learning</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="pageHero">
+    <div class="container">
+      <h1>Burnout Check Quiz</h1>
+      <p>Answer 5 multiple-choice questions. You must answer all questions before submitting.</p>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="wrap">
+          <div class="panel">
+            <h2>Your Questions</h2>
+            <!-- <p class="muted">These 5 questions are locked for this attempt.</p> -->
+
+            <!-- <div class="badgeRow">
+              <span class="pill">🧠 Multiple choice</span>
+              <span class="pill">✅ Must answer all</span>
+              <span class="pill">🔒 Locked set</span>
+            </div> -->
+
+            <form id="quizForm" novalidate>
+              <div id="questionsMount"></div>
+
+              <div class="actionsRow">
+                <button class="primaryBtn" type="submit" id="submitBtn" disabled>
+                  Submit answers →
+                </button>
+              </div>
+
+              <div class="error" id="errorBox" role="alert"></div>
+              <div class="success" id="successBox" role="status"></div>
+
+              <div class="review" id="reviewBox" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div>
+            <div class="panel">
+              <h2>Progress</h2>
+              <p class="muted">You need to answer all 5 questions before you can submit.</p>
+
+              <div class="sideStat">
+                <div>
+                  <div class="big"><span id="answeredCount">0</span> / 5</div>
+                  <div class="small">Answered</div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="big" id="statusText">Not ready</div>
+                  <div class="small">Submit status</div>
+                </div>
+              </div>
+
+              <div class="progressBar" aria-hidden="true">
+                <div class="progressFill" id="progressFill"></div>
+              </div>
+
+              <div class="sideStat" style="margin-top:12px;">
+                <div>
+                  <div style="font-weight:950;">After Submit</div>
+                  <div class="small">You’ll see your score + review.</div>
+                </div>
+                <div class="pill">📌 Quick feedback</div>
+              </div>
+            </div>
+
+            <div class="panel" style="margin-top:14px;">
+              <h2>Note</h2>
+              <p class="muted">
+                This is a front-end demo (no database). If you want to prevent refresh changing the set, we already lock it for this session.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+            <span class="footer__brandName">NHG Youth</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
+            <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
+            <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> NHG Youth</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Mobile Nav =====
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ===== Quiz Data (20 questions) =====
+    const QUESTION_BANK = [
+      { id:"q1", question:"Which habit is most helpful for reducing stress quickly?", choices:["Skipping meals","Slow breathing for 60 seconds","Staying up late to finish work","Avoiding water all day"], correctIndex:1 },
+      { id:"q2", question:"A good first step when you feel overwhelmed is to…", choices:["Do everything at once","Write a short list of top 3 tasks","Ignore deadlines","Scroll social media for 2 hours"], correctIndex:1 },
+      { id:"q3", question:"Which is a sign you may need rest?", choices:["Consistent energy","Feeling exhausted even after sleep","Enjoying hobbies","Stable mood"], correctIndex:1 },
+      { id:"q4", question:"Sleep hygiene means…", choices:["Only sleeping on weekends","Habits that improve sleep quality","Drinking energy drinks at night","Studying in bed every night"], correctIndex:1 },
+      { id:"q5", question:"A helpful way to prevent burnout is to…", choices:["Never take breaks","Set realistic boundaries and rest","Keep stress to yourself always","Work until you crash"], correctIndex:1 },
+      { id:"q6", question:"Which option best supports focus while studying?", choices:["Notifications on","Short breaks every 25–30 minutes","Multitasking with videos","Skipping sleep"], correctIndex:1 },
+      { id:"q7", question:"When planning your week, a good idea is to…", choices:["Leave everything to the last minute","Block time for important tasks first","Avoid writing anything down","Only plan on the day itself"], correctIndex:1 },
+      { id:"q8", question:"If you feel stressed before an exam, you can try…", choices:["Fast shallow breathing","Grounding: name 5 things you can see","Skipping breakfast","Cramming without breaks"], correctIndex:1 },
+      { id:"q9", question:"A balanced routine usually includes…", choices:["Only work","Work, rest, and fun time","No meals","No movement at all"], correctIndex:1 },
+      { id:"q10", question:"Which is a healthier response to a busy schedule?", choices:["Ask for help or adjust priorities","Panic and do nothing","Say yes to everything","Sleep 2 hours daily"], correctIndex:0 },
+      { id:"q11", question:"A quick way to reset your mind is to…", choices:["Drink 5 coffees","Take a short walk or stretch","Stay seated for hours","Skip water"], correctIndex:1 },
+      { id:"q12", question:"Which is a sign of good time management?", choices:["Constant rushing","Knowing your next step","Missing all deadlines","Doing tasks randomly"], correctIndex:1 },
+      { id:"q13", question:"If screen time affects sleep, you should…", choices:["Use bright screens in bed","Reduce screens 30–60 mins before sleep","Watch louder videos","Increase caffeine at night"], correctIndex:1 },
+      { id:"q14", question:"A useful planning method is to…", choices:["Pick 1–3 key priorities","List 40 tasks and try all","Avoid priorities","Never review progress"], correctIndex:0 },
+      { id:"q15", question:"Which helps build healthy habits?", choices:["All-or-nothing thinking","Small consistent actions","Waiting for motivation only","Quitting after one miss"], correctIndex:1 },
+      { id:"q16", question:"A good break during study is…", choices:["5–10 mins stretch/water","2 hours gaming","Skip meals","More scrolling endlessly"], correctIndex:0 },
+      { id:"q17", question:"When you notice burnout signs, it’s best to…", choices:["Ignore them","Adjust workload and rest","Work more to prove yourself","Stop sleeping"], correctIndex:1 },
+      { id:"q18", question:"A supportive friend can help by…", choices:["Judging you","Listening and encouraging small steps","Saying “just get over it”","Ignoring you"], correctIndex:1 },
+      { id:"q19", question:"Which is a realistic goal-setting approach?", choices:["Do 10 new habits in one day","Start with 1 small habit and build","Never track progress","Change everything overnight"], correctIndex:1 },
+      { id:"q20", question:"A healthy daily routine often includes…", choices:["No movement at all","Water, meals, sleep, and some movement","Only snacks","All-nighters daily"], correctIndex:1 }
+    ];
+
+    // ===== Helpers =====
+    function shuffle(arr){
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const QUESTIONS_PER_QUIZ = 5;
+    const QUIZ_KEY = "nhg_quiz_locked_5_v1";
+
+    let selectedQuestions = [];
+    let answers = {}; // { [questionId]: chosenIndex }
+    let submitted = false;
+
+    const mount = document.getElementById("questionsMount");
+    const quizForm = document.getElementById("quizForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const errorBox = document.getElementById("errorBox");
+    const successBox = document.getElementById("successBox");
+    const reviewBox = document.getElementById("reviewBox");
+
+    const answeredCountEl = document.getElementById("answeredCount");
+    const statusTextEl = document.getElementById("statusText");
+    const progressFill = document.getElementById("progressFill");
+
+    function setError(msg){
+      errorBox.textContent = msg;
+      errorBox.style.display = "block";
+    }
+    function clearError(){
+      errorBox.textContent = "";
+      errorBox.style.display = "none";
+    }
+    function setSuccess(msg){
+      successBox.textContent = msg;
+      successBox.style.display = "block";
+    }
+    function clearSuccess(){
+      successBox.textContent = "";
+      successBox.style.display = "none";
+    }
+
+    function updateProgress(){
+      const answered = Object.keys(answers).length;
+      answeredCountEl.textContent = String(answered);
+
+      const pct = Math.round((answered / QUESTIONS_PER_QUIZ) * 100);
+      progressFill.style.width = pct + "%";
+
+      const ready = answered === QUESTIONS_PER_QUIZ && !submitted;
+      submitBtn.disabled = !ready;
+
+      statusTextEl.textContent = submitted ? "Submitted" : (ready ? "Ready" : "Not ready");
+    }
+
+    function renderQuestions(){
+      mount.innerHTML = "";
+      reviewBox.style.display = "none";
+      reviewBox.innerHTML = "";
+      clearError();
+      clearSuccess();
+
+      selectedQuestions.forEach((q, idx) => {
+        const card = document.createElement("div");
+        card.className = "qCard";
+
+        const qTop = document.createElement("div");
+        qTop.className = "qTop";
+
+        const title = document.createElement("p");
+        title.className = "qTitle";
+        title.textContent = q.question;
+
+        const indexPill = document.createElement("div");
+        indexPill.className = "qIndex";
+        indexPill.textContent = `Q${idx + 1}`;
+
+        qTop.appendChild(title);
+        qTop.appendChild(indexPill);
+
+        const choices = document.createElement("div");
+        choices.className = "choices";
+
+        q.choices.forEach((choiceText, choiceIndex) => {
+          const label = document.createElement("label");
+          label.className = "choice";
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = q.id;
+          input.value = String(choiceIndex);
+          input.required = true;
+          input.disabled = submitted;
+
+          if (answers[q.id] === choiceIndex) input.checked = true;
+
+          input.addEventListener("change", () => {
+            if (submitted) return;
+            answers[q.id] = choiceIndex;
+            clearError();
+            updateProgress();
+          });
+
+          const text = document.createElement("span");
+          text.textContent = choiceText;
+
+          label.appendChild(input);
+          label.appendChild(text);
+          choices.appendChild(label);
+        });
+
+        card.appendChild(qTop);
+        card.appendChild(choices);
+        mount.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function computeScore(){
+      let score = 0;
+      const details = selectedQuestions.map(q => {
+        const userPick = answers[q.id];
+        const correct = q.correctIndex;
+        const isCorrect = userPick === correct;
+        if (isCorrect) score++;
+        return { q, userPick, correct, isCorrect };
+      });
+      return { score, details };
+    }
+
+    function renderReview(details){
+      reviewBox.innerHTML = `<h2 style="margin:0 0 6px; font-size:16px;">Review</h2>
+        <p class="muted" style="margin:0 0 6px;">See what you chose vs the correct answer.</p>`;
+
+      details.forEach((d, i) => {
+        const div = document.createElement("div");
+        div.className = "reviewItem";
+        div.innerHTML = `
+          <h4>Q${i + 1}: ${d.q.question}</h4>
+          <div class="reviewLine"><b>Your answer:</b> ${d.q.choices[d.userPick] ?? "(none)"}</div>
+          <div class="reviewLine"><b>Correct answer:</b> ${d.q.choices[d.correct]}</div>
+          <div class="reviewLine"><b>Result:</b> ${d.isCorrect ? "✅ Correct" : "❌ Not quite"}</div>
+        `;
+        reviewBox.appendChild(div);
+      });
+
+      reviewBox.style.display = "block";
+    }
+
+    function validateAllAnswered(){
+      return Object.keys(answers).length === QUESTIONS_PER_QUIZ;
+    }
+
+    function lockQuestionSetOncePerSession(){
+      // Try load locked set
+      try{
+        const raw = sessionStorage.getItem(QUIZ_KEY);
+        if (raw){
+          const ids = JSON.parse(raw);
+          const map = new Map(QUESTION_BANK.map(q => [q.id, q]));
+          const restored = ids.map(id => map.get(id)).filter(Boolean);
+          if (restored.length === QUESTIONS_PER_QUIZ){
+            selectedQuestions = restored;
+            return;
+          }
+        }
+      }catch(e){ /* ignore */ }
+
+      // No valid locked set => create one and lock it
+      selectedQuestions = shuffle(QUESTION_BANK).slice(0, QUESTIONS_PER_QUIZ);
+      const idsToStore = selectedQuestions.map(q => q.id);
+      try{ sessionStorage.setItem(QUIZ_KEY, JSON.stringify(idsToStore)); }catch(e){ /* ignore */ }
+    }
+
+    quizForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      clearError();
+      clearSuccess();
+
+      if (!validateAllAnswered()){
+        setError("Please answer all 5 questions before submitting.");
+        updateProgress();
+        return;
+      }
+
+      const { score, details } = computeScore();
+      submitted = true;
+
+      // lock inputs
+      renderQuestions();
+
+      setSuccess(`Submitted! Your score: ${score} / ${QUESTIONS_PER_QUIZ}.`);
+      renderReview(details);
+      updateProgress();
+    });
+
+    // Init
+    lockQuestionSetOncePerSession();
+    renderQuestions();
+    updateProgress();
+  </script>
+</body>
+</html>

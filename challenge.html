@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>7-Day Sleep Challenge – Hybrid Learning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --container: 1120px;
+    }
+    *{ box-sizing:border-box; }
+    html, body { height: 100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#fff;
+      color:#0f172a;
+
+      /* ✅ sticky footer */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main{ flex: 1; }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
+
+    /* ===== Navbar ===== */
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
+    .nav{ display:flex; gap:18px; align-items:center; color: rgba(255,255,255,.72); font-weight:600; font-size:14px; }
+    .nav a{ padding:10px 10px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+
+    .actions{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+    .hamburger{ display:none; width:42px;height:42px;border-radius:12px; border:1px solid var(--border); background: rgba(255,255,255,.04); color:#fff; cursor:pointer; }
+    .mobile-nav{ display:none; }
+
+    /* ===== Hero ===== */
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff; box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 44px 0; }
+    .pageHero h1{ margin:0 0 10px; font-size: clamp(26px, 3vw, 40px); letter-spacing:-.8px; }
+    .pageHero p{ margin:0; color: rgba(255,255,255,.86); font-weight:600; line-height:1.8; max-width: 78ch; }
+
+    /* ===== Challenge UI ===== */
+    section{ padding: 26px 0; }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    .panel{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+    }
+
+    .panel h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.2px;
+      font-weight: 900;
+    }
+    .muted{
+      margin:0;
+      color:#475569;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.6;
+    }
+
+    .badgeRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #e6eaf2;
+      background: #f8fafc;
+      color: rgba(15,23,42,.72);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .progressCard{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+      margin-top: 12px;
+    }
+    .progressTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .big{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: -.5px;
+    }
+    .small{
+      color:#475569;
+      font-size: 12px;
+      font-weight: 750;
+      margin-top: 4px;
+    }
+    .progressBar{
+      height: 10px;
+      width: 100%;
+      border-radius: 999px;
+      border:1px solid #e6eaf2;
+      background: #f8fafc;
+      overflow:hidden;
+      margin-top: 10px;
+    }
+    .progressFill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-radius: 999px;
+      transition: width .2s ease;
+    }
+
+    .dayGrid{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .day{
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      padding: 12px;
+      background:#fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,.05);
+      min-height: 96px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .dayTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+    }
+    .dayTitle{
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: -.2px;
+      margin:0;
+    }
+    .statusPill{
+      font-size: 11px;
+      font-weight: 900;
+      color: rgba(15,23,42,.55);
+      border:1px solid #e6eaf2;
+      background:#f8fafc;
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    .taskList{ display:grid; gap: 8px; margin-top: 2px; }
+    .task{
+      border: 1px solid #e6eaf2;
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      cursor:pointer;
+      transition: transform .05s ease, border-color .12s ease, background .12s ease;
+    }
+    .task:hover{
+      transform: translateY(-1px);
+      border-color: rgba(45,99,255,.25);
+      background: rgba(45,99,255,.03);
+    }
+    .task input{ margin-top: 3px; }
+    .task span{
+      font-size: 13px;
+      font-weight: 750;
+      color:#0f172a;
+      line-height: 1.45;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .primaryBtn{
+      border: 1px solid rgba(45,99,255,.25);
+      background: linear-gradient(90deg, rgba(45,99,255,.10), rgba(75,123,255,.10));
+      color: var(--primary);
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 13px;
+      cursor:pointer;
+    }
+    .dangerBtn{
+      border:1px solid rgba(239,68,68,.25);
+      background: rgba(239,68,68,.06);
+      color:#b91c1c;
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 13px;
+      cursor:pointer;
+    }
+
+    .toast{
+      margin-top: 10px;
+      border: 1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.07);
+      color: #166534;
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-weight: 850;
+      font-size: 12.5px;
+      line-height: 1.5;
+      display:none;
+    }
+    .warn{
+      margin-top: 10px;
+      border: 1px solid rgba(239,68,68,.25);
+      background: rgba(239,68,68,.06);
+      color: #b91c1c;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 850;
+      font-size: 12.5px;
+      line-height: 1.5;
+      display:none;
+    }
+
+    .note{
+      margin-top: 14px;
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      color:#475569;
+      font-weight:650;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .note strong{ color:#0f172a; }
+
+    /* ===== Footer ===== */
+    footer{ margin-top: 18px; background:#0b1220; color: rgba(255,255,255,.82); }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{ margin:0; max-width:34ch; color: rgba(255,255,255,.58); font-size:12px; line-height:1.7; font-weight:600; }
+    .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
+    .footerCol a:not(.socialBtn){ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+    .footer__social{ display:flex; gap:10px; }
+    .footerCol a.socialBtn{
+      width: 28px; height: 28px; display:grid; place-items:center;
+      border-radius: 8px; border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04); color: rgba(255,255,255,.78);
+    }
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+      .mobile-nav{ display:none; padding: 12px 0 14px; border-top: 1px solid var(--border); }
+      .mobile-nav a{ display:block; padding: 10px 4px; color: rgba(255,255,255,.72); font-weight:700; }
+      .mobile-nav a:hover{ color:#fff; }
+      .mobile-nav.show{ display:block; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+
+      .layout{ grid-template-columns: 1fr; }
+      .dayGrid{ grid-template-columns: 1fr; }
+      .day{ min-height: auto; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <span>NHG Youth</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="quizzes.html">Back</a>
+          <a class="btn btn-primary" href="hybrid-learning.html">Hybrid Hub</a>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="events.html" onclick="closeMobileNav()">Events</a>
+        <a href="hybrid-learning.html" onclick="closeMobileNav()">Hybrid Learning</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <div class="pageHero">
+    <div class="container">
+      <h1>7-Day Sleep Challenge</h1>
+      <p>Do one small action each day. Track your progress and build a streak you can keep going.</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+    <section>
+      <div class="container">
+        <div class="layout">
+          <!-- Left: Daily task -->
+          <div class="panel">
+            <h2>Today’s Micro-Action</h2>
+            <p class="muted">Complete the task for today to mark Day <span id="todayNum">1</span> as done.</p>
+
+            <div class="progressCard">
+              <div class="progressTop">
+                <div>
+                  <div class="big"><span id="doneCount">0</span> / 7</div>
+                  <div class="small">Days completed</div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="big" id="streakText">0</div>
+                  <div class="small">Current streak</div>
+                </div>
+              </div>
+              <div class="progressBar" aria-hidden="true">
+                <div class="progressFill" id="progressFill"></div>
+              </div>
+            </div>
+
+            <div class="qCard" style="margin-top:12px;">
+              <div class="dayTop" style="margin-bottom:10px;">
+                <p class="dayTitle" id="todayTitle" style="font-size:14px;">Day 1</p>
+                <span class="statusPill" id="todayStatus">Not completed</span>
+              </div>
+
+              <div class="taskList" id="todayTasks"></div>
+
+              <div class="btnRow">
+                <button class="primaryBtn" id="markDoneBtn" type="button" disabled>Mark today as done →</button>
+              </div>
+
+              <div class="warn" id="warnBox" role="alert"></div>
+              <div class="toast" id="toastBox" role="status"></div>
+            </div>
+
+            <div class="note">
+              <strong>How it works:</strong> The challenge resets every 7 days.
+            </div>
+          </div>
+
+          <!-- Right: 7-day overview -->
+          <div class="panel">
+            <h2>Your 7 Days</h2>
+            <p class="muted">See what’s completed and what’s next.</p>
+
+            <div class="dayGrid" id="dayGrid"></div>
+
+            <div class="btnRow" style="justify-content:space-between; margin-top:14px;">
+              <button class="dangerBtn" id="resetBtn" type="button">Reset challenge</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
+            <span class="footer__brandName">NHG Youth</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
+            <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
+            <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> NHG Youth</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Navbar JS =====
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+
+    const STORAGE_KEY = "nhg_sleep_challenge_v1";
+
+    const CHALLENGE_DAYS = [
+      {
+        title: "Day 1: Screen-off buffer",
+        tasks: [
+          "Reduce screens 30 minutes before bed",
+          "Put phone on silent or Do Not Disturb"
+        ]
+      },
+      {
+        title: "Day 2: Caffeine cut-off",
+        tasks: [
+          "Avoid caffeine 6 hours before bedtime",
+          "Drink water earlier in the day"
+        ]
+      },
+      {
+        title: "Day 3: Wind-down routine",
+        tasks: [
+          "Do a 3-minute stretch or breathing routine",
+          "Dim your room lights 20 minutes before bed"
+        ]
+      },
+      {
+        title: "Day 4: Consistent bedtime window",
+        tasks: [
+          "Pick a bedtime window (e.g. 11:30pm–12:00am)",
+          "Try to stay within the window tonight"
+        ]
+      },
+      {
+        title: "Day 5: Bedroom = sleep zone",
+        tasks: [
+          "Keep your bed for sleep (avoid studying in bed)",
+          "Make the room slightly cooler if possible"
+        ]
+      },
+      {
+        title: "Day 6: Morning light",
+        tasks: [
+          "Get 5–10 minutes of natural light after waking",
+          "Do a short walk or light movement"
+        ]
+      },
+      {
+        title: "Day 7: Reflection + next step",
+        tasks: [
+          "Write 1 thing that helped your sleep this week",
+          "Choose 1 habit to keep for next week"
+        ]
+      }
+    ];
+
+    // ----- Date helpers -----
+    function startOfDay(ts){
+      const d = new Date(ts);
+      d.setHours(0,0,0,0);
+      return d.getTime();
+    }
+    function daysBetween(dayA, dayB){
+      const ms = startOfDay(dayB) - startOfDay(dayA);
+      return Math.floor(ms / (1000 * 60 * 60 * 24));
+    }
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        return data && typeof data === "object" ? data : null;
+      }catch(e){
+        return null;
+      }
+    }
+    function saveState(state){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }catch(e){ /* ignore */ }
+    }
+
+    function freshState(){
+      const now = Date.now();
+      return {
+        startedAt: startOfDay(now),
+        // dayDone[i] true/false for each day
+        dayDone: Array(7).fill(false),
+        // streak is derived, but we keep lastCompletedAt to help
+        lastCompletedAt: null
+      };
+    }
+
+    let state = loadState() || freshState();
+
+    // Auto-reset if more than 7 days since start
+    const age = daysBetween(state.startedAt, Date.now());
+    if (age >= 7){
+      state = freshState();
+      saveState(state);
+    }
+
+    // ----- DOM -----
+    const todayNumEl = document.getElementById("todayNum");
+    const todayTitleEl = document.getElementById("todayTitle");
+    const todayStatusEl = document.getElementById("todayStatus");
+    const todayTasksEl = document.getElementById("todayTasks");
+    const dayGridEl = document.getElementById("dayGrid");
+
+    const doneCountEl = document.getElementById("doneCount");
+    const streakTextEl = document.getElementById("streakText");
+    const progressFillEl = document.getElementById("progressFill");
+
+    const markDoneBtn = document.getElementById("markDoneBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const warnBox = document.getElementById("warnBox");
+    const toastBox = document.getElementById("toastBox");
+
+    function showWarn(msg){
+      warnBox.textContent = msg;
+      warnBox.style.display = "block";
+    }
+    function clearWarn(){
+      warnBox.textContent = "";
+      warnBox.style.display = "none";
+    }
+    function showToast(msg){
+      toastBox.textContent = msg;
+      toastBox.style.display = "block";
+      setTimeout(() => { toastBox.style.display = "none"; }, 2400);
+    }
+
+    function getTodayIndex(){
+      const offset = daysBetween(state.startedAt, Date.now());
+      return Math.max(0, Math.min(6, offset));
+    }
+
+    function computeStreak(){
+      // Streak = consecutive completed days ending at the most recent completed day
+      // (within this 7-day challenge).
+      let streak = 0;
+      for (let i = 0; i < 7; i++){
+        // We'll compute from start -> end by scanning and tracking consecutive end
+      }
+      // easiest: compute consecutive from today backwards, but allow streak to end at last completed day
+      const today = getTodayIndex();
+      // Find the latest day <= today that is completed, then count backwards consecutively
+      let end = -1;
+      for (let i = today; i >= 0; i--){
+        if (state.dayDone[i]) { end = i; break; }
+      }
+      if (end === -1) return 0;
+      for (let i = end; i >= 0; i--){
+        if (state.dayDone[i]) streak++;
+        else break;
+      }
+      return streak;
+    }
+
+    function updateProgress(){
+      const done = state.dayDone.filter(Boolean).length;
+      doneCountEl.textContent = String(done);
+      progressFillEl.style.width = Math.round((done / 7) * 100) + "%";
+      streakTextEl.textContent = String(computeStreak());
+    }
+
+    function renderToday(){
+      const idx = getTodayIndex();
+      const day = CHALLENGE_DAYS[idx];
+
+      todayNumEl.textContent = String(idx + 1);
+      todayTitleEl.textContent = day.title;
+
+      // Build tasks (checkboxes that must all be checked to enable "Mark done")
+      todayTasksEl.innerHTML = "";
+      clearWarn();
+
+      const alreadyDone = !!state.dayDone[idx];
+      todayStatusEl.textContent = alreadyDone ? "Completed" : "Not completed";
+
+      const checks = [];
+
+      day.tasks.forEach((t, i) => {
+        const label = document.createElement("label");
+        label.className = "task";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.disabled = alreadyDone;
+
+        const span = document.createElement("span");
+        span.textContent = t;
+
+        input.addEventListener("change", () => {
+          if (alreadyDone) return;
+          markDoneBtn.disabled = !checks.every(c => c.checked);
+        });
+
+        checks.push(input);
+
+        label.appendChild(input);
+        label.appendChild(span);
+        todayTasksEl.appendChild(label);
+      });
+
+      markDoneBtn.disabled = true;
+      markDoneBtn.textContent = alreadyDone ? "Today completed ✅" : "Mark today as done →";
+      markDoneBtn.disabled = alreadyDone ? true : true; // start disabled until all tasks checked
+
+      if (!alreadyDone){
+        // enable when all checked
+        const watcher = () => { markDoneBtn.disabled = !checks.every(c => c.checked); };
+        checks.forEach(c => c.addEventListener("change", watcher));
+      }
+
+      // Attach click
+      markDoneBtn.onclick = () => {
+        if (alreadyDone) return;
+
+        if (!checks.every(c => c.checked)){
+          showWarn("Please tick all items for today before marking as done.");
+          return;
+        }
+
+        state.dayDone[idx] = true;
+        state.lastCompletedAt = startOfDay(Date.now());
+        saveState(state);
+
+        showToast("Nice! Day completed 🎉");
+        renderAll();
+      };
+    }
+
+    function renderGrid(){
+      dayGridEl.innerHTML = "";
+      const todayIdx = getTodayIndex();
+
+      CHALLENGE_DAYS.forEach((d, i) => {
+        const card = document.createElement("div");
+        card.className = "day";
+
+        const top = document.createElement("div");
+        top.className = "dayTop";
+
+        const title = document.createElement("p");
+        title.className = "dayTitle";
+        title.textContent = `Day ${i + 1}`;
+
+        const status = document.createElement("span");
+        status.className = "statusPill";
+
+        if (state.dayDone[i]) status.textContent = "✅ Done";
+        else if (i === todayIdx) status.textContent = "Today";
+        else if (i < todayIdx) status.textContent = "Missed";
+        else status.textContent = "Upcoming";
+
+        top.appendChild(title);
+        top.appendChild(status);
+
+        const desc = document.createElement("p");
+        desc.className = "muted";
+        desc.style.marginTop = "6px";
+        desc.textContent = d.title.replace(/^Day \d+:\s*/, "");
+
+        card.appendChild(top);
+        card.appendChild(desc);
+        dayGridEl.appendChild(card);
+      });
+    }
+
+    function renderAll(){
+      renderToday();
+      renderGrid();
+      updateProgress();
+    }
+
+    resetBtn.addEventListener("click", () => {
+      const ok = confirm("Reset the 7-day sleep challenge? This will clear your progress.");
+      if (!ok) return;
+      state = freshState();
+      saveState(state);
+      showToast("Challenge reset.");
+      renderAll();
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>

@@ -21,7 +21,23 @@
       --container: 1120px;
     }
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:#fff; color:#0f172a; }
+    /* body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:#fff; color:#0f172a; } */
+    html, body { height: 100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#fff;
+      color:#0f172a;
+
+      /* ✅ sticky footer */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main{ flex: 1; }
+
+
     a{ color:inherit; text-decoration:none; }
     .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
 
@@ -222,7 +238,7 @@
             <p>3–5 questions. Ends with one personalised takeaway prompt.</p>
             <div class="meta">
               <span class="pill">🧠 Stress</span>
-              <a class="linkBtn" href="#" onclick="alert('Demo: Link to a Quiz page. After submit, show completion + next step.'); return false;">Start →</a>
+              <a class="linkBtn" href="quiz.html" >Start →</a>
             </div>
           </article>
 
@@ -231,7 +247,7 @@
             <p>Daily micro-actions. Tracks streaks and shows “Next step” recommendations.</p>
             <div class="meta">
               <span class="pill">😴 Sleep</span>
-              <a class="linkBtn" href="#" onclick="alert('Demo: Link to a Challenge page + streak tracker (simple).'); return false;">Start →</a>
+              <a class="linkBtn" href="challenge.html">Start →</a>
             </div>
           </article>
 
@@ -240,7 +256,7 @@
             <p>Build a 1-day reset plan and get a skill badge for completion.</p>
             <div class="meta">
               <span class="pill">📌 Planning</span>
-              <a class="linkBtn" href="#" onclick="alert('Demo: Link to a short activity page + reflection question.'); return false;">Start →</a>
+              <a class="linkBtn" href="miniChallenge.html">Start →</a>
             </div>
           </article>
         </div>
@@ -248,7 +264,7 @@
         <div class="note">
           <strong style="color:#0f172a;">Motivation beyond rewards:</strong>
           Add a simple “How helpful was this?” question after repeat participation, and show progress in skills gained
-          (not just points) to encourage sustained engagement.
+          to encourage sustained engagement.
         </div>
       </div>
     </section>
