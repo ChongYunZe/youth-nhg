@@ -48,7 +48,7 @@
       margin: 0 auto;
     }
 
-    /* ===== Header (same as your previous page) ===== */
+    /* ===== Header ===== */
     .topbar{
       position: sticky;
       top: 0;
@@ -72,11 +72,24 @@
       font-weight:800;
       letter-spacing:.2px;
     }
+
+    /* FIXED LOGO: use img (div doesn't "href") */
     .logo{
-      width:34px;height:34px;border-radius:10px;
-      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      width:44px;height:44px;border-radius:10px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary)); /* fallback */
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
+      flex: 0 0 auto;
     }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
     .nav{
       display:flex;
       gap:18px;
@@ -134,43 +147,47 @@
     .mobile-nav a:hover{ color:#fff; }
     .mobile-nav.show{ display:block; }
 
-    /* ===== Page tabs (Points Overview / Redeem Your Points) ===== */
-    .pageTabsWrap{
-      background: #fff;
-      border-bottom: 1px solid var(--cardBorder);
+    /* ===== Sub navbar tabs (same-page) ===== */
+    .subTabsWrap{
+      background:#fff;
+      border-bottom: 1px solid #e6eaf2;
     }
-    .pageTabs{
+    .subTabs{
+      height: 44px;
       display:flex;
-      gap: 18px;
-      align-items:center;
-      padding: 12px 0;
+      align-items:flex-end;
+      justify-content:center;
+      gap: 26px;
     }
-    .pageTabs a{
-      font-size: 12px;
-      font-weight: 800;
-      color: #334155;
-      padding: 8px 10px;
-      border-radius: 10px;
+    .subTab{
       position: relative;
-      opacity: .9;
+      padding: 10px 2px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1px;
+      color: #64748b;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
     }
-    .pageTabs a:hover{ background: #f8fafc; opacity: 1; }
-    .pageTabs a.active{
-      color: var(--primary);
-      background: rgba(45,99,255,.06);
-    }
-    .pageTabs a.active:after{
+    .subTab:hover{ color:#334155; }
+    .subTab.active{ color:#2563eb; }
+    .subTab.active::after{
       content:"";
       position:absolute;
-      left: 10px;
-      right: 10px;
-      bottom: -12px;
-      height: 3px;
-      background: var(--primary);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: #2563eb;
       border-radius: 999px;
     }
 
-    /* ===== Points hero (matches your figma: short blue banner + illustration) ===== */
+    /* ===== Tab panels ===== */
+    .tabPanel{ display:none; }
+    .tabPanel.show{ display:block; }
+
+    /* ===== Points hero ===== */
     .pointsHero{
       background: linear-gradient(180deg, #2A5BFF 0%, #1F4DCC 100%);
       color:#fff;
@@ -190,7 +207,7 @@
       margin-bottom: 6px;
     }
     .pointsValue{
-      font-size: 40px;
+      font-size: 44px;
       line-height: 1.05;
       font-weight: 900;
       letter-spacing: -.6px;
@@ -220,7 +237,172 @@
       filter: drop-shadow(0 18px 30px rgba(0,0,0,.22));
     }
 
-    /* ===== Catalogue ===== */
+    .heroBtn{
+      margin-top: 12px;
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      font-size: 11px;
+      color:#1d4ed8;
+      background:#fff;
+      box-shadow: 0 12px 26px rgba(0,0,0,.18);
+    }
+    .heroBtn:hover{ transform: translateY(-1px); }
+
+    /* ===== Overview sections (Points History + Leaderboard) ===== */
+    .sectionTitle{
+      text-align:center;
+      padding: 22px 0 10px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -.2px;
+      color: #0f172a;
+    }
+
+    .card{
+      border:1px solid var(--cardBorder);
+      border-radius: 16px;
+      background:#fff;
+      box-shadow: var(--cardShadow);
+      padding: 14px;
+    }
+
+    .historyWrap{
+      padding: 8px 0 12px;
+      display:flex;
+      justify-content:center;
+    }
+    .historyCard{
+      width: min(760px, 100%);
+    }
+    .historyItem{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 4px;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .historyItem:last-child{ border-bottom:0; }
+    .historyLeft h4{
+      margin:0 0 4px;
+      font-size: 12px;
+      font-weight: 900;
+      color:#0f172a;
+    }
+    .historyLeft p{
+      margin:0;
+      font-size: 10px;
+      font-weight: 700;
+      color:#64748b;
+      line-height: 1.35;
+    }
+    .historyPts{
+      font-size: 12px;
+      font-weight: 900;
+      color:#0f172a;
+      white-space:nowrap;
+      align-self:flex-start;
+    }
+    .viewMore{
+      display:block;
+      text-align:center;
+      padding-top: 10px;
+      font-size: 10px;
+      font-weight: 800;
+      color:#64748b;
+    }
+    .viewMore:hover{ color:#334155; }
+
+    .leaderMeta{
+      text-align:center;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color:#94a3b8;
+    }
+
+    .leaderGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 12px 0 12px;
+      justify-content:center;
+    }
+    .leaderCard h3{
+      margin:0 0 8px;
+      font-size: 12px;
+      font-weight: 900;
+      color:#0f172a;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .leaderList{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color:#0f172a;
+    }
+    .leaderRow{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .rankNo{
+      width: 18px;
+      text-align:right;
+      color:#64748b;
+      font-weight: 900;
+      font-size: 11px;
+    }
+    .badge{
+      width: 22px;
+      display:inline-flex;
+      justify-content:center;
+    }
+    .pillRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding: 10px 0 4px;
+    }
+    .pill{
+      border:1px solid var(--cardBorder);
+      border-radius: 12px;
+      background:#fff;
+      box-shadow: var(--cardShadow);
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      justify-content:center;
+      text-align:center;
+    }
+    .pill strong{
+      display:block;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .pill span{
+      display:block;
+      font-size: 10px;
+      font-weight: 800;
+      color:#64748b;
+      line-height: 1.2;
+    }
+
+    /* ===== Catalogue (Redeem) ===== */
     main{ padding-bottom: 22px; }
 
     .catalogueHead{
@@ -337,7 +519,7 @@
       transform: translateX(-50%) translateY(-4px);
     }
 
-    /* ===== Footer (same as your previous page) ===== */
+    /* ===== Footer ===== */
     footer{
       margin-top: 18px;
       background: #0b1220;
@@ -419,35 +601,39 @@
 
       .catalogueGrid{ grid-template-columns: 1fr; }
 
+      .leaderGrid{ grid-template-columns: 1fr; }
+      .pillRow{ grid-template-columns: 1fr; }
+
       .footer__inner{ grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 520px){
       .footer__inner{ grid-template-columns: 1fr; }
-      .pageTabs{ justify-content:flex-start; }
     }
   </style>
 </head>
 
 <body>
-  <!-- ===== Header (reused) ===== -->
+  <!-- ===== Header ===== -->
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
         <a class="brand" href="index.html">
-          <div class="logo" aria-hidden="true"></div>
-          <span>NHG Youth</span>
+          <div class="logo" aria-hidden="true">
+            <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo" />
+          </div>
+          <span>Project Thrive</span>
         </a>
 
         <nav class="nav" aria-label="Primary">
           <a href="events.html">Events</a>
-          <a href="hybrid-learning.html" class="active">Hybrid Learning</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
           <a href="rewards.html" class="active">Rewards</a>
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
         <div class="actions">
           <button class="btn" type="button" onclick="scrollToId('catalogue')">View Rewards</button>
-          <button class="btn btn-primary" type="button" onclick="scrollToId('catalogue')">Redeem</button>
+          <button class="btn btn-primary" type="button" onclick="openRedeemTab()">Redeem</button>
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
       </div>
@@ -461,160 +647,259 @@
     </div>
   </header>
 
-  <!-- ===== Secondary tabs (like your figma) ===== -->
-  <div class="pageTabsWrap">
+  <!-- ===== Sub Navbar (same-page tabs) ===== -->
+  <div class="subTabsWrap">
     <div class="container">
-      <div class="pageTabs" role="tablist" aria-label="Rewards tabs">
-        <!-- If you have a points overview page, point this to it -->
-        <a href="points.html" role="tab" aria-selected="false">Points Overview</a>
-        <a href="rewards.html" class="active" role="tab" aria-selected="true">Redeem Your Points</a>
-      </div>
+      <nav class="subTabs" aria-label="Rewards sub navigation">
+        <button class="subTab active" type="button" data-tab="overview">Points Overview</button>
+        <button class="subTab" type="button" data-tab="redeem">Redeem Your Points</button>
+      </nav>
     </div>
   </div>
 
-  <!-- ===== Points banner ===== -->
-  <section class="pointsHero" aria-label="Current points banner">
+  <!-- ================= TAB: POINTS OVERVIEW ================= -->
+  <section id="tab-overview" class="tabPanel show">
+    <!-- ===== Points banner ===== -->
+    <section class="pointsHero" aria-label="Current points banner">
+      <div class="container">
+        <div class="pointsHero-inner">
+          <div class="pointsLeft">
+            <small>Current Points:</small>
+            <div class="pointsValue" id="pointsValue">7299</div>
+            <button class="heroBtn" type="button" onclick="openRedeemTab()">Redeem Your Points Now</button>
+          </div>
+
+          <div class="pointsHero-illus" aria-hidden="true">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/1923e4200ad3d9ada73ea34bebe356680ff38362?width=1184"
+              alt=""
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Points History -->
     <div class="container">
-      <div class="pointsHero-inner">
-        <div class="pointsLeft">
-          <small>Current Points:</small>
-          <div class="pointsValue" id="pointsValue">7299</div>
-          <p class="pointsHint">Redeem points for vouchers, perks, and health rewards.</p>
+      <div class="sectionTitle"><h2>Points History</h2></div>
+
+      <div class="historyWrap">
+        <div class="card historyCard">
+          <div class="historyItem">
+            <div class="historyLeft">
+              <h4>Pop-up Events</h4>
+              <p>Workshop: Make it Siew Dai<br>2026 - 01 - 12 &nbsp;&nbsp; 12:00</p>
+            </div>
+            <div class="historyPts">+30 pts</div>
+          </div>
+
+          <div class="historyItem">
+            <div class="historyLeft">
+              <h4>Online Course</h4>
+              <p>Workshop: Proper handling of wheelchairs<br>2026 - 01 - 02 &nbsp;&nbsp; 12:00</p>
+            </div>
+            <div class="historyPts">+10 pts</div>
+          </div>
+
+          <div class="historyItem">
+            <div class="historyLeft">
+              <h4>Pop-up Event</h4>
+              <p>Challenge: Walking Foodpedia<br>2025 - 12 - 20 &nbsp;&nbsp; 12:00</p>
+            </div>
+            <div class="historyPts">+10 pts</div>
+          </div>
+
+          <a class="viewMore" href="#" onclick="event.preventDefault();">view more</a>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="sectionTitle"><h2>Leaderboard</h2></div>
+      <div class="leaderMeta">Updated as of: 2026 - 01 - 15 &nbsp; 12:37</div>
+
+      <div class="leaderGrid">
+        <div class="card leaderCard">
+          <h3>🇸🇬 &nbsp;Singapore</h3>
+          <ul class="leaderList">
+            <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> pratwala</li>
+            <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> cheeseprata</li>
+            <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> thosai3999</li>
+            <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> aladinins</li>
+            <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> yanrenzhong</li>
+          </ul>
         </div>
 
-        <div class="pointsHero-illus" aria-hidden="true">
-          <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/1923e4200ad3d9ada73ea34bebe356680ff38362?width=1184"
-            alt=""
-            loading="eager"
-            decoding="async"
-          />
+        <div class="card leaderCard">
+          <h3>🏁 &nbsp;Friends</h3>
+          <ul class="leaderList">
+            <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> hupseng</li>
+            <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> thonguan</li>
+            <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> iueming</li>
+            <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> johnsonsuit</li>
+            <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> swisschoco</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pillRow">
+        <div class="pill">
+          <div>🏆</div>
+          <div>
+            <span>Your Rank</span>
+          </div>
+        </div>
+        <div class="pill">
+          <div>
+            <strong>5498</strong>
+            <span>in singapore</span>
+          </div>
+        </div>
+        <div class="pill">
+          <div>
+            <strong>7</strong>
+            <span>among friends</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Catalogue ===== -->
-  <main id="catalogue">
-    <div class="container">
-      <div class="catalogueHead">
-        <h2>Catalogue</h2>
+  <!-- ================= TAB: REDEEM ================= -->
+  <section id="tab-redeem" class="tabPanel">
+    <main id="catalogue">
+      <div class="container">
+        <div class="catalogueHead">
+          <h2>Catalogue</h2>
+        </div>
+
+        <div class="catalogueGrid">
+          <!-- Row 1 -->
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$10 Fairprice Cash Voucher">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">$10 Fairprice Cash Voucher</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>2888 points</strong></p>
+              <button class="redeemBtn" data-name="$10 Fairprice Cash Voucher" data-cost="2888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$20 Fairprice Cash Voucher">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">$20 Fairprice Cash Voucher</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>3888 points</strong></p>
+              <button class="redeemBtn" data-name="$20 Fairprice Cash Voucher" data-cost="3888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>1488 points</strong></p>
+              <button class="redeemBtn" data-name="$2 Luckin Coffee Credit" data-cost="1488">Redeem</button>
+            </div>
+          </article>
+
+          <!-- Row 2 -->
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">Shopee Free Shipping Voucher</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>8888 points</strong></p>
+              <button class="redeemBtn" data-name="Shopee Free Shipping Voucher" data-cost="8888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>888 points</strong></p>
+              <button class="redeemBtn" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$2.99 Luckin Coffee Exchange Coupon">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">$2.99 Luckin Coffee Exchange Coupon</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>2188 points</strong></p>
+              <button class="redeemBtn" data-name="$2.99 Luckin Coffee Exchange Coupon" data-cost="2188">Redeem</button>
+            </div>
+          </article>
+
+          <!-- Row 3 -->
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour for 1 @ Ento Industries">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">Free Site Tour for 1 @ Ento Industries</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>2888 points</strong></p>
+              <button class="redeemBtn" data-name="Free Site Tour for 1 @ Ento Industries" data-cost="2888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Mr Bean Coupon Booklet (worth $30)">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">Free Mr Bean Coupon Booklet (Worth $30)</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>2888 points</strong></p>
+              <button class="redeemBtn" data-name="Free Mr Bean Coupon Booklet (worth $30)" data-cost="2888">Redeem</button>
+            </div>
+          </article>
+
+          <article class="rewardCard">
+            <div class="rewardImg">
+              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
+            </div>
+            <div class="rewardBody">
+              <h3 class="rewardTitle">Free Health Screening Package</h3>
+              <p class="rewardMeta">Terms & Conditions Apply</p>
+              <p class="rewardMeta"><strong>8888 points</strong></p>
+              <button class="redeemBtn" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
+            </div>
+          </article>
+        </div>
       </div>
+    </main>
+  </section>
 
-      <div class="catalogueGrid">
-        <!-- Row 1 -->
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&w=1400&q=80" alt="$10 FairPrice Cash Voucher">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">$10 FairPrice Cash Voucher</h3>
-            <p class="rewardMeta">Redeem with partner stores • <strong>2888 points</strong></p>
-            <button class="redeemBtn" data-name="$10 FairPrice Cash Voucher" data-cost="2888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1400&q=80" alt="$10 FairPrice Cash Voucher (Alt)">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">$10 FairPrice Cash Voucher (Alt)</h3>
-            <p class="rewardMeta">Limited weekly drops • <strong>2888 points</strong></p>
-            <button class="redeemBtn" data-name="$10 FairPrice Cash Voucher (Alt)" data-cost="2888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
-            <p class="rewardMeta">Mobile redemption • <strong>1486 points</strong></p>
-            <button class="redeemBtn" data-name="$2 Luckin Coffee Credit" data-cost="1486">Redeem</button>
-          </div>
-        </article>
-
-        <!-- Row 2 -->
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1523289333742-be1143f6b766?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle>Shopee Free Shipping Voucher</h3>
-            <p class="rewardMeta">Online use • <strong>888 points</strong></p>
-            <button class="redeemBtn" data-name="Shopee Free Shipping Voucher" data-cost="888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
-            <p class="rewardMeta">Grocery delivery • <strong>888 points</strong></p>
-            <button class="redeemBtn" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Exchange Coupon">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">$2 Luckin Coffee Exchange Coupon</h3>
-            <p class="rewardMeta">Valid for 30 days • <strong>218 points</strong></p>
-            <button class="redeemBtn" data-name="$2 Luckin Coffee Exchange Coupon" data-cost="218">Redeem</button>
-          </div>
-        </article>
-
-        <!-- Row 3 -->
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour (Wellness / Health)">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">Free Site Tour (Health &amp; Wellness)</h3>
-            <p class="rewardMeta">Book a slot • <strong>2888 points</strong></p>
-            <button class="redeemBtn" data-name="Free Site Tour (Health & Wellness)" data-cost="2888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1527156231393-7023794f363c?auto=format&fit=crop&w=1400&q=80" alt="Mr Bean Coupon Booklet">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">Mr Bean Coupon Booklet</h3>
-            <p class="rewardMeta">In-store redemption • <strong>888 points</strong></p>
-            <button class="redeemBtn" data-name="Mr Bean Coupon Booklet" data-cost="888">Redeem</button>
-          </div>
-        </article>
-
-        <article class="rewardCard">
-          <div class="rewardImg">
-            <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
-          </div>
-          <div class="rewardBody">
-            <h3 class="rewardTitle">Free Health Screening Package</h3>
-            <p class="rewardMeta">NHG Polyclinics • <strong>8888 points</strong></p>
-            <button class="redeemBtn" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
-          </div>
-        </article>
-      </div>
-    </div>
-  </main>
-
-  <!-- ===== Footer (reused) ===== -->
+  <!-- ===== Footer ===== -->
   <footer>
     <div class="container">
       <div class="footer__inner">
         <div>
           <div class="footer__brandRow">
-            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"></div>
-            <span class="footer__brandName">NHG Youth</span>
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;box-shadow:none;">
+              <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo" />
+            </div>
+            <span class="footer__brandName">Project Thrive</span>
           </div>
           <p class="footer__desc">
             Empowering Singapore’s youth through innovative health programmes and community engagement.
@@ -691,6 +976,30 @@
     }
     hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
 
+    // ===== Same-page tab switching =====
+    const tabs = document.querySelectorAll(".subTab");
+    const panels = {
+      overview: document.getElementById("tab-overview"),
+      redeem: document.getElementById("tab-redeem")
+    };
+
+    function setActiveTab(key){
+      tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === key));
+      Object.values(panels).forEach(p => p.classList.remove("show"));
+      panels[key]?.classList.add("show");
+
+      // If opening Redeem, scroll to catalogue nicely
+      if(key === "redeem"){
+        setTimeout(() => scrollToId("catalogue"), 40);
+      }
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => setActiveTab(tab.dataset.tab));
+    });
+
+    function openRedeemTab(){ setActiveTab("redeem"); }
+
     // ===== Points + Redeem logic (basic, demo-ready) =====
     const POINTS_KEY = "nhg_points";
     const defaultPoints = 7299;
@@ -716,7 +1025,7 @@
 
     function renderPoints(){
       const pts = getPoints();
-      pointsValueEl.textContent = pts;
+      if(pointsValueEl) pointsValueEl.textContent = pts;
 
       // Disable buttons if not enough points
       document.querySelectorAll(".redeemBtn").forEach(btn => {
@@ -737,7 +1046,6 @@
           return;
         }
 
-        // Deduct + confirm (demo)
         setPoints(pts - cost);
         showToast(`Redeemed: ${name} (-${cost} pts)`);
 
