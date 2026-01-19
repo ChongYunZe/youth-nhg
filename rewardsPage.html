@@ -1,3 +1,8 @@
+<!-- =========================
+FILE: rewardsPage.html (UPDATED)
+✅ Removed "View Rewards" + "Redeem" buttons from the main navbar
+✅ Updated PT.applyNavAuthUI() to not reference removed IDs
+========================= -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,20 +17,15 @@
   <style>
     :root{
       --border: rgba(255,255,255,.10);
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-
       --primary: #2D63FF;
       --primary2:#4B7BFF;
       --accent: #76E4FF;
-
-      --radius-xl: 22px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
 
       --container: 1120px;
 
       --ink: #0f172a;
       --muted: #64748b;
+
       --cardBorder: #e6eaf2;
       --cardShadow: 0 10px 26px rgba(15,23,42,.08);
     }
@@ -73,13 +73,12 @@
       letter-spacing:.2px;
     }
 
-    /* FIXED LOGO: use img (div doesn't "href") */
     .logo{
       width:44px;height:44px;border-radius:10px;
       overflow:hidden;
       display:grid;
       place-items:center;
-      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary)); /* fallback */
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
       flex: 0 0 auto;
     }
@@ -183,7 +182,6 @@
       border-radius: 999px;
     }
 
-    /* ===== Tab panels ===== */
     .tabPanel{ display:none; }
     .tabPanel.show{ display:block; }
 
@@ -213,30 +211,6 @@
       letter-spacing: -.6px;
       margin: 0 0 10px;
     }
-    .pointsHint{
-      margin:0;
-      color: rgba(255,255,255,.88);
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .pointsHero-illus{
-      width: 270px;
-      max-width: 40%;
-      align-self: stretch;
-      display:flex;
-      align-items:flex-end;
-      justify-content:flex-end;
-      overflow:hidden;
-    }
-    .pointsHero-illus img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: right bottom;
-      display:block;
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,.22));
-    }
-
     .heroBtn{
       margin-top: 12px;
       border:0;
@@ -251,7 +225,6 @@
     }
     .heroBtn:hover{ transform: translateY(-1px); }
 
-    /* ===== Overview sections (Points History + Leaderboard) ===== */
     .sectionTitle{
       text-align:center;
       padding: 22px 0 10px;
@@ -272,14 +245,13 @@
       padding: 14px;
     }
 
+    /* Points History UI */
     .historyWrap{
       padding: 8px 0 12px;
       display:flex;
       justify-content:center;
     }
-    .historyCard{
-      width: min(760px, 100%);
-    }
+    .historyCard{ width: min(760px, 100%); }
     .historyItem{
       display:flex;
       justify-content:space-between;
@@ -318,6 +290,38 @@
     }
     .viewMore:hover{ color:#334155; }
 
+    /* Guest message card */
+    .guestWrap{
+      padding: 18px 0 0;
+      display:flex;
+      justify-content:center;
+    }
+    .guestCard{
+      width: min(760px, 100%);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .guestCard h3{
+      margin:0 0 4px;
+      font-size: 13px;
+      font-weight: 900;
+      color:#0f172a;
+    }
+    .guestCard p{
+      margin:0;
+      font-size: 11px;
+      font-weight: 700;
+      color:#64748b;
+      line-height: 1.5;
+    }
+    .guestCard .btn{
+      border-color: #e6eaf2;
+      background: #0b1220;
+    }
+
+    /* Leaderboard UI */
     .leaderMeta{
       text-align:center;
       margin-top: 4px;
@@ -325,7 +329,6 @@
       font-weight: 700;
       color:#94a3b8;
     }
-
     .leaderGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -370,128 +373,93 @@
       display:inline-flex;
       justify-content:center;
     }
-    .pillRow{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      padding: 10px 0 4px;
-    }
-    .pill{
-      border:1px solid var(--cardBorder);
-      border-radius: 12px;
-      background:#fff;
-      box-shadow: var(--cardShadow);
-      padding: 10px 12px;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      justify-content:center;
-      text-align:center;
-    }
-    .pill strong{
-      display:block;
-      font-size: 18px;
-      font-weight: 900;
-      line-height: 1.1;
-    }
-    .pill span{
-      display:block;
-      font-size: 10px;
-      font-weight: 800;
-      color:#64748b;
-      line-height: 1.2;
-    }
 
-    /* ===== Catalogue (Redeem) ===== */
+    /* ===== Redeem section ===== */
     main{ padding-bottom: 22px; }
-
-    .catalogueHead{
-      padding: 22px 0 10px;
-      text-align:center;
-    }
-    .catalogueHead h2{
-      margin:0;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: -.2px;
-      color: #0f172a;
-    }
+    .catalogueHead{ padding: 22px 0 10px; text-align:center; }
+    .catalogueHead h2{ margin:0; font-size: 14px; font-weight: 900; letter-spacing: -.2px; color: #0f172a; }
 
     .catalogueGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 18px;
       padding: 12px 0 22px;
+      align-items:stretch;
     }
 
     .rewardCard{
       border:1px solid var(--cardBorder);
-      border-radius: 16px;
+      border-radius: 18px;
       background:#fff;
       box-shadow: var(--cardShadow);
       overflow:hidden;
       display:flex;
       flex-direction:column;
-      min-height: 290px;
+      padding: 14px;
+      min-height: 360px;
     }
 
-    .rewardImg{
-      height: 140px;
-      background:#f3f6ff;
+    .rewardMedia{
+      border-radius: 14px;
+      overflow:hidden;
+      background:#eef2ff;
+      height: 190px;
       display:grid;
       place-items:center;
-      padding: 10px;
     }
-    .rewardImg img{
-      width: 100%;
-      height: 100%;
+    .rewardMedia img{
+      width:100%;
+      height:100%;
       object-fit: cover;
-      border-radius: 10px;
       display:block;
     }
 
-    .rewardBody{
-      padding: 12px 12px 14px;
+    .rewardInfo{
+      text-align:center;
+      padding: 14px 10px 0;
       display:flex;
       flex-direction:column;
       gap: 8px;
       flex: 1 1 auto;
     }
     .rewardTitle{
-      margin:0;
-      font-size: 12px;
+      margin: 2px 0 0;
+      font-size: 14px;
       font-weight: 900;
-      letter-spacing: -.1px;
-      color: #0f172a;
+      color:#0f172a;
+      letter-spacing: -.2px;
       line-height: 1.25;
-      min-height: 32px;
     }
-    .rewardMeta{
-      margin:0;
-      font-size: 10px;
-      color: #64748b;
+    .rewardSubtitle{
+      margin: 0;
+      font-size: 11px;
       font-weight: 700;
-      line-height: 1.4;
+      color: #94a3b8;
     }
-    .rewardMeta strong{ color:#0f172a; font-weight: 900; }
+    .rewardPoints{
+      margin: 2px 0 0;
+      font-size: 16px;
+      font-weight: 900;
+      color:#0f172a;
+    }
 
     .redeemBtn{
-      margin-top: auto;
+      margin-top: 14px;
       width: 100%;
       border: 0;
       cursor:pointer;
-      border-radius: 12px;
-      padding: 10px 12px;
+      border-radius: 999px;
+      padding: 12px 14px;
       font-weight: 900;
       font-size: 12px;
       color:#fff;
       background: linear-gradient(90deg, var(--primary), var(--primary2));
-      box-shadow: 0 12px 26px rgba(45,99,255,.26);
+      box-shadow: 0 14px 28px rgba(45,99,255,.22);
       transition: transform .12s ease, filter .12s ease, opacity .12s ease;
     }
     .redeemBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
     .redeemBtn:disabled{
-      opacity:.45;
+      opacity:.65;
       cursor:not-allowed;
       box-shadow: none;
       transform:none;
@@ -514,100 +482,15 @@
       pointer-events:none;
       transition: opacity .18s ease, transform .18s ease;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(-4px);
-    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-4px); }
 
-    /* ===== Footer ===== */
-    footer{
-      margin-top: 18px;
-      background: #0b1220;
-      color: rgba(255,255,255,.82);
-    }
-    .footer__inner{
-      padding: 28px 0 26px;
-      display:grid;
-      grid-template-columns: 1.4fr 1fr 1fr .9fr;
-      gap: 26px;
-      align-items:start;
-    }
-    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
-    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
-    .footer__desc{
-      margin:0;
-      max-width: 34ch;
-      color: rgba(255,255,255,.58);
-      font-size: 12px;
-      line-height: 1.7;
-      font-weight: 600;
-    }
-    .footerCol h5{
-      margin: 0 0 10px;
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255,255,255,.86);
-    }
-    .footerCol a:not(.socialBtn){
-      display:block;
-      padding: 6px 0;
-      color: rgba(255,255,255,.58);
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .footerCol a:not(.socialBtn):hover{ color:#fff; }
-
-    .footer__social{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content:flex-start;
-      margin-top: 2px;
-    }
-    .footerCol a.socialBtn{
-      width: 28px;
-      height: 28px;
-      display:grid;
-      place-items:center;
-      padding: 0;
-      margin: 0;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.78);
-    }
-    .footerCol a.socialBtn:hover{ background: rgba(255,255,255,.08); color:#fff; }
-    .footerCol a.socialBtn svg{ display:block; width:14px; height:14px; }
-
-    .footerBottom{
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding: 12px 0 14px;
-      color: rgba(255,255,255,.45);
-      font-size: 11px;
-      font-weight: 600;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    /* ===== Responsive ===== */
     @media (max-width: 980px){
       .nav{ display:none; }
       .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
-
-      .pointsHero-inner{ min-height: 0; padding: 18px 0; }
-      .pointsHero-illus{ display:none; }
-
       .catalogueGrid{ grid-template-columns: 1fr; }
-
       .leaderGrid{ grid-template-columns: 1fr; }
-      .pillRow{ grid-template-columns: 1fr; }
-
-      .footer__inner{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 520px){
-      .footer__inner{ grid-template-columns: 1fr; }
+      .rewardCard{ min-height: 0; }
+      .rewardMedia{ height: 210px; }
     }
   </style>
 </head>
@@ -627,13 +510,15 @@
         <nav class="nav" aria-label="Primary">
           <a href="events.html">Events</a>
           <a href="hybrid-learning.html">Hybrid Learning</a>
-          <a href="rewards.html" class="active">Rewards</a>
+          <a href="rewardsPage.html" class="active">Rewards</a>
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
+        <!-- ✅ Updated: removed View Rewards + Redeem buttons -->
         <div class="actions">
-          <button class="btn" type="button" onclick="scrollToId('catalogue')">View Rewards</button>
-          <button class="btn btn-primary" type="button" onclick="openRedeemTab()">Redeem</button>
+          <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
+          <button class="btn" type="button" id="navLogout" title="Logout (demo)">Logout</button>
+
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
       </div>
@@ -641,14 +526,14 @@
       <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="events.html" onclick="closeMobileNav()">Events</a>
         <a href="hybrid-learning.html" onclick="closeMobileNav()">Hybrid Learning</a>
-        <a href="rewards.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
         <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
       </div>
     </div>
   </header>
 
   <!-- ===== Sub Navbar (same-page tabs) ===== -->
-  <div class="subTabsWrap">
+  <div class="subTabsWrap" id="subTabsWrap">
     <div class="container">
       <nav class="subTabs" aria-label="Rewards sub navigation">
         <button class="subTab active" type="button" data-tab="overview">Points Overview</button>
@@ -657,65 +542,74 @@
     </div>
   </div>
 
-  <!-- ================= TAB: POINTS OVERVIEW ================= -->
+  <!-- ================= TAB: OVERVIEW ================= -->
   <section id="tab-overview" class="tabPanel show">
-    <!-- ===== Points banner ===== -->
-    <section class="pointsHero" aria-label="Current points banner">
+
+    <!-- ✅ Logged-in only -->
+    <div id="loggedInOnly">
+      <section class="pointsHero" aria-label="Current points banner">
+        <div class="container">
+          <div class="pointsHero-inner">
+            <div class="pointsLeft">
+              <small>Current Points:</small>
+              <div class="pointsValue" id="pointsValue">—</div>
+              <button class="heroBtn" type="button" onclick="openRedeemTab()">Redeem Your Points Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div class="container">
-        <div class="pointsHero-inner">
-          <div class="pointsLeft">
-            <small>Current Points:</small>
-            <div class="pointsValue" id="pointsValue">7299</div>
-            <button class="heroBtn" type="button" onclick="openRedeemTab()">Redeem Your Points Now</button>
-          </div>
+        <div class="sectionTitle"><h2>Points History</h2></div>
+        <div class="historyWrap">
+          <div class="card historyCard">
+            <div class="historyItem">
+              <div class="historyLeft">
+                <h4>Pop-up Events</h4>
+                <p>Workshop: Make it Siew Dai<br>2026 - 01 - 12 &nbsp;&nbsp; 12:00</p>
+              </div>
+              <div class="historyPts">+30 pts</div>
+            </div>
 
-          <div class="pointsHero-illus" aria-hidden="true">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/1923e4200ad3d9ada73ea34bebe356680ff38362?width=1184"
-              alt=""
-              loading="eager"
-              decoding="async"
-            />
+            <div class="historyItem">
+              <div class="historyLeft">
+                <h4>Online Course</h4>
+                <p>Workshop: Proper handling of wheelchairs<br>2026 - 01 - 02 &nbsp;&nbsp; 12:00</p>
+              </div>
+              <div class="historyPts">+10 pts</div>
+            </div>
+
+            <div class="historyItem">
+              <div class="historyLeft">
+                <h4>Pop-up Event</h4>
+                <p>Challenge: Walking Foodpedia<br>2025 - 12 - 20 &nbsp;&nbsp; 12:00</p>
+              </div>
+              <div class="historyPts">+10 pts</div>
+            </div>
+
+            <a class="viewMore" href="#" onclick="event.preventDefault();">view more</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Points History -->
+    <!-- ✅ Logged-out only -->
+    <div id="loggedOutOnly" style="display:none;">
+      <div class="container">
+        <div class="guestWrap">
+          <div class="card guestCard">
+            <div>
+              <h3>Sign in to view points</h3>
+              <p>You can still view the leaderboard without signing in.</p>
+            </div>
+            <a class="btn btn-primary" href="login.html">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Leaderboard ALWAYS visible -->
     <div class="container">
-      <div class="sectionTitle"><h2>Points History</h2></div>
-
-      <div class="historyWrap">
-        <div class="card historyCard">
-          <div class="historyItem">
-            <div class="historyLeft">
-              <h4>Pop-up Events</h4>
-              <p>Workshop: Make it Siew Dai<br>2026 - 01 - 12 &nbsp;&nbsp; 12:00</p>
-            </div>
-            <div class="historyPts">+30 pts</div>
-          </div>
-
-          <div class="historyItem">
-            <div class="historyLeft">
-              <h4>Online Course</h4>
-              <p>Workshop: Proper handling of wheelchairs<br>2026 - 01 - 02 &nbsp;&nbsp; 12:00</p>
-            </div>
-            <div class="historyPts">+10 pts</div>
-          </div>
-
-          <div class="historyItem">
-            <div class="historyLeft">
-              <h4>Pop-up Event</h4>
-              <p>Challenge: Walking Foodpedia<br>2025 - 12 - 20 &nbsp;&nbsp; 12:00</p>
-            </div>
-            <div class="historyPts">+10 pts</div>
-          </div>
-
-          <a class="viewMore" href="#" onclick="event.preventDefault();">view more</a>
-        </div>
-      </div>
-
-      <!-- Leaderboard -->
       <div class="sectionTitle"><h2>Leaderboard</h2></div>
       <div class="leaderMeta">Updated as of: 2026 - 01 - 15 &nbsp; 12:37</div>
 
@@ -742,147 +636,131 @@
           </ul>
         </div>
       </div>
-
-      <div class="pillRow">
-        <div class="pill">
-          <div>🏆</div>
-          <div>
-            <span>Your Rank</span>
-          </div>
-        </div>
-        <div class="pill">
-          <div>
-            <strong>5498</strong>
-            <span>in singapore</span>
-          </div>
-        </div>
-        <div class="pill">
-          <div>
-            <strong>7</strong>
-            <span>among friends</span>
-          </div>
-        </div>
-      </div>
     </div>
+
   </section>
 
   <!-- ================= TAB: REDEEM ================= -->
   <section id="tab-redeem" class="tabPanel">
     <main id="catalogue">
       <div class="container">
-        <div class="catalogueHead">
-          <h2>Catalogue</h2>
-        </div>
+        <div class="catalogueHead"><h2>Catalogue</h2></div>
 
         <div class="catalogueGrid">
-          <!-- Row 1 -->
+          <!-- Card 1 -->
           <article class="rewardCard">
-            <div class="rewardImg">
+            <div class="rewardMedia">
               <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$10 Fairprice Cash Voucher">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">$10 Fairprice Cash Voucher</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>2888 points</strong></p>
-              <button class="redeemBtn" data-name="$10 Fairprice Cash Voucher" data-cost="2888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">2888 points</div>
+              <button class="redeemBtn" data-id="reward_001" data-name="$10 Fairprice Cash Voucher" data-cost="2888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 2 -->
           <article class="rewardCard">
-            <div class="rewardImg">
+            <div class="rewardMedia">
               <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$20 Fairprice Cash Voucher">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">$20 Fairprice Cash Voucher</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>3888 points</strong></p>
-              <button class="redeemBtn" data-name="$20 Fairprice Cash Voucher" data-cost="3888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">3888 points</div>
+              <button class="redeemBtn" data-id="reward_002" data-name="$20 Fairprice Cash Voucher" data-cost="3888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 3 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>1488 points</strong></p>
-              <button class="redeemBtn" data-name="$2 Luckin Coffee Credit" data-cost="1488">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">1488 points</div>
+              <button class="redeemBtn" data-id="reward_003" data-name="$2 Luckin Coffee Credit" data-cost="1488">Redeem</button>
             </div>
           </article>
 
-          <!-- Row 2 -->
+          <!-- Card 4 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">Shopee Free Shipping Voucher</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>8888 points</strong></p>
-              <button class="redeemBtn" data-name="Shopee Free Shipping Voucher" data-cost="8888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">8888 points</div>
+              <button class="redeemBtn" data-id="reward_004" data-name="Shopee Free Shipping Voucher" data-cost="8888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 5 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>888 points</strong></p>
-              <button class="redeemBtn" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">888 points</div>
+              <button class="redeemBtn" data-id="reward_005" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 6 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$2.99 Luckin Coffee Exchange Coupon">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80" alt="$2.99 Luckin Coffee Exchange Coupon">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">$2.99 Luckin Coffee Exchange Coupon</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>2188 points</strong></p>
-              <button class="redeemBtn" data-name="$2.99 Luckin Coffee Exchange Coupon" data-cost="2188">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">2188 points</div>
+              <button class="redeemBtn" data-id="reward_006" data-name="$2.99 Luckin Coffee Exchange Coupon" data-cost="2188">Redeem</button>
             </div>
           </article>
 
-          <!-- Row 3 -->
+          <!-- Card 7 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour for 1 @ Ento Industries">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour for 1 @ Ento Industries">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">Free Site Tour for 1 @ Ento Industries</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>2888 points</strong></p>
-              <button class="redeemBtn" data-name="Free Site Tour for 1 @ Ento Industries" data-cost="2888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">2888 points</div>
+              <button class="redeemBtn" data-id="reward_007" data-name="Free Site Tour for 1 @ Ento Industries" data-cost="2888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 8 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Mr Bean Coupon Booklet (worth $30)">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1506973035872-a4f23b5e2534?auto=format&fit=crop&w=1400&q=80" alt="Free Mr Bean Coupon Booklet (Worth $30)">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">Free Mr Bean Coupon Booklet (Worth $30)</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>2888 points</strong></p>
-              <button class="redeemBtn" data-name="Free Mr Bean Coupon Booklet (worth $30)" data-cost="2888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">2888 points</div>
+              <button class="redeemBtn" data-id="reward_008" data-name="Free Mr Bean Coupon Booklet (Worth $30)" data-cost="2888">Redeem</button>
             </div>
           </article>
 
+          <!-- Card 9 -->
           <article class="rewardCard">
-            <div class="rewardImg">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
+            <div class="rewardMedia">
+              <img src="https://images.unsplash.com/photo-1580281780460-82d277b0e3f8?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
             </div>
-            <div class="rewardBody">
+            <div class="rewardInfo">
               <h3 class="rewardTitle">Free Health Screening Package</h3>
-              <p class="rewardMeta">Terms & Conditions Apply</p>
-              <p class="rewardMeta"><strong>8888 points</strong></p>
-              <button class="redeemBtn" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
+              <p class="rewardSubtitle">terms and conditions apply</p>
+              <div class="rewardPoints">8888 points</div>
+              <button class="redeemBtn" data-id="reward_009" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
             </div>
           </article>
         </div>
@@ -890,76 +768,21 @@
     </main>
   </section>
 
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div class="container">
-      <div class="footer__inner">
-        <div>
-          <div class="footer__brandRow">
-            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;box-shadow:none;">
-              <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo" />
-            </div>
-            <span class="footer__brandName">Project Thrive</span>
-          </div>
-          <p class="footer__desc">
-            Empowering Singapore’s youth through innovative health programmes and community engagement.
-          </p>
-        </div>
-
-        <div class="footerCol">
-          <h5>Programme</h5>
-          <a href="events.html">Events</a>
-          <a href="hybrid-learning.html">Hybrid Learning</a>
-          <a href="rewards.html">Rewards</a>
-          <a href="ambassadors.html">Ambassadors</a>
-        </div>
-
-        <div class="footerCol">
-          <h5>Support</h5>
-          <a href="#">Help Center</a>
-          <a href="#">Contact Us</a>
-          <a href="#">FAQ</a>
-        </div>
-
-        <div class="footerCol">
-          <h5>Connect</h5>
-          <div class="footer__social" aria-label="Social links">
-            <a class="socialBtn" href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </a>
-
-            <a class="socialBtn" href="#" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </a>
-
-            <a class="socialBtn" href="#" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footerBottom">
-        <span>© <span id="year"></span> NHG Youth</span>
-        <span>All rights reserved.</span>
-      </div>
-    </div>
-  </footer>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="pt-firebase.js"></script>
+
   <script>
-    // Smooth scroll helper
+    // ===== toast =====
+    const toastEl = document.getElementById("toast");
+    function showToast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toastEl.classList.remove("show"), 1800);
+    }
+
+    // ===== Smooth scroll helper =====
     function scrollToId(id){
       const el = document.getElementById(id);
       if(!el) return;
@@ -967,99 +790,155 @@
       closeMobileNav();
     }
 
-    // Mobile nav
+    // ===== Mobile nav =====
     const hamburger = document.getElementById("hamburger");
     const mobileNav = document.getElementById("mobileNav");
-
-    function closeMobileNav(){
-      if(mobileNav) mobileNav.classList.remove("show");
-    }
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
     hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
 
-    // ===== Same-page tab switching =====
+    // ===== Tabs =====
+    const subTabsWrapEl = document.getElementById("subTabsWrap");
     const tabs = document.querySelectorAll(".subTab");
     const panels = {
       overview: document.getElementById("tab-overview"),
       redeem: document.getElementById("tab-redeem")
     };
-
     function setActiveTab(key){
       tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === key));
       Object.values(panels).forEach(p => p.classList.remove("show"));
       panels[key]?.classList.add("show");
-
-      // If opening Redeem, scroll to catalogue nicely
-      if(key === "redeem"){
-        setTimeout(() => scrollToId("catalogue"), 40);
-      }
+      if(key === "redeem") setTimeout(() => scrollToId("catalogue"), 40);
     }
-
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => setActiveTab(tab.dataset.tab));
-    });
-
+    tabs.forEach(tab => tab.addEventListener("click", () => setActiveTab(tab.dataset.tab)));
     function openRedeemTab(){ setActiveTab("redeem"); }
 
-    // ===== Points + Redeem logic (basic, demo-ready) =====
-    const POINTS_KEY = "nhg_points";
-    const defaultPoints = 7299;
+    // ===== Login gating UI =====
+    const loggedInOnlyEl = document.getElementById("loggedInOnly");
+    const loggedOutOnlyEl = document.getElementById("loggedOutOnly");
 
-    function getPoints(){
-      const saved = Number(localStorage.getItem(POINTS_KEY));
-      return Number.isFinite(saved) && saved >= 0 ? saved : defaultPoints;
-    }
-    function setPoints(v){
-      localStorage.setItem(POINTS_KEY, String(Math.max(0, Math.floor(v))));
-      renderPoints();
-    }
-
+    // ===== Points + Redeem =====
     const pointsValueEl = document.getElementById("pointsValue");
-    const toastEl = document.getElementById("toast");
+    let currentPoints = 0;
+    let redeemedMap = {};
 
-    function showToast(msg){
-      toastEl.textContent = msg;
-      toastEl.classList.add("show");
-      window.clearTimeout(showToast._t);
-      showToast._t = window.setTimeout(() => toastEl.classList.remove("show"), 1800);
+    function applyRedeemedUI(){
+      document.querySelectorAll(".redeemBtn").forEach(btn => {
+        const rewardId = btn.dataset.id || "";
+        if(rewardId && redeemedMap && redeemedMap[rewardId]){
+          btn.disabled = true;
+          btn.textContent = "Redeemed";
+          btn.dataset.redeemed = "1";
+        }else{
+          btn.dataset.redeemed = "0";
+        }
+      });
     }
 
-    function renderPoints(){
-      const pts = getPoints();
-      if(pointsValueEl) pointsValueEl.textContent = pts;
+    function renderButtonsForLoggedOut(){
+      document.querySelectorAll(".redeemBtn").forEach(b => {
+        b.disabled = true;
+        b.textContent = "Sign in to redeem";
+      });
+    }
 
-      // Disable buttons if not enough points
+    function renderPointsAndButtons(){
+      if(pointsValueEl) pointsValueEl.textContent = String(currentPoints);
+
       document.querySelectorAll(".redeemBtn").forEach(btn => {
+        if(btn.dataset.redeemed === "1"){
+          btn.disabled = true;
+          btn.textContent = "Redeemed";
+          return;
+        }
         const cost = Number(btn.dataset.cost || 0);
-        btn.disabled = pts < cost;
+        btn.disabled = currentPoints < cost;
         btn.textContent = btn.disabled ? "Not enough points" : "Redeem";
       });
     }
 
-    document.querySelectorAll(".redeemBtn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const name = btn.dataset.name || "Reward";
-        const cost = Number(btn.dataset.cost || 0);
-        const pts = getPoints();
-
-        if(pts < cost){
-          showToast("Not enough points to redeem this reward.");
-          return;
-        }
-
-        setPoints(pts - cost);
-        showToast(`Redeemed: ${name} (-${cost} pts)`);
-
-        // OPTIONAL: store redeemed history
-        const historyKey = "nhg_redeemed";
-        const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
-        history.unshift({ name, cost, ts: Date.now() });
-        localStorage.setItem(historyKey, JSON.stringify(history.slice(0, 30)));
+    async function init(){
+      // Navbar auth UI
+      PT.applyNavAuthUI({
+        signInId: "navSignIn",
+        logoutId: "navLogout",
+        showWhenLoggedInIds: [], // ✅ updated: removed navViewRewards + navRedeem
+        logoutRedirect: "login.html"
       });
-    });
 
-    // Init
-    document.getElementById("year").textContent = new Date().getFullYear();
-    renderPoints();
+      // Logged out UI
+      if(!PT.isLoggedIn()){
+        if(subTabsWrapEl) subTabsWrapEl.style.display = "none";
+        if(loggedInOnlyEl) loggedInOnlyEl.style.display = "none";
+        if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "block";
+        renderButtonsForLoggedOut();
+        return;
+      }
+
+      // Logged in UI
+      if(subTabsWrapEl) subTabsWrapEl.style.display = "";
+      if(loggedInOnlyEl) loggedInOnlyEl.style.display = "";
+      if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "none";
+
+      try{ await PT.ensureUser(); }catch(e){ console.error(e); }
+
+      try{
+        currentPoints = await PT.getPoints();
+        redeemedMap = await PT.getRedeemed();
+        applyRedeemedUI();
+        renderPointsAndButtons();
+      }catch(e){
+        console.error(e);
+        showToast("Could not load points (DB error).");
+      }
+
+      // Redeem click handlers
+      document.querySelectorAll(".redeemBtn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          if(!PT.isLoggedIn()){
+            window.location.href = "login.html";
+            return;
+          }
+          if(btn.dataset.redeemed === "1"){
+            showToast("Already redeemed.");
+            return;
+          }
+
+          const name = btn.dataset.name || "Reward";
+          const cost = Number(btn.dataset.cost || 0);
+          const rewardId = btn.dataset.id || "reward_unknown";
+
+          if(currentPoints < cost){
+            showToast("Not enough points.");
+            return;
+          }
+
+          try{
+            currentPoints = await PT.setPoints(currentPoints - cost);
+            await PT.setRedeemed(rewardId, cost);
+
+            redeemedMap[rewardId] = { cost, redeemedAt: Date.now() };
+            btn.dataset.redeemed = "1";
+            btn.disabled = true;
+            btn.textContent = "Redeemed";
+
+            renderPointsAndButtons();
+            showToast(`Redeemed: ${name} (-${cost} pts)`);
+          }catch(e){
+            console.error(e);
+            showToast("Redeem failed (DB error).");
+            // resync
+            try{
+              currentPoints = await PT.getPoints();
+              redeemedMap = await PT.getRedeemed();
+              applyRedeemedUI();
+              renderPointsAndButtons();
+            }catch(_){}
+          }
+        });
+      });
+    }
+
+    init();
   </script>
 </body>
 </html>
