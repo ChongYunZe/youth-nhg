@@ -68,15 +68,20 @@
       font-weight:800;
       letter-spacing:.2px;
     }
-    /* .logo{
-      width:34px;height:34px;border-radius:10px;
-      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
-      box-shadow: 0 10px 26px rgba(45,99,255,.35);
-    } */
-     .logo{
+    .logo{
       width:44px;height:44px;border-radius:10px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
+      flex: 0 0 auto;
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
     }
     .footerlogo{
       width:34px;height:34px;border-radius:10px;
@@ -93,6 +98,10 @@
     }
     .nav a{ padding:10px 10px; border-radius: 10px; }
     .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+    .nav a.active{
+      color:#fff;
+      background: rgba(255,255,255,.08);
+    }
 
     .actions{ display:flex; align-items:center; gap:10px; }
     .btn{
@@ -125,7 +134,21 @@
       color:#fff;
       cursor:pointer;
     }
-    .mobile-nav{ display:none; }
+
+    /* ✅ Fix: mobile nav hidden by default */
+    .mobile-nav{
+      display:none;
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--border);
+    }
+    .mobile-nav a{
+      display:block;
+      padding: 10px 4px;
+      color: rgba(255,255,255,.72);
+      font-weight:700;
+    }
+    .mobile-nav a:hover{ color:#fff; }
+    .mobile-nav.show{ display:block; }
 
     /* Page hero */
     .pageHero{
@@ -147,24 +170,6 @@
       line-height: 1.8;
       max-width: 78ch;
       font-weight: 600;
-    }
-    .heroRow{
-      margin-top: 14px;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .heroPill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.90);
-      font-weight: 800;
-      font-size: 12px;
     }
 
     section{ padding: 28px 0; color:#0f172a; }
@@ -223,14 +228,24 @@
     }
     .card-ic svg{ width:18px; height:18px; display:block; }
 
-    .metaRow{
+    /* .metaRow{
       margin-top:auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 10px;
       padding-top: 6px;
-    }
+    } */
+     .metaRow{
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;   
+        gap: 10px;                      
+        padding-top: 6px;
+        flex-wrap: wrap;                
+      }
+
     .pill{
       display:inline-flex;
       align-items:center;
@@ -243,6 +258,36 @@
       font-weight: 800;
       font-size: 12px;
     }
+    /* Pop-up timing pill */
+    .timePill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(45,99,255,.20);
+      background: rgba(45,99,255,.06);
+      color: #1d4ed8;
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .locationPill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #e6eaf2;
+      background: #ffffff;
+      color: rgba(15,23,42,.78);
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+
     .linkBtn{
       border: 1px solid rgba(45,99,255,.25);
       background: rgba(45,99,255,.06);
@@ -372,48 +417,41 @@
       .grid-3{ grid-template-columns: 1fr; }
       .nav{ display:none; }
       .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
-      .mobile-nav{
-        display:none;
-        padding: 12px 0 14px;
-        border-top: 1px solid var(--border);
-      }
-      .mobile-nav a{
-        display:block;
-        padding: 10px 4px;
-        color: rgba(255,255,255,.72);
-        font-weight:700;
-      }
-      .mobile-nav a:hover{ color:#fff; }
-      .mobile-nav.show{ display:block; }
-
       .footer__inner{ grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 520px){
       .footer__inner{ grid-template-columns: 1fr; }
+      .metaRow{
+        flex-wrap: wrap;
+        justify-content:flex-start;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- ✅ Same navbar (links updated to pages) -->
+  <!-- ✅ Updated navbar: Sign in / Logout, removed Pop-ups / Workshops -->
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
         <a class="brand" href="index.html">
-          <div class="logo" aria-hidden="true"><img class="logo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/></div>
+          <div class="logo" aria-hidden="true">
+            <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+          </div>
           <span>Project Thrive</span>
         </a>
 
         <nav class="nav" aria-label="Primary">
-          <a href="events.html">Events</a>
+          <a href="events.html" class="active">Events</a>
           <a href="hybrid-learning.html">Hybrid Learning</a>
           <a href="rewardsPage.html">Rewards</a>
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
         <div class="actions">
-          <a class="btn" href="#popup">Pop-ups</a>
-          <a class="btn btn-primary" href="#workshops">Workshops</a>
+          <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
+          <button class="btn" type="button" id="navLogout" title="Logout">Logout</button>
+
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
       </div>
@@ -435,12 +473,6 @@
         Discover youth-friendly events that fit your schedule — quick pop-up missions and hands-on workshops.
         Scan a QR at events to earn points and track your progress.
       </p>
-
-      <!-- <div class="heroRow" aria-label="Event highlights">
-        <span class="heroPill">⏱ Most sessions: 10–20 mins</span>
-        <span class="heroPill">📍 Schools • CCs • Public spaces</span>
-        <span class="heroPill">🎯 One clear takeaway</span>
-      </div> -->
     </div>
   </div>
 
@@ -475,10 +507,17 @@
             </div>
             <h3>Stress Reset Station</h3>
             <p>10-minute guided reset: breathing + grounding. Ends with 1 reflection prompt.</p>
-            <div class="metaRow">
+            <!-- <div class="metaRow">
               <span class="pill">🏫 Campus • 10 mins</span>
               <button class="linkBtn" type="button" onclick="openJoin('Stress Reset Station', 'Pop-up Event')">Join →</button>
+            </div> -->
+            <div class="metaRow">
+              <span class="pill">🏫 School • 10 mins</span>
+              <span class="locationPill">📍 Ngee Ann Polytechnic</span>
+              <span class="timePill">🕒 2pm–6pm</span>
             </div>
+
+
           </article>
 
           <article class="card" data-type="cc">
@@ -490,10 +529,17 @@
             </div>
             <h3>Burnout Score Check</h3>
             <p>Fast 3–5 question check-in. Get a quick “next step” recommendation.</p>
-            <div class="metaRow">
+            <!-- <div class="metaRow">
               <span class="pill">🏘 CC • 12 mins</span>
               <button class="linkBtn" type="button" onclick="openJoin('Burnout Score Check', 'Pop-up Event')">Join →</button>
+            </div> -->
+            <div class="metaRow">
+              <span class="pill">🏘 CC • 12 mins</span>
+              <span class="locationPill">📍 Bukit Panjang CC</span>
+              <span class="timePill">🕒 11am–3pm</span>
             </div>
+
+
           </article>
 
           <article class="card" data-type="public">
@@ -505,10 +551,17 @@
             </div>
             <h3>Healthy Swap Challenge</h3>
             <p>Quick interactive choices: drinks/snacks swaps. Ends with a QR scan for points.</p>
-            <div class="metaRow">
+            <!-- <div class="metaRow">
               <span class="pill">🛍 Public • 15 mins</span>
               <button class="linkBtn" type="button" onclick="openJoin('Healthy Swap Challenge', 'Pop-up Event')">Join →</button>
+            </div> -->
+            <div class="metaRow">
+              <span class="pill">🛍 Public • 15 mins</span>
+              <span class="locationPill">📍 Tampines Mall Atrium</span>
+              <span class="timePill">🕒 4pm–8pm</span>
             </div>
+
+
           </article>
         </div>
 
@@ -600,11 +653,9 @@
           <div style="padding: 16px 18px;">
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 10px;">
               <span id="modalType" style="display:inline-flex; align-items:center; padding: 7px 10px; border-radius:999px; background: rgba(45,99,255,.06); border:1px solid rgba(45,99,255,.25); color: var(--primary); font-weight: 900; font-size: 12px;"></span>
-              <!-- <span style="display:inline-flex; align-items:center; padding: 7px 10px; border-radius:999px; background:#f8fafc; border:1px solid #e6eaf2; color: rgba(15,23,42,.72); font-weight: 900; font-size: 12px;">Demo flow</span> -->
             </div>
 
             <h3 id="modalTitle" style="margin:0 0 8px; font-size: 16px; letter-spacing:-.2px;">Event Title</h3>
-            
 
             <div style="display:grid; gap:10px;">
               <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
@@ -632,7 +683,9 @@
       <div class="footer__inner">
         <div>
           <div class="footer__brandRow">
-            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;"><img class="footerlogo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/></div>
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;">
+              <img class="footerlogo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+            </div>
             <span class="footer__brandName">Project Thrive</span>
           </div>
           <p class="footer__desc">
@@ -690,7 +743,17 @@
     </div>
   </footer>
 
+  <script src="pt-firebase.js"></script>
+
   <script>
+    // Navbar auth UI (Sign in / Logout)
+    PT.applyNavAuthUI({
+      signInId: "navSignIn",
+      logoutId: "navLogout",
+      showWhenLoggedInIds: [],
+      logoutRedirect: "login.html"
+    });
+
     // Mobile nav
     const hamburger = document.getElementById("hamburger");
     const mobileNav = document.getElementById("mobileNav");
