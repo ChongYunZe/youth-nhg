@@ -6,6 +6,7 @@ Shared helper for:
 - get/set points
 - get/set redeemed rewards
 - navbar auth UI toggle
+- get profile (for autofill)
 ========================= */
 
 (function(){
@@ -162,6 +163,16 @@ Shared helper for:
   }
 
   // =========================================================
+  // Profile (for autofill)
+  // =========================================================
+  async function getProfile(){
+    const key = getUserKey();
+    if(!key) throw new Error("Not logged in");
+    const profile = await dbGet(`users/${key}/profile`);
+    return profile || null;
+  }
+
+  // =========================================================
   // Points
   // =========================================================
   async function getPoints(){
@@ -244,6 +255,7 @@ Shared helper for:
 
     // user
     ensureUser,
+    getProfile,
 
     // points
     getPoints,

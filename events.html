@@ -228,23 +228,15 @@
     }
     .card-ic svg{ width:18px; height:18px; display:block; }
 
-    /* .metaRow{
-      margin-top:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .metaRow{
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       gap: 10px;
       padding-top: 6px;
-    } */
-     .metaRow{
-        margin-top: auto;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;   
-        gap: 10px;                      
-        padding-top: 6px;
-        flex-wrap: wrap;                
-      }
+      flex-wrap: wrap;
+    }
 
     .pill{
       display:inline-flex;
@@ -286,7 +278,6 @@
       font-size: 12px;
       white-space: nowrap;
     }
-
 
     .linkBtn{
       border: 1px solid rgba(45,99,255,.25);
@@ -507,17 +498,11 @@
             </div>
             <h3>Stress Reset Station</h3>
             <p>10-minute guided reset: breathing + grounding. Ends with 1 reflection prompt.</p>
-            <!-- <div class="metaRow">
-              <span class="pill">🏫 Campus • 10 mins</span>
-              <button class="linkBtn" type="button" onclick="openJoin('Stress Reset Station', 'Pop-up Event')">Join →</button>
-            </div> -->
             <div class="metaRow">
               <span class="pill">🏫 School • 10 mins</span>
               <span class="locationPill">📍 Ngee Ann Polytechnic</span>
               <span class="timePill">🕒 2pm–6pm</span>
             </div>
-
-
           </article>
 
           <article class="card" data-type="cc">
@@ -529,17 +514,11 @@
             </div>
             <h3>Burnout Score Check</h3>
             <p>Fast 3–5 question check-in. Get a quick “next step” recommendation.</p>
-            <!-- <div class="metaRow">
-              <span class="pill">🏘 CC • 12 mins</span>
-              <button class="linkBtn" type="button" onclick="openJoin('Burnout Score Check', 'Pop-up Event')">Join →</button>
-            </div> -->
             <div class="metaRow">
               <span class="pill">🏘 CC • 12 mins</span>
               <span class="locationPill">📍 Bukit Panjang CC</span>
               <span class="timePill">🕒 11am–3pm</span>
             </div>
-
-
           </article>
 
           <article class="card" data-type="public">
@@ -551,17 +530,11 @@
             </div>
             <h3>Healthy Swap Challenge</h3>
             <p>Quick interactive choices: drinks/snacks swaps. Ends with a QR scan for points.</p>
-            <!-- <div class="metaRow">
-              <span class="pill">🛍 Public • 15 mins</span>
-              <button class="linkBtn" type="button" onclick="openJoin('Healthy Swap Challenge', 'Pop-up Event')">Join →</button>
-            </div> -->
             <div class="metaRow">
               <span class="pill">🛍 Public • 15 mins</span>
               <span class="locationPill">📍 Tampines Mall Atrium</span>
               <span class="timePill">🕒 4pm–8pm</span>
             </div>
-
-
           </article>
         </div>
 
@@ -655,16 +628,19 @@
               <span id="modalType" style="display:inline-flex; align-items:center; padding: 7px 10px; border-radius:999px; background: rgba(45,99,255,.06); border:1px solid rgba(45,99,255,.25); color: var(--primary); font-weight: 900; font-size: 12px;"></span>
             </div>
 
-            <h3 id="modalTitle" style="margin:0 0 8px; font-size: 16px; letter-spacing:-.2px;">Event Title</h3>
+            <h3 id="modalTitle" style="margin:0 0 6px; font-size: 16px; letter-spacing:-.2px;">Event Title</h3>
+            <p id="joinHint" style="margin:0 0 12px; color:#64748b; font-weight:700; font-size:12px;"></p>
 
             <div style="display:grid; gap:10px;">
               <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
                 Name
-                <input type="text" placeholder="e.g. Name" style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
+                <input id="joinName" type="text" placeholder="e.g. Name" autocomplete="name"
+                       style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
               </label>
               <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
                 Email
-                <input type="text" placeholder="e.g. name@email.com" style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
+                <input id="joinEmail" type="email" placeholder="e.g. name@email.com" autocomplete="email"
+                       style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
               </label>
             </div>
 
@@ -779,20 +755,60 @@
       });
     });
 
-    // Join modal (demo)
+    // Join modal (auto-fill if logged in)
     const joinModal = document.getElementById("joinModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalType = document.getElementById("modalType");
+    const joinName = document.getElementById("joinName");
+    const joinEmail = document.getElementById("joinEmail");
+    const joinHint = document.getElementById("joinHint");
 
-    function openJoin(title, type){
+    async function openJoin(title, type){
       modalTitle.textContent = title;
       modalType.textContent = type;
       joinModal.style.display = "block";
+
+      // reset fields each time
+      if (joinName) joinName.value = "";
+      if (joinEmail) joinEmail.value = "";
+
+      if (joinHint) joinHint.textContent = "Sign in to auto-fill your details.";
+
+      try{
+        if (window.PT && PT.isLoggedIn && PT.isLoggedIn()){
+          if (joinHint) joinHint.textContent = "Auto-filled from your account. You can edit if needed.";
+
+          // ensure record exists (safe)
+          if (PT.ensureUser) await PT.ensureUser();
+
+          // fetch profile + fill
+          if (PT.getProfile){
+            const profile = await PT.getProfile();
+            if (profile){
+              if (joinName && profile.name) joinName.value = profile.name;
+              if (joinEmail && profile.email) joinEmail.value = profile.email;
+            }
+          }
+        }
+      } catch(err){
+        console.warn("Autofill failed:", err);
+        if (joinHint) joinHint.textContent = "Couldn’t auto-fill. Please type your details.";
+      }
     }
+
     function closeJoin(){
       joinModal.style.display = "none";
     }
+
     function confirmJoin(){
+      const name = (joinName?.value || "").trim();
+      const email = (joinEmail?.value || "").trim();
+
+      if(!name || !email){
+        alert("Please enter your name and email.");
+        return;
+      }
+
       closeJoin();
       alert("Registered.");
     }

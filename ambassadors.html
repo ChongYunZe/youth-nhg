@@ -514,7 +514,6 @@
       <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
 
       <a href="login.html" id="mNavSignIn" onclick="closeMobileNav()">Sign in</a>
-      <!-- <a href="#" id="mNavLogout" onclick="event.preventDefault(); doLogout();">Logout</a> -->
     </div>
   </div>
 </header>
@@ -726,40 +725,19 @@
   function closeMobileNav(){ mobileNav?.classList.remove("show"); }
   hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
 
-  // ===== Auth UI like index =====
-  function applyAuthNav(){
-    // Desktop
-    PT.applyNavAuthUI({
-      signInId: "navSignIn",
-      logoutId: "navLogout",
-      showWhenLoggedInIds: [],
-      logoutRedirect: "login.html"
-    });
+  // ===== Auth UI (Sign in / Logout) =====
+  PT.applyNavAuthUI({
+    signInId: "navSignIn",
+    logoutId: "navLogout",
+    showWhenLoggedInIds: [],
+    logoutRedirect: "login.html"
+  });
 
-    // Mobile links
-    const mSignIn = document.getElementById("mNavSignIn");
-    const mLogout = document.getElementById("mNavLogout");
-    const loggedIn = PT.isLoggedIn();
+  // Mobile "Sign in" link toggle
+  const mSignIn = document.getElementById("mNavSignIn");
+  if (mSignIn) mSignIn.style.display = PT.isLoggedIn() ? "none" : "block";
 
-    if(mSignIn) mSignIn.style.display = loggedIn ? "none" : "block";
-    if(mLogout) mLogout.style.display = loggedIn ? "block" : "none";
-  }
-
-  function doLogout(){
-    // prefer PT.logout if your helper provides it, else fallback to the navbar helper’s click
-    try{
-      if (typeof PT.logout === "function"){
-        PT.logout();
-      }
-    }catch(_){}
-    window.location.href = "login.html";
-  }
-
-  document.getElementById("navLogout")?.addEventListener("click", () => doLogout());
-
-  applyAuthNav();
-
-  // ===== Modal open/close + form (your original logic) =====
+  // ===== Modal open/close + form =====
   const overlay = document.getElementById("modalOverlay");
   const openBtn = document.getElementById("openAmbassadorForm");
   const closeBtn = document.getElementById("closeModalBtn");
@@ -771,12 +749,12 @@
 
   const fullName = document.getElementById("fullName");
   const email = document.getElementById("email");
-  const school = document.getElementById("school");
-  const telegram = document.getElementById("telegram");
+  const school = document.getElementById("school");      // ✅ do NOT autofill
+  const telegram = document.getElementById("telegram");  // ✅ do NOT autofill
 
   let lastFocusedEl = null;
 
-  function openModal(){
+  async function openModal(){
     lastFocusedEl = document.activeElement;
     overlay.classList.add("show");
     document.body.style.overflow = "hidden";
@@ -784,8 +762,35 @@
     errorBox.textContent = "";
     successMsg.style.display = "none";
 
+    // ✅ Reset only the fields we WANT to autofill each time
+    // (leave school/telegram untouched so user can keep typing if they reopen)
+    fullName.value = "";
+    email.value = "";
+
+    // ✅ If logged in, auto-fill Full name + Email from profile
+    try{
+      if (PT.isLoggedIn()){
+        if (PT.ensureUser) await PT.ensureUser(); // safe
+        if (PT.getProfile){
+          const profile = await PT.getProfile();
+          if (profile){
+            if (profile.name) fullName.value = profile.name;
+            if (profile.email) email.value = profile.email;
+          }
+        }
+      }
+    } catch(err){
+      console.warn("Ambassador autofill failed:", err);
+      // silently fall back to manual entry
+    }
+
     validateLive();
-    setTimeout(() => fullName.focus(), 0);
+
+    // Focus: if logged in, go to School/Workplace (since name/email filled). Else focus name.
+    setTimeout(() => {
+      if (PT.isLoggedIn()) school.focus();
+      else fullName.focus();
+    }, 0);
   }
 
   function closeModal(){
