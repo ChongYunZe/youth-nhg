@@ -1,7 +1,7 @@
 <!-- =========================
 FILE: rewardsPage.html (UPDATED)
-✅ Removed "View Rewards" + "Redeem" buttons from the main navbar
-✅ Updated PT.applyNavAuthUI() to not reference removed IDs
+✅ Footer added back
+✅ Navbar still uses Sign in / Logout only
 ========================= -->
 <!doctype html>
 <html lang="en">
@@ -28,6 +28,10 @@ FILE: rewardsPage.html (UPDATED)
 
       --cardBorder: #e6eaf2;
       --cardShadow: 0 10px 26px rgba(15,23,42,.08);
+
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius-xl: 22px;
+      --radius-lg: 18px;
     }
 
     *{ box-sizing:border-box; }
@@ -38,6 +42,9 @@ FILE: rewardsPage.html (UPDATED)
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: #ffffff;
       color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     a{ color:inherit; text-decoration:none; }
@@ -88,6 +95,11 @@ FILE: rewardsPage.html (UPDATED)
       object-fit: cover;
       display:block;
     }
+    .footerlogo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+    }
 
     .nav{
       display:flex;
@@ -136,7 +148,11 @@ FILE: rewardsPage.html (UPDATED)
       cursor:pointer;
     }
 
-    .mobile-nav{ display:none; padding: 12px 0 14px; border-top: 1px solid var(--border); }
+    .mobile-nav{
+      display:none;
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--border);
+    }
     .mobile-nav a{
       display:block;
       padding: 10px 4px;
@@ -316,10 +332,6 @@ FILE: rewardsPage.html (UPDATED)
       color:#64748b;
       line-height: 1.5;
     }
-    .guestCard .btn{
-      border-color: #e6eaf2;
-      background: #0b1220;
-    }
 
     /* Leaderboard UI */
     .leaderMeta{
@@ -375,7 +387,11 @@ FILE: rewardsPage.html (UPDATED)
     }
 
     /* ===== Redeem section ===== */
-    main{ padding-bottom: 22px; }
+    .pageMain{
+       padding-bottom: 22px;
+       flex: 1 0 auto;
+     }
+
     .catalogueHead{ padding: 22px 0 10px; text-align:center; }
     .catalogueHead h2{ margin:0; font-size: 14px; font-weight: 900; letter-spacing: -.2px; color: #0f172a; }
 
@@ -484,6 +500,78 @@ FILE: rewardsPage.html (UPDATED)
     }
     .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-4px); }
 
+    /* ===== Footer (Project Thrive) ===== */
+    footer{
+      margin-top: auto;
+      background: #0b1220;
+      color: rgba(255,255,255,.82);
+    }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+      align-items:start;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{
+      margin:0;
+      max-width: 34ch;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .footerCol h5{
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,.86);
+    }
+    .footerCol a:not(.socialBtn){
+      display:block;
+      padding: 6px 0;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+
+    .footer__social{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 2px;
+    }
+    .footerCol a.socialBtn{
+      width: 28px;
+      height: 28px;
+      display:grid;
+      place-items:center;
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+    .footerCol a.socialBtn:hover{ background: rgba(255,255,255,.08); color:#fff; }
+    .footerCol a.socialBtn svg{ display:block; width:14px; height:14px; }
+
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
     @media (max-width: 980px){
       .nav{ display:none; }
       .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
@@ -491,6 +579,11 @@ FILE: rewardsPage.html (UPDATED)
       .leaderGrid{ grid-template-columns: 1fr; }
       .rewardCard{ min-height: 0; }
       .rewardMedia{ height: 210px; }
+
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -514,7 +607,6 @@ FILE: rewardsPage.html (UPDATED)
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
-        <!-- ✅ Updated: removed View Rewards + Redeem buttons -->
         <div class="actions">
           <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
           <button class="btn" type="button" id="navLogout" title="Logout (demo)">Logout</button>
@@ -532,247 +624,317 @@ FILE: rewardsPage.html (UPDATED)
     </div>
   </header>
 
-  <!-- ===== Sub Navbar (same-page tabs) ===== -->
-  <div class="subTabsWrap" id="subTabsWrap">
-    <div class="container">
-      <nav class="subTabs" aria-label="Rewards sub navigation">
-        <button class="subTab active" type="button" data-tab="overview">Points Overview</button>
-        <button class="subTab" type="button" data-tab="redeem">Redeem Your Points</button>
-      </nav>
+  <div class="pageMain">
+    <!-- ===== Sub Navbar (same-page tabs) ===== -->
+    <div class="subTabsWrap" id="subTabsWrap">
+      <div class="container">
+        <nav class="subTabs" aria-label="Rewards sub navigation">
+          <button class="subTab active" type="button" data-tab="overview">Points Overview</button>
+          <button class="subTab" type="button" data-tab="redeem">Redeem Your Points</button>
+        </nav>
+      </div>
     </div>
+
+    <!-- ================= TAB: OVERVIEW ================= -->
+    <section id="tab-overview" class="tabPanel show">
+
+      <!-- ✅ Logged-in only -->
+      <div id="loggedInOnly">
+        <section class="pointsHero" aria-label="Current points banner">
+          <div class="container">
+            <div class="pointsHero-inner">
+              <div class="pointsLeft">
+                <small>Current Points:</small>
+                <div class="pointsValue" id="pointsValue">—</div>
+                <button class="heroBtn" type="button" onclick="openRedeemTab()">Redeem Your Points Now</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="container">
+          <div class="sectionTitle"><h2>Points History</h2></div>
+          <div class="historyWrap">
+            <div class="card historyCard">
+              <div class="historyItem">
+                <div class="historyLeft">
+                  <h4>Pop-up Events</h4>
+                  <p>Workshop: Make it Siew Dai<br>2026 - 01 - 12 &nbsp;&nbsp; 12:00</p>
+                </div>
+                <div class="historyPts">+30 pts</div>
+              </div>
+
+              <div class="historyItem">
+                <div class="historyLeft">
+                  <h4>Online Course</h4>
+                  <p>Workshop: Proper handling of wheelchairs<br>2026 - 01 - 02 &nbsp;&nbsp; 12:00</p>
+                </div>
+                <div class="historyPts">+10 pts</div>
+              </div>
+
+              <div class="historyItem">
+                <div class="historyLeft">
+                  <h4>Pop-up Event</h4>
+                  <p>Challenge: Walking Foodpedia<br>2025 - 12 - 20 &nbsp;&nbsp; 12:00</p>
+                </div>
+                <div class="historyPts">+10 pts</div>
+              </div>
+
+              <a class="viewMore" href="#" onclick="event.preventDefault();">view more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ Logged-out only -->
+      <div id="loggedOutOnly" style="display:none;">
+        <div class="container">
+          <div class="guestWrap">
+            <div class="card guestCard">
+              <div>
+                <h3>Sign in to view points</h3>
+                <p>You can still view the leaderboard without signing in.</p>
+              </div>
+              <a class="btn btn-primary" href="login.html">Sign in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ Leaderboard ALWAYS visible -->
+      <div class="container">
+        <div class="sectionTitle"><h2>Leaderboard</h2></div>
+        <div class="leaderMeta">Updated as of: 2026 - 01 - 15 &nbsp; 12:37</div>
+
+        <div class="leaderGrid">
+          <div class="card leaderCard">
+            <h3>🇸🇬 &nbsp;Singapore</h3>
+            <ul class="leaderList">
+              <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> pratwala</li>
+              <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> cheeseprata</li>
+              <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> thosai3999</li>
+              <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> aladinins</li>
+              <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> yanrenzhong</li>
+            </ul>
+          </div>
+
+          <div class="card leaderCard">
+            <h3>🏁 &nbsp;Friends</h3>
+            <ul class="leaderList">
+              <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> hupseng</li>
+              <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> thonguan</li>
+              <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> iueming</li>
+              <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> johnsonsuit</li>
+              <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> swisschoco</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= TAB: REDEEM ================= -->
+    <section id="tab-redeem" class="tabPanel">
+      <main id="catalogue">
+        <div class="container">
+          <div class="catalogueHead"><h2>Catalogue</h2></div>
+
+          <div class="catalogueGrid">
+            <!-- Card 1 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$10 Fairprice Cash Voucher">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">$10 Fairprice Cash Voucher</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">2888 points</div>
+                <button class="redeemBtn" data-id="reward_001" data-name="$10 Fairprice Cash Voucher" data-cost="2888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$20 Fairprice Cash Voucher">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">$20 Fairprice Cash Voucher</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">3888 points</div>
+                <button class="redeemBtn" data-id="reward_002" data-name="$20 Fairprice Cash Voucher" data-cost="3888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">1488 points</div>
+                <button class="redeemBtn" data-id="reward_003" data-name="$2 Luckin Coffee Credit" data-cost="1488">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">Shopee Free Shipping Voucher</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">8888 points</div>
+                <button class="redeemBtn" data-id="reward_004" data-name="Shopee Free Shipping Voucher" data-cost="8888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">888 points</div>
+                <button class="redeemBtn" data-id="reward_005" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80" alt="$2.99 Luckin Coffee Exchange Coupon">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">$2.99 Luckin Coffee Exchange Coupon</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">2188 points</div>
+                <button class="redeemBtn" data-id="reward_006" data-name="$2.99 Luckin Coffee Exchange Coupon" data-cost="2188">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 7 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour for 1 @ Ento Industries">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">Free Site Tour for 1 @ Ento Industries</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">2888 points</div>
+                <button class="redeemBtn" data-id="reward_007" data-name="Free Site Tour for 1 @ Ento Industries" data-cost="2888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 8 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1506973035872-a4f23b5e2534?auto=format&fit=crop&w=1400&q=80" alt="Free Mr Bean Coupon Booklet (Worth $30)">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">Free Mr Bean Coupon Booklet (Worth $30)</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">2888 points</div>
+                <button class="redeemBtn" data-id="reward_008" data-name="Free Mr Bean Coupon Booklet (Worth $30)" data-cost="2888">Redeem</button>
+              </div>
+            </article>
+
+            <!-- Card 9 -->
+            <article class="rewardCard">
+              <div class="rewardMedia">
+                <img src="https://images.unsplash.com/photo-1580281780460-82d277b0e3f8?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
+              </div>
+              <div class="rewardInfo">
+                <h3 class="rewardTitle">Free Health Screening Package</h3>
+                <p class="rewardSubtitle">terms and conditions apply</p>
+                <div class="rewardPoints">8888 points</div>
+                <button class="redeemBtn" data-id="reward_009" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </main>
+    </section>
   </div>
 
-  <!-- ================= TAB: OVERVIEW ================= -->
-  <section id="tab-overview" class="tabPanel show">
-
-    <!-- ✅ Logged-in only -->
-    <div id="loggedInOnly">
-      <section class="pointsHero" aria-label="Current points banner">
-        <div class="container">
-          <div class="pointsHero-inner">
-            <div class="pointsLeft">
-              <small>Current Points:</small>
-              <div class="pointsValue" id="pointsValue">—</div>
-              <button class="heroBtn" type="button" onclick="openRedeemTab()">Redeem Your Points Now</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="container">
-        <div class="sectionTitle"><h2>Points History</h2></div>
-        <div class="historyWrap">
-          <div class="card historyCard">
-            <div class="historyItem">
-              <div class="historyLeft">
-                <h4>Pop-up Events</h4>
-                <p>Workshop: Make it Siew Dai<br>2026 - 01 - 12 &nbsp;&nbsp; 12:00</p>
-              </div>
-              <div class="historyPts">+30 pts</div>
-            </div>
-
-            <div class="historyItem">
-              <div class="historyLeft">
-                <h4>Online Course</h4>
-                <p>Workshop: Proper handling of wheelchairs<br>2026 - 01 - 02 &nbsp;&nbsp; 12:00</p>
-              </div>
-              <div class="historyPts">+10 pts</div>
-            </div>
-
-            <div class="historyItem">
-              <div class="historyLeft">
-                <h4>Pop-up Event</h4>
-                <p>Challenge: Walking Foodpedia<br>2025 - 12 - 20 &nbsp;&nbsp; 12:00</p>
-              </div>
-              <div class="historyPts">+10 pts</div>
-            </div>
-
-            <a class="viewMore" href="#" onclick="event.preventDefault();">view more</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ✅ Logged-out only -->
-    <div id="loggedOutOnly" style="display:none;">
-      <div class="container">
-        <div class="guestWrap">
-          <div class="card guestCard">
-            <div>
-              <h3>Sign in to view points</h3>
-              <p>You can still view the leaderboard without signing in.</p>
-            </div>
-            <a class="btn btn-primary" href="login.html">Sign in</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ✅ Leaderboard ALWAYS visible -->
-    <div class="container">
-      <div class="sectionTitle"><h2>Leaderboard</h2></div>
-      <div class="leaderMeta">Updated as of: 2026 - 01 - 15 &nbsp; 12:37</div>
-
-      <div class="leaderGrid">
-        <div class="card leaderCard">
-          <h3>🇸🇬 &nbsp;Singapore</h3>
-          <ul class="leaderList">
-            <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> pratwala</li>
-            <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> cheeseprata</li>
-            <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> thosai3999</li>
-            <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> aladinins</li>
-            <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> yanrenzhong</li>
-          </ul>
-        </div>
-
-        <div class="card leaderCard">
-          <h3>🏁 &nbsp;Friends</h3>
-          <ul class="leaderList">
-            <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> hupseng</li>
-            <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> thonguan</li>
-            <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> iueming</li>
-            <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> johnsonsuit</li>
-            <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> swisschoco</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ================= TAB: REDEEM ================= -->
-  <section id="tab-redeem" class="tabPanel">
-    <main id="catalogue">
-      <div class="container">
-        <div class="catalogueHead"><h2>Catalogue</h2></div>
-
-        <div class="catalogueGrid">
-          <!-- Card 1 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$10 Fairprice Cash Voucher">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">$10 Fairprice Cash Voucher</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">2888 points</div>
-              <button class="redeemBtn" data-id="reward_001" data-name="$10 Fairprice Cash Voucher" data-cost="2888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1580281657527-47f249e8f0b3?auto=format&fit=crop&w=1400&q=80" alt="$20 Fairprice Cash Voucher">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">$20 Fairprice Cash Voucher</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">3888 points</div>
-              <button class="redeemBtn" data-id="reward_002" data-name="$20 Fairprice Cash Voucher" data-cost="3888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1400&q=80" alt="$2 Luckin Coffee Credit">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">$2 Luckin Coffee Credit</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">1488 points</div>
-              <button class="redeemBtn" data-id="reward_003" data-name="$2 Luckin Coffee Credit" data-cost="1488">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 4 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1400&q=80" alt="Shopee Free Shipping Voucher">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">Shopee Free Shipping Voucher</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">8888 points</div>
-              <button class="redeemBtn" data-id="reward_004" data-name="Shopee Free Shipping Voucher" data-cost="8888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 5 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1400&q=80" alt="RedMart Free Shipping Voucher">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">RedMart Free Shipping Voucher</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">888 points</div>
-              <button class="redeemBtn" data-id="reward_005" data-name="RedMart Free Shipping Voucher" data-cost="888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 6 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80" alt="$2.99 Luckin Coffee Exchange Coupon">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">$2.99 Luckin Coffee Exchange Coupon</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">2188 points</div>
-              <button class="redeemBtn" data-id="reward_006" data-name="$2.99 Luckin Coffee Exchange Coupon" data-cost="2188">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 7 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Free Site Tour for 1 @ Ento Industries">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">Free Site Tour for 1 @ Ento Industries</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">2888 points</div>
-              <button class="redeemBtn" data-id="reward_007" data-name="Free Site Tour for 1 @ Ento Industries" data-cost="2888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 8 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1506973035872-a4f23b5e2534?auto=format&fit=crop&w=1400&q=80" alt="Free Mr Bean Coupon Booklet (Worth $30)">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">Free Mr Bean Coupon Booklet (Worth $30)</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">2888 points</div>
-              <button class="redeemBtn" data-id="reward_008" data-name="Free Mr Bean Coupon Booklet (Worth $30)" data-cost="2888">Redeem</button>
-            </div>
-          </article>
-
-          <!-- Card 9 -->
-          <article class="rewardCard">
-            <div class="rewardMedia">
-              <img src="https://images.unsplash.com/photo-1580281780460-82d277b0e3f8?auto=format&fit=crop&w=1400&q=80" alt="Free Health Screening Package">
-            </div>
-            <div class="rewardInfo">
-              <h3 class="rewardTitle">Free Health Screening Package</h3>
-              <p class="rewardSubtitle">terms and conditions apply</p>
-              <div class="rewardPoints">8888 points</div>
-              <button class="redeemBtn" data-id="reward_009" data-name="Free Health Screening Package" data-cost="8888">Redeem</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </main>
-  </section>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;">
+              <img class="footerlogo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+            </div>
+            <span class="footer__brandName">Project Thrive</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="#top">Help Center</a>
+          <a href="#top">Contact Us</a>
+          <a href="#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> Project Thrive</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="pt-firebase.js"></script>
 
   <script>
+    // footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     // ===== toast =====
     const toastEl = document.getElementById("toast");
     function showToast(msg){
@@ -861,7 +1023,7 @@ FILE: rewardsPage.html (UPDATED)
       PT.applyNavAuthUI({
         signInId: "navSignIn",
         logoutId: "navLogout",
-        showWhenLoggedInIds: [], // ✅ updated: removed navViewRewards + navRedeem
+        showWhenLoggedInIds: [],
         logoutRedirect: "login.html"
       });
 

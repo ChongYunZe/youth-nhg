@@ -61,9 +61,6 @@
       overflow:hidden;
       display:grid;
       place-items:center;
-      /* background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary)); */
-      /* box-shadow: 0 10px 26px rgba(45,99,255,.20); */
-      /* border: 1px solid rgba(45,99,255,.18); */
     }
     .logoWrap img{
       width:100%;
@@ -191,6 +188,19 @@
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
+    /* ✅ Secondary button style for "Continue without account" */
+    .btn-secondary{
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      filter: none;
+      background: #f8fafc;
+    }
+
     .muted{
       margin: 12px 0 0;
       font-size: 12px;
@@ -255,6 +265,11 @@
 
       <button class="btn" id="primaryBtn" type="button">Login</button>
 
+      <!-- ✅ NEW: Continue without account -->
+      <button class="btn btn-secondary" id="continueBtn" type="button">
+        Continue as Guest
+      </button>
+
       <!-- <p class="muted">Demo login using open Firebase rules.</p> -->
     </div>
   </div>
@@ -274,6 +289,7 @@
     const pageTitle = document.getElementById("pageTitle");
     const subtitle  = document.getElementById("subtitle");
     const primaryBtn = document.getElementById("primaryBtn");
+    const continueBtn = document.getElementById("continueBtn");
 
     let mode = "login"; // login | signup
 
@@ -301,6 +317,9 @@
       signupOnly.classList.toggle("hide", isLogin);
       primaryBtn.textContent = isLogin ? "Login" : "Create account";
 
+      // ✅ Continue button should always be available
+      continueBtn.style.display = "block";
+
       clearErr();
     }
 
@@ -309,7 +328,7 @@
 
     // If already logged in, go rewards
     if (PT.isLoggedIn()){
-      window.location.href = "rewardsPage.html";
+      window.location.href = "index.html";
     }
 
     primaryBtn.addEventListener("click", async () => {
@@ -327,10 +346,16 @@
             password: passEl.value
           });
         }
-        window.location.href = "rewardsPage.html";
+        window.location.href = "index.html";
       }catch(e){
         showErr(e.message || String(e));
       }
+    });
+
+    // ✅ Continue without account
+    continueBtn.addEventListener("click", () => {
+      // Send users to your homepage (change if you want another page)
+      window.location.href = "index.html";
     });
 
     setMode("login");
