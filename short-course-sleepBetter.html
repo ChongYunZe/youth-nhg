@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sleep Better (7 mins) – Short Course</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --container: 1120px;
+    }
+    *{ box-sizing:border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#fff;
+      color:#0f172a;
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    a{ color:inherit; text-decoration:none; }
+    button, input, textarea{ font-family: inherit; }
+    .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
+    main{ flex:1; }
+
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px; }
+    .logo{
+      width:44px;height:44px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+      overflow:hidden;
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .nav{ display:flex; gap:18px; align-items:center; color: rgba(255,255,255,.72); font-weight:600; font-size:14px; }
+    .nav a{ padding:10px 10px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+    .actions{ display:flex; gap:10px; align-items:center; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:800;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff; box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 42px 0; }
+    .heroTop{ display:flex; align-items:flex-end; justify-content:space-between; gap: 14px; flex-wrap:wrap; }
+    .pageHero h1{ margin:0 0 8px; font-size: clamp(24px, 3vw, 40px); letter-spacing:-.8px; }
+    .pageHero p{ margin:0; color: rgba(255,255,255,.88); font-weight:650; line-height:1.7; max-width: 80ch; }
+    .heroPills{ display:flex; gap:10px; flex-wrap:wrap; }
+    .heroPill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      font-weight:900;
+      font-size: 12px;
+      color:#fff;
+      white-space: nowrap;
+    }
+
+    section{ padding: 24px 0; }
+    .layout{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px; align-items:start; }
+
+    .panel{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      padding: 16px;
+    }
+    .panel h2{ margin:0 0 10px; font-size: 16px; letter-spacing:-.2px; }
+    .sub{ margin:0 0 12px; color:#475569; font-size: 13px; line-height:1.55; font-weight:650; }
+    .divider{ height:1px; background:#e6eaf2; margin: 14px 0; }
+
+    .kTakeaway{
+      border:1px solid rgba(45,99,255,.22);
+      background: rgba(45,99,255,.06);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight:750;
+      line-height: 1.55;
+      color:#0f172a;
+    }
+
+    .lessonCard{
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      padding: 12px;
+      background:#fff;
+      margin-bottom: 10px;
+    }
+    .lessonCard h3{
+      margin:0 0 8px;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing:-.2px;
+      color:#0f172a;
+    }
+    .lessonCard p{
+      margin:0;
+      color:#475569;
+      font-size: 13px;
+      font-weight:650;
+      line-height:1.55;
+    }
+    .miniGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top:10px;
+    }
+    .miniBox{
+      border:1px solid #e6eaf2;
+      border-radius: 14px;
+      padding: 10px;
+      background:#f8fafc;
+    }
+    .miniLabel{
+      font-weight:950;
+      font-size: 12px;
+      color:#334155;
+      margin-bottom: 6px;
+    }
+    .miniText{
+      font-size: 13px;
+      font-weight:700;
+      color:#0f172a;
+      line-height:1.45;
+    }
+
+    .progressBox{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom: 10px; }
+    .bar{ flex:1; height: 10px; border-radius: 999px; background:#eef2ff; border:1px solid #e6eaf2; overflow:hidden; }
+    .bar > span{ display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--primary), var(--primary2)); }
+    .pct{ font-weight:950; font-size: 12px; color:#334155; min-width: 42px; text-align:right; }
+
+    .checkList{
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .checkRow{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 8px 6px;
+      border-radius: 12px;
+    }
+    .checkRow:hover{ background:#f8fafc; }
+    .checkRow input{ margin-top:2px; }
+    .checkRow span{
+      font-size: 13px;
+      font-weight:650;
+      color:#475569;
+      line-height: 1.5;
+    }
+    .hint{
+      margin-top:8px;
+      color:#64748b;
+      font-weight:750;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    textarea{
+      width:100%;
+      min-height: 92px;
+      border:1px solid #e6eaf2;
+      border-radius: 14px;
+      padding: 10px;
+      font-size: 13px;
+      font-weight:650;
+      resize: vertical;
+      outline:none;
+    }
+    textarea:focus{ border-color: rgba(45,99,255,.35); box-shadow: 0 0 0 4px rgba(45,99,255,.10); }
+
+    .primaryAction{
+      width:100%;
+      border:0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      color:#fff;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow: 0 14px 36px rgba(45,99,255,.22);
+    }
+    .primaryAction:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
+
+    .toast{
+      margin-top: 10px;
+      display:none;
+      border:1px solid rgba(94,228,165,.35);
+      background: rgba(94,228,165,.14);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight:800;
+      font-size: 13px;
+      color:#0f172a;
+    }
+    .toast.show{ display:block; }
+
+    .sideCard{
+      border:1px solid #e6eaf2;
+      background:#fff;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      padding: 16px;
+      position: sticky;
+      top: 84px;
+    }
+    .sideTitle{ margin:0 0 8px; font-weight:950; font-size: 14px; letter-spacing:-.2px; }
+    .sideText{ margin:0; color:#475569; font-weight:650; font-size: 13px; line-height: 1.55; }
+    .badgeRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid #e6eaf2;
+      background:#f8fafc;
+      color:#334155;
+      font-weight:950;
+      font-size: 12px;
+    }
+
+    footer{ margin-top: 18px; background:#0b1220; color: rgba(255,255,255,.82); }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+      align-items:start;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{ margin:0; max-width:34ch; color: rgba(255,255,255,.58); font-size:12px; line-height:1.7; font-weight:600; }
+    .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
+    .footerCol a:not(.socialBtn){ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
+    .footerCol a:not(.socialBtn):hover{ color:#fff; }
+    .footer__social{ display:flex; gap:10px; align-items:center; }
+    .footerCol a.socialBtn{
+      width: 28px; height: 28px;
+      display:grid; place-items:center;
+      border-radius: 8px; border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04); color: rgba(255,255,255,.78);
+    }
+    .footerCol a.socialBtn svg{ display:block; width:14px; height:14px; }
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    /* Login gate */
+    .loginGate{
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(15,23,42,.55);
+      backdrop-filter: blur(6px);
+      display:none; align-items:center; justify-content:center;
+      padding: 22px;
+    }
+    .loginGate.show{ display:flex; }
+    .gateCard{
+      width: min(540px, 100%);
+      background:#fff;
+      border:1px solid #e6eaf2;
+      border-radius: 18px;
+      box-shadow: 0 30px 90px rgba(15,23,42,.35);
+      padding: 18px;
+    }
+    .gateTitle{ font-weight:950; font-size:18px; margin:0; color:#0f172a; letter-spacing:-.3px; }
+    .gateText{ margin:6px 0 0; color:#475569; font-weight:650; font-size:13px; line-height:1.55; }
+    .gateActions{ display:flex; gap:10px; justify-content:flex-end; margin-top:14px; flex-wrap:wrap; }
+    .gateBtnPrimary{
+      text-decoration:none;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      color:#fff;
+      font-weight:900;
+      font-size:13px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 14px 36px rgba(45,99,255,.28);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .gateBtnGhost{
+      text-decoration:none;
+      border: 1px solid #e6eaf2;
+      background:#fff;
+      color:#334155;
+      font-weight:900;
+      font-size:13px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .layout{ grid-template-columns: 1fr; }
+      .sideCard{ position: static; top:auto; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+      .miniGrid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"><img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/></div>
+          <span>Project Thrive</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="short-courses.html">Back</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="pageHero">
+    <div class="container">
+      <div class="heroTop">
+        <div>
+          <h1>Sleep Better</h1>
+          <p>Small sleep hygiene habits that help even during exam periods and late nights.</p>
+        </div>
+        <div class="heroPills">
+          <span class="heroPill">⏱ 7 mins</span>
+          <span class="heroPill">⭐⭐ Level 2</span>
+          <span class="heroPill">😴 Sleep</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="layout">
+          <div class="panel">
+            <div class="progressBox">
+              <div class="bar"><span id="barFill"></span></div>
+              <div class="pct" id="pctText">0%</div>
+            </div>
+
+            <h2>Key takeaway</h2>
+            <p class="sub">Better sleep usually comes from protecting a few “sleep signals” consistently.</p>
+            <div class="kTakeaway">
+              <strong>Pick 2 changes only:</strong> consistency + lower stimulation near bedtime.
+              Small changes win long term.
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>Micro lesson (2–3 mins)</h2>
+            <p class="sub">This explains what actually helps your body fall asleep.</p>
+
+            <div class="lessonCard">
+              <h3>1) Your brain learns patterns (“sleep signals”)</h3>
+              <p>
+                Sleep is easier when your body gets the same signals each night.
+                Signals can be: <b>dim lights</b>, <b>calm routine</b>, and <b>similar wake-up time</b>.
+              </p>
+            </div>
+
+            <div class="lessonCard">
+              <h3>2) Stimulation keeps you “awake-mode”</h3>
+              <p>
+                Intense scrolling, games, and bright screens can keep your brain alert.
+                You don’t need to be perfect — switching to <b>calmer content</b> is already a win.
+              </p>
+
+              <div class="miniGrid">
+                <div class="miniBox">
+                  <div class="miniLabel">❌ High stimulation</div>
+                  <div class="miniText">Fast videos, competitive games, heated chats</div>
+                </div>
+                <div class="miniBox">
+                  <div class="miniLabel">✅ Low stimulation</div>
+                  <div class="miniText">Music, light reading, journaling, stretching</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lessonCard">
+              <h3>3) The biggest hack: wake time consistency</h3>
+              <p>
+                If you want one lever: wake up around the <b>same time</b> most days.
+                Big swings make it harder to feel sleepy at night.
+              </p>
+            </div>
+
+            <div class="lessonCard">
+              <h3>Myth check</h3>
+              <p>
+                <b>Myth:</b> “I must sleep early or I failed.”<br/>
+                <b>Better:</b> Make tonight slightly calmer + protect tomorrow’s wake time.
+              </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>Pick your “Tonight Plan” (2 mins)</h2>
+            <p class="sub">Check what you can realistically do today. Aim for <b>2 choices</b>.</p>
+
+            <div class="checkList" id="checks">
+              <label class="checkRow">
+                <input type="checkbox" value="screen">
+                <span><b>Switch to calm mode</b> 20 mins before bed (stop intense scrolling/gaming, or change to calmer content)</span>
+              </label>
+              <label class="checkRow">
+                <input type="checkbox" value="light">
+                <span><b>Dim lights / lower brightness</b> in the last 30 mins</span>
+              </label>
+              <label class="checkRow">
+                <input type="checkbox" value="room">
+                <span><b>Make your bed area comfy</b> (cooler, tidy, or simple routine like wash-up)</span>
+              </label>
+              <label class="checkRow">
+                <input type="checkbox" value="alarm">
+                <span><b>Set a realistic wake-up time</b> (avoid huge swings)</span>
+              </label>
+
+              <div class="hint">
+                Tip: If exams make you sleep late, keep the plan simple: calmer last 20 mins + consistent wake time.
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>Quick quiz (30s)</h2>
+            <p class="sub">Which is most helpful for sleep consistency?</p>
+            <div class="checkList">
+              <label class="checkRow"><input type="radio" name="q1" value="a"><span>Sleeping at totally different times every day</span></label>
+              <label class="checkRow"><input type="radio" name="q1" value="b"><span>Waking up around the same time most days</span></label>
+              <label class="checkRow"><input type="radio" name="q1" value="c"><span>Only sleeping more on weekends</span></label>
+            </div>
+
+            <h2>Reflection (30s)</h2>
+            <p class="sub">What 1 change will you try tonight — and what might block you?</p>
+            <textarea id="reflection" placeholder="e.g., Dim lights earlier. Blocker: phone. Fix: charge phone away from bed."></textarea>
+
+            <div class="divider"></div>
+
+            <button class="primaryAction" id="completeBtn" type="button" disabled>Complete course</button>
+            <div class="toast" id="toast">✅ Completed! You’re ready to try quizzes + streaks next.</div>
+          </div>
+
+          <aside class="sideCard">
+            <h3 class="sideTitle">Sleep signals</h3>
+            <p class="sideText">
+              Your brain learns patterns. Repeating a small routine makes it easier to fall asleep.
+            </p>
+
+            <div class="badgeRow">
+              <span class="badge">🏷 Skill: Sleep</span>
+              <span class="badge">📌 Habit: Wind-down</span>
+              <span class="badge">🎖 Badge: Level 2</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 class="sideTitle">Best 2 picks (if you’re busy)</h3>
+            <p class="sideText">
+              1) Calm mode 20 mins before bed<br/>
+              2) Wake time around the same time
+            </p>
+
+            <div class="divider"></div>
+
+            <h3 class="sideTitle">What’s next?</h3>
+            <p class="sideText">Try <b>Quizzes & Challenges</b> to track progress and build streaks.</p>
+
+            <a href="quizzes.html" style="display:inline-flex;justify-content:center;width:100%;margin-top:12px;border:1px solid #e6eaf2;border-radius:14px;padding:12px 14px;background:#fff;color:#334155;font-weight:950;text-decoration:none;">
+              Go to quizzes →
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px; overflow:hidden;">
+              <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+            </div>
+            <span class="footer__brandName">Project Thrive</span>
+          </div>
+          <p class="footer__desc">Empowering Singapore’s youth through innovative health programmes and community engagement.</p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> NHG Youth</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login gate -->
+  <div class="loginGate" id="loginGate" aria-hidden="true">
+    <div class="gateCard" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+      <div>
+        <h3 class="gateTitle" id="gateTitle">Sign in to view content</h3>
+        <p class="gateText">Create an account to access lessons, quizzes, and track your progress.</p>
+      </div>
+      <div class="gateActions">
+        <a class="gateBtnGhost" href="short-courses.html">Back to courses</a>
+        <a class="gateBtnPrimary" id="gateSignIn" href="login.html">Sign in →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="pt-firebase.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Gate
+    (function(){
+      const loggedIn = (window.PT && PT.isLoggedIn && PT.isLoggedIn());
+      if (loggedIn) return;
+      const gate = document.getElementById("loginGate");
+      const signInBtn = document.getElementById("gateSignIn");
+      try { localStorage.setItem("nhg_after_login_redirect", window.location.href); } catch(_){}
+      gate.classList.add("show");
+      gate.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+      signInBtn?.addEventListener("click", () => {
+        try { localStorage.setItem("nhg_after_login_redirect", window.location.href); } catch(_){}
+      });
+    })();
+
+    // Progress (demo)
+    const STORAGE_KEY = "course_sleep_better_v2";
+    const barFill = document.getElementById("barFill");
+    const pctText = document.getElementById("pctText");
+    const completeBtn = document.getElementById("completeBtn");
+    const toast = document.getElementById("toast");
+    const checks = document.getElementById("checks");
+    const reflection = document.getElementById("reflection");
+
+    function getState(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}"); }catch(e){ return {}; } }
+    function setState(s){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }catch(e){} }
+
+    function calcPct(s){
+      const checkedCount = (s.checked && Array.isArray(s.checked)) ? s.checked.length : 0;
+      // Encourage "pick 2": first 2 checks worth more, extras less
+      let checklist = 0;
+      if(checkedCount >= 1) checklist += 20;
+      if(checkedCount >= 2) checklist += 20;
+      if(checkedCount >= 3) checklist += 5;
+      if(checkedCount >= 4) checklist += 5;
+
+      const quiz = s.quiz ? 25 : 0;
+      const refl = (s.reflection && s.reflection.trim().length >= 3) ? 25 : 0;
+      return Math.round(checklist + quiz + refl); // max 100
+    }
+
+    function render(){
+      const s = getState();
+
+      // restore checks
+      checks.querySelectorAll("input[type='checkbox']").forEach(cb => {
+        cb.checked = (s.checked || []).includes(cb.value);
+      });
+
+      // restore reflection (avoid overwriting while typing)
+      if(s.reflection && reflection.value !== s.reflection) reflection.value = s.reflection;
+
+      const pct = calcPct(s);
+      barFill.style.width = pct + "%";
+      pctText.textContent = pct + "%";
+      completeBtn.disabled = !(pct >= 90);
+
+      if(s.completed){
+        completeBtn.textContent = "Completed ✅";
+        completeBtn.disabled = true;
+        toast.classList.add("show");
+      }
+    }
+
+    checks.addEventListener("change", () => {
+      const s = getState();
+      const arr = [];
+      checks.querySelectorAll("input[type='checkbox']").forEach(cb => { if(cb.checked) arr.push(cb.value); });
+      s.checked = arr;
+      setState(s);
+      render();
+    });
+
+    document.querySelectorAll("input[name='q1']").forEach(r => {
+      r.addEventListener("change", () => {
+        const s = getState();
+        s.quiz = (r.value === "b"); // correct
+        setState(s);
+        render();
+      });
+    });
+
+    reflection.addEventListener("input", () => {
+      const s = getState();
+      s.reflection = reflection.value;
+      setState(s);
+      render();
+    });
+
+    completeBtn.addEventListener("click", () => {
+      const s = getState();
+      s.completed = true;
+      setState(s);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
