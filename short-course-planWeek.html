@@ -766,11 +766,50 @@
       });
     });
 
-    completeBtn.addEventListener("click", () => {
+    // completeBtn.addEventListener("click", () => {
+    //   const s = getState();
+    //   s.completed = true;
+    //   setState(s);
+    //   render();
+    // });
+
+    const COURSE_ID = "plan_week_v1";
+    const COURSE_NAME = "Plan Your Week";
+    const COURSE_POINTS = 25; // change this if you want
+
+    completeBtn.addEventListener("click", async () => {
       const s = getState();
+      if(s.completed) return;
+
+      // mark completed locally first (so UI updates even if network is slow)
       s.completed = true;
+      s.completedAt = Date.now();
       setState(s);
       render();
+
+      try{
+        // ensure user exists in DB
+        if(window.PT && PT.ensureUser) await PT.ensureUser();
+
+        // award points once only
+        const res = await PT.awardCourseOnce({
+          courseId: COURSE_ID,
+          courseName: COURSE_NAME,
+          points: COURSE_POINTS
+        });
+
+        if(res.awarded){
+          toast.textContent = `🎉 Completed! You earned +${COURSE_POINTS} points. Total: ${res.total}`;
+        } else {
+          toast.textContent = `✅ Completed! (Points already awarded before) Total: ${res.total}`;
+        }
+
+        toast.classList.add("show");
+      }catch(err){
+        console.warn(err);
+        toast.textContent = "✅ Completed! (Could not update points in database.)";
+        toast.classList.add("show");
+      }
     });
 
     render();

@@ -195,6 +195,63 @@ Shared helper for:
     return safe;
   }
 
+    // Add points (safe-ish helper)
+  async function addPoints(delta, meta){
+    const key = getUserKey();
+    if(!key) throw new Error("Not logged in");
+
+    const add = Math.max(0, Math.floor(Number(delta) || 0));
+    if(add <= 0) return await getPoints();
+
+    // Read current points, then write back
+    // (Note: REST RTDB doesn't give true atomic transactions, but this is fine for your prototype)
+    const current = await getPoints();
+    const next = current + add;
+    await setPoints(next);
+
+    // Optional: log history
+    const logId = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    await dbPut(`users/${key}/pointsHistory/${logId}`, {
+      delta: add,
+      after: next,
+      meta: meta || {},
+      at: Date.now()
+    });
+
+    return next;
+  }
+
+  // Award course completion ONCE (prevents repeated points)
+  async function awardCourseOnce({ courseId, courseName, points }){
+    const key = getUserKey();
+    if(!key) throw new Error("Not logged in");
+
+    courseId = String(courseId || "").trim();
+    if(!courseId) throw new Error("Missing courseId");
+
+    const already = await dbGet(`users/${key}/coursesCompleted/${courseId}`);
+    if(already && already.completed) {
+      // already awarded
+      return { awarded: false, total: await getPoints() };
+    }
+
+    const total = await addPoints(points, {
+      source: "short_course",
+      courseId,
+      courseName: courseName || courseId
+    });
+
+    await dbPut(`users/${key}/coursesCompleted/${courseId}`, {
+      completed: true,
+      courseName: courseName || courseId,
+      points: Math.max(0, Math.floor(Number(points) || 0)),
+      completedAt: Date.now()
+    });
+
+    return { awarded: true, total };
+  }
+
+
   // =========================================================
   // Redeemed
   // Structure: users/<key>/rewardsRedeemed/<rewardId> = { cost, redeemedAt }
@@ -260,6 +317,8 @@ Shared helper for:
     // points
     getPoints,
     setPoints,
+    addPoints,
+    awardCourseOnce,
 
     // redeemed
     getRedeemed,

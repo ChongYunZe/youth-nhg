@@ -304,19 +304,6 @@
       white-space: nowrap;
     }
 
-    .infoBox{
-      margin-top: 14px;
-      border:1px solid #e6eaf2;
-      border-radius: var(--radius-xl);
-      background: #ffffff;
-      padding: 14px;
-      box-shadow: 0 12px 30px rgba(15,23,42,.08);
-      color:#475569;
-      font-weight:650;
-      font-size:13px;
-      line-height:1.65;
-    }
-
     .filters{
       display:flex;
       gap:10px;
@@ -341,7 +328,7 @@
       color: var(--primary);
     }
 
-    /* ===== NEW: Burnout Quiz Feature Section ===== */
+    /* ===== Burnout Quiz Feature Section ===== */
     .featureWrap{
       border: 1px solid #e6eaf2;
       border-radius: var(--radius-xl);
@@ -476,12 +463,13 @@
       font-size: 18px;
       line-height: 1;
     }
-    .charTip{
-      margin: 6px 0 0;
-      color:#475569;
-      font-weight: 700;
+
+    .miniSlogan{
+      margin-top: 10px;
+      color:#1d4ed8;
+      font-weight: 950;
       font-size: 12px;
-      line-height: 1.45;
+      letter-spacing: -.2px;
     }
 
     .previewBox{
@@ -538,12 +526,59 @@
       margin-top: 6px;
       flex: 0 0 auto;
     }
-    .miniSlogan{
-      margin-top: 10px;
-      color:#1d4ed8;
+
+    /* ✅ NEW: One clean action card (QR + buttons together) */
+    .actionCard{
+      margin-top: 14px;
+      border: 1px solid #e6eaf2;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      border-radius: 22px;
+      padding: 14px;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .actionQR{
+      width: 160px;
+      height: 160px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #e6eaf2;
+      padding: 10px;
+      display:grid;
+      place-items:center;
+    }
+
+    .actionQR img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+    }
+
+    .actionInfo strong{
+      display:block;
+      font-size: 15px;
       font-weight: 950;
-      font-size: 12px;
-      letter-spacing: -.2px;
+      color:#0f172a;
+      margin-bottom: 6px;
+    }
+
+    .actionInfo p{
+      margin: 0;
+      font-size: 13px;
+      font-weight: 750;
+      color:#475569;
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+
+    .actionInfo .ctaRow{
+      margin-top: 10px;
     }
 
     @media (max-width: 980px){
@@ -561,6 +596,18 @@
       .metaRow{ flex-wrap: wrap; justify-content:flex-start; }
       .howGrid{ grid-template-columns: 1fr; }
       .charGrid{ grid-template-columns: 1fr; }
+
+      /* ✅ Action card stacks and centers on mobile */
+      .actionCard{
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .actionQR{
+        margin: 0 auto;
+      }
+      .actionInfo .ctaRow{
+        justify-content: center;
+      }
     }
 
     /* Footer */
@@ -690,7 +737,7 @@
   </div>
 
   <main>
-    <!-- ✅ NEW FEATURED POP-UP ACTIVITY -->
+    <!-- Featured Pop-up Activity -->
     <section id="burnout-quiz">
       <div class="container">
         <div class="section-head">
@@ -704,7 +751,8 @@
 
         <div class="featureWrap">
           <div class="featureGrid">
-            <!-- Left: details -->
+
+            <!-- LEFT COLUMN -->
             <div>
               <div class="featureTitle">Collect & Learn 🎟️</div>
               <p class="featureDesc">
@@ -716,57 +764,49 @@
                 <div class="howStep"><div class="k">1</div><p>Scan the QR code at the pop-up</p></div>
                 <div class="howStep"><div class="k">2</div><p>Complete a 2–3 minute quiz</p></div>
                 <div class="howStep"><div class="k">3</div><p>Get matched with a burnout character</p></div>
-                <!-- <div class="howStep"><div class="k">4</div><p>Receive a short description + 1 coping tip</p></div> -->
                 <div class="howStep"><div class="k">4</div><p>Show your result screen & redeem a sticker</p></div>
               </div>
 
               <div class="miniNote">
-                <strong>How stickers work:</strong> each burnout character has one unique sticker. Collect different stickers across events to unlock bonus points or rewards.
+                <strong>How stickers work:</strong> each burnout character has one unique sticker.
+                Collect different stickers across events to unlock bonus points or rewards.
               </div>
 
-              <div class="charGrid" aria-label="Character cards">
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Zombie</p><span class="charEmoji">🧟‍♂️</span>
-                  </div>
-                  <!-- <p class="charTip">Take a 3-minute pause to reset.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Overthinker</p><span class="charEmoji">💭</span>
-                  </div>
-                  <!-- <p class="charTip">Write down one task and focus only on that.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Caffeine Addict</p><span class="charEmoji">☕</span>
-                  </div>
-                  <!-- <p class="charTip">Swap one coffee for water today.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Avoider</p><span class="charEmoji">⏱️</span>
-                  </div>
-                  <!-- <p class="charTip">Set a 10-minute timer and just start.</p> -->
-                </div>
+              <div class="charGrid">
+                <div class="charCard"><div class="charTop"><p class="charName">The Zombie</p><span class="charEmoji">🧟‍♂️</span></div></div>
+                <div class="charCard"><div class="charTop"><p class="charName">The Overthinker</p><span class="charEmoji">💭</span></div></div>
+                <div class="charCard"><div class="charTop"><p class="charName">The Caffeine Addict</p><span class="charEmoji">☕</span></div></div>
+                <div class="charCard"><div class="charTop"><p class="charName">The Avoider</p><span class="charEmoji">⏱️</span></div></div>
               </div>
-
               <div class="miniSlogan">Collect them. Earn points. Learn something useful.</div>
+              <!-- ✅ NEW: Cohesive QR + Buttons Card -->
+              <div class="actionCard">
+                <div class="actionQR">
+                  <img src="burnout-quiz-qr.jpg" alt="Scan QR to access burnout quiz">
+                </div>
 
-              <div class="ctaRow">
-                <!-- <button class="ctaBtn" type="button" onclick="scrollToPopups()">Find a pop-up near you</button> -->
+                <div class="actionInfo">
+                  <strong>Scan to Start the Quiz</strong>
+                  <p>Take the burnout quiz on your phone, then show your result to redeem your sticker on-site.</p>
 
-                <!-- 🔁 Replace this with your real quiz link (Opinion Stage etc.) -->
-                <a class="ctaBtn primary" href="https://opinionstage.com/page/96358dbd-54ce-4183-a078-4d6e055a1055" id="quizLink" target="_blank" rel="noopener">Take the Quiz</a>
+                  <div class="ctaRow">
+                    <a class="ctaBtn primary"
+                      href="https://opinionstage.com/page/96358dbd-54ce-4183-a078-4d6e055a1055"
+                      id="quizLink"
+                      target="_blank"
+                      rel="noopener">
+                      Take the Quiz
+                    </a>
 
-                <button class="ctaBtn" type="button" onclick="findPopUpNearMe()">Find a Pop-Up Near Me</button>
+                    <button class="ctaBtn" type="button" onclick="findPopUpNearMe()">
+                      Find a Pop-Up Near Me
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Right: sticker preview + rewards -->
+            <!-- RIGHT COLUMN -->
             <div>
               <div class="previewBox">
                 <div class="previewHead">
@@ -774,27 +814,18 @@
                   <span>Redeem on-site</span>
                 </div>
 
-                <!-- ✅ Put your image file in the same folder as this HTML and rename here if needed -->
                 <img class="previewImg" src="burnout-stickers.jpg" alt="Burnt-out character sticker previews">
 
-                <div class="rewardList" aria-label="Rewards">
+                <div class="rewardList">
                   <div class="rewardItem"><span class="dot"></span><span><strong>1 sticker</strong> → +10 points</span></div>
                   <div class="rewardItem"><span class="dot"></span><span><strong>3 different stickers</strong> → Digital certificate</span></div>
                   <div class="rewardItem"><span class="dot"></span><span><strong>All characters collected</strong> → Featured on leaderboard</span></div>
                 </div>
               </div>
-
-              <!-- <div class="infoBox" style="margin-top:12px;">
-                <strong style="color:#0f172a;">Staffing:</strong> Youth ambassadors stay nearby only if participants need help. Most of the activity is self-guided.
-              </div> -->
             </div>
+
           </div>
         </div>
-
-        <!-- <div class="infoBox" style="margin-top:14px;">
-          <strong style="color:#0f172a;">Tip for your QR:</strong>
-          Put the QR right next to the sticker display so the flow is clear: <strong>Scan → Quiz → Result → Sticker</strong>.
-        </div> -->
       </div>
     </section>
 
@@ -867,12 +898,6 @@
             </div>
           </article>
         </div>
-
-        <!-- <div class="infoBox">
-          <strong style="color:#0f172a;">Design note (for feasibility + engagement):</strong>
-          Keep pop-ups <strong>10–15 minutes</strong>, avoid “roadshow booth” vibes, and always end with a <strong>clear next step</strong>
-          (QR scan → points → “Try a quiz” / “Join a micro-webinar”). Pilot during real school/CC events to test space + time flow.
-        </div> -->
       </div>
     </section>
 
@@ -956,6 +981,20 @@
                 <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
               </svg>
             </a>
+            
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1002,33 +1041,96 @@
       });
     });
 
-    // Smooth scroll to pop-up list
-    function scrollToPopups(){
-      const el = document.getElementById("popupList");
-      if(el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
     // Find a pop-up near me (opens Google Maps search)
-    function findPopUpNearMe(){
-      const query = encodeURIComponent("Project Thrive pop-up event near me");
-      if(!navigator.geolocation){
-        window.open("https://www.google.com/maps/search/?api=1&query=" + query, "_blank");
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          const url = "https://www.google.com/maps/search/?api=1&query=" + query + "&query_place_id=&center=" + latitude + "," + longitude;
-          window.open(url, "_blank");
-        },
-        () => {
-          // Permission denied / error → fallback
-          window.open("https://www.google.com/maps/search/?api=1&query=" + query, "_blank");
-        },
-        { enableHighAccuracy:false, timeout:8000, maximumAge:600000 }
-      );
+    const POPUPS = [
+    {
+      name: "Stress Reset Station",
+      address: "Ngee Ann Polytechnic",
+      lat: 1.3328141357975107,   
+      lng: 103.77603613737548  
+    },
+    {
+      name: "Burnout Score Check",
+      address: "Bukit Panjang CC",
+      lat: 1.3768587678268496, 
+      lng: 103.77103106510542 
+    },
+    {
+      name: "Healthy Swap Challenge",
+      address: "Tampines Mall Atrium",
+      lat: 1.3526976931112802,  
+      lng: 103.94543494366461 
     }
+  ];
+
+  function toRad(deg){ return deg * Math.PI / 180; }
+
+  // Haversine distance in meters
+  function distanceMeters(lat1, lng1, lat2, lng2){
+    const R = 6371000;
+    const dLat = toRad(lat2 - lat1);
+    const dLng = toRad(lng2 - lng1);
+    const a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  }
+
+  function openDirectionsTo(lat, lng, label){
+    const destination = encodeURIComponent(label);
+    const url =
+      "https://www.google.com/maps/dir/?api=1" +
+      "&destination=" + destination +
+      "&destination_place_id=" +
+      "&travelmode=walking" +
+      "&destination=" + lat + "," + lng;
+    window.open(url, "_blank");
+  }
+
+  // ✅ Updated: finds nearest event based on GPS
+  function findPopUpNearMe(){
+    if (!navigator.geolocation){
+      alert("Geolocation is not supported on this device.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const userLat = pos.coords.latitude;
+        const userLng = pos.coords.longitude;
+
+        if (!POPUPS.length){
+          alert("No pop-up locations are set yet.");
+          return;
+        }
+
+        let best = POPUPS[0];
+        let bestDist = distanceMeters(userLat, userLng, best.lat, best.lng);
+
+        for (let i = 1; i < POPUPS.length; i++){
+          const p = POPUPS[i];
+          const d = distanceMeters(userLat, userLng, p.lat, p.lng);
+          if (d < bestDist){
+            bestDist = d;
+            best = p;
+          }
+        }
+
+        const label = `${best.name} (${best.address})`;
+        // Optional: quick confirmation
+        // alert(`Nearest pop-up: ${label} (~${Math.round(bestDist)}m away)`);
+
+        openDirectionsTo(best.lat, best.lng, label);
+      },
+      (err) => {
+        console.warn("Geolocation error:", err);
+        alert("Could not access your location. Please allow location permissions and try again.");
+      },
+      { enableHighAccuracy:true, timeout:10000, maximumAge:60000 }
+    );
+  }
 
     // Join modal (kept for consistency across pages)
     const joinModal = document.getElementById("joinModal");

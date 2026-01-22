@@ -717,7 +717,7 @@
             <div class="divider"></div>
 
             <button class="primaryAction" id="completeBtn" type="button" disabled>Complete course</button>
-            <div class="toast" id="toast">✅ Completed! Nice work — you can now go back and try the next course.</div>
+            <div class="toast" id="toast">Completed! Nice work — you can now go back and try the next course.</div>
           </div>
 
           <!-- Sidebar -->
@@ -823,6 +823,10 @@
   <script src="pt-firebase.js"></script>
 
   <script>
+    // Points config for this course
+    const COURSE_ID = "stress_reset_v1";
+    const COURSE_POINTS = 20;  
+
     // Mobile nav
     const hamburger = document.getElementById("hamburger");
     const mobileNav = document.getElementById("mobileNav");
@@ -851,7 +855,7 @@
       });
     })();
 
-    // ✅ Progress logic (client-side demo)
+    // Progress logic (client-side demo)
     const STORAGE_KEY = "course_stress_reset_v1";
     const barFill = document.getElementById("barFill");
     const pctText = document.getElementById("pctText");
@@ -879,7 +883,7 @@
       completeBtn.disabled = !(pct >= 90);
 
       if(state.completed){
-        completeBtn.textContent = "Completed ✅";
+        completeBtn.textContent = "Completed";
         completeBtn.disabled = true;
         toast.classList.add("show");
       }
@@ -891,7 +895,7 @@
         const state = getState();
         state["step"+n] = true;
         setState(state);
-        btn.textContent = "Done ✅";
+        btn.textContent = "Done";
         btn.disabled = true;
         render();
       });
@@ -914,14 +918,62 @@
       render();
     });
 
-    completeBtn.addEventListener("click", () => {
-      const state = getState();
-      state.completed = true;
-      setState(state);
-      render();
-    });
+    // Simple points system (local demo version)
+    function getPoints(){
+      try{ return parseInt(localStorage.getItem("nhg_points") || "0"); }
+      catch(e){ return 0; }
+    }
 
-    // ✅ Timer (uses the timer bar UI)
+    function setPoints(p){
+      try{ localStorage.setItem("nhg_points", String(p)); }
+      catch(e){}
+    }
+
+
+    // completeBtn.addEventListener("click", () => {
+    //   const state = getState();
+    //   state.completed = true;
+    //   setState(state);
+    //   render();
+    // });
+
+    completeBtn.addEventListener("click", async () => {
+    const state = getState();
+    if(state.completed) return;
+
+    state.completed = true;
+    state.completedAt = Date.now();
+    setState(state);
+
+    // Must be logged in already due to your login gate
+    try{
+      if(window.PT && PT.ensureUser) await PT.ensureUser();
+
+      const res = await PT.awardCourseOnce({
+        courseId: "stress_reset_v1",
+        courseName: "Stress Reset",
+        points: 20
+      });
+
+      render();
+
+      if(res.awarded){
+        toast.textContent = `🎉 Completed! You earned +20 points. Total: ${res.total}`;
+      }else{
+        toast.textContent = `✅ Completed! (Points already awarded before) Total: ${res.total}`;
+      }
+      toast.classList.add("show");
+    }catch(err){
+      console.warn(err);
+      render();
+      toast.textContent = "✅ Completed! (Could not update points in database.)";
+      toast.classList.add("show");
+    }
+  });
+
+
+
+    // Timer (uses the timer bar UI)
     const timerBadge = document.getElementById("timerBadge");
     const timerClock = document.getElementById("timerClock");
 

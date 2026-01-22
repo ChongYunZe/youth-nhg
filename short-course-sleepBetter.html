@@ -644,6 +644,11 @@
     const checks = document.getElementById("checks");
     const reflection = document.getElementById("reflection");
 
+    const COURSE_ID = "sleep_better_v1";
+    const COURSE_NAME = "Sleep Better";
+    const COURSE_POINTS = 30;   
+
+
     function getState(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}"); }catch(e){ return {}; } }
     function setState(s){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }catch(e){} }
 
@@ -709,12 +714,48 @@
       render();
     });
 
-    completeBtn.addEventListener("click", () => {
-      const s = getState();
-      s.completed = true;
-      setState(s);
-      render();
-    });
+    // completeBtn.addEventListener("click", () => {
+    //   const s = getState();
+    //   s.completed = true;
+    //   setState(s);
+    //   render();
+    // });
+
+    completeBtn.addEventListener("click", async () => {
+    const s = getState();
+    if(s.completed) return;
+
+    // mark completed locally first (UI updates immediately)
+    s.completed = true;
+    s.completedAt = Date.now();
+    setState(s);
+    render();
+
+    try{
+      // make sure user exists in DB
+      if(window.PT && PT.ensureUser) await PT.ensureUser();
+
+      // award points ONCE only
+      const res = await PT.awardCourseOnce({
+        courseId: COURSE_ID,
+        courseName: COURSE_NAME,
+        points: COURSE_POINTS
+      });
+
+      if(res.awarded){
+        toast.textContent = `🎉 Completed! You earned +${COURSE_POINTS} points. Total: ${res.total}`;
+      } else {
+        toast.textContent = `✅ Completed! (Points already awarded before) Total: ${res.total}`;
+      }
+
+      toast.classList.add("show");
+    }catch(err){
+      console.warn(err);
+      toast.textContent = "✅ Completed! (Could not update points in database.)";
+      toast.classList.add("show");
+    }
+  });
+
 
     render();
   </script>
