@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pop-up Events – NHG Youth</title>
+  <title>Workshops – NHG Youth</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* Same CSS as popup-events.html (kept identical for consistent UI) */
     :root{
       --border: rgba(255,255,255,.10);
       --shadow: 0 18px 50px rgba(0,0,0,.35);
@@ -44,7 +45,6 @@
       margin: 0 auto;
     }
 
-    /* Top bar */
     .topbar{
       position: sticky;
       top: 0;
@@ -77,17 +77,13 @@
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
       flex: 0 0 auto;
     }
-    .logo img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
+    .logo img{ width:100%; height:100%; object-fit: cover; display:block; }
     .footerlogo{
       width:34px;height:34px;border-radius:10px;
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
     }
+
     .nav{
       display:flex;
       gap:18px;
@@ -124,7 +120,6 @@
       border-color: rgba(255,255,255,.0);
       box-shadow: 0 14px 36px rgba(45,99,255,.35);
     }
-    .btn-primary:hover{ background: linear-gradient(90deg, #2A5BFF, #4F82FF); }
 
     .hamburger{
       display:none;
@@ -149,7 +144,6 @@
     .mobile-nav a:hover{ color:#fff; }
     .mobile-nav.show{ display:block; }
 
-    /* Page hero */
     .pageHero{
       background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
       color:#fff;
@@ -171,7 +165,6 @@
       font-weight: 600;
     }
 
-    /* Events sub-tabs */
     .eventsTabs{
       margin-top: 14px;
       display:flex;
@@ -222,7 +215,6 @@
       max-width: 72ch;
     }
 
-    /* Cards grid */
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -276,33 +268,22 @@
       font-weight: 800;
       font-size: 12px;
     }
-    .timePill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(45,99,255,.20);
-      background: rgba(45,99,255,.06);
-      color: #1d4ed8;
-      font-weight: 900;
-      font-size: 12px;
-      white-space: nowrap;
-    }
 
-    .locationPill{
+    .linkBtn{
+      border: 1px solid rgba(45,99,255,.25);
+      background: rgba(45,99,255,.06);
+      color: var(--primary);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
       display:inline-flex;
       align-items:center;
       gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid #e6eaf2;
-      background: #ffffff;
-      color: rgba(15,23,42,.78);
-      font-weight: 900;
-      font-size: 12px;
-      white-space: nowrap;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
+    .linkBtn:hover{ transform: translateY(-1px); background: rgba(45,99,255,.10); border-color: rgba(45,99,255,.32); }
 
     .infoBox{
       margin-top: 14px;
@@ -317,253 +298,6 @@
       line-height:1.65;
     }
 
-    .filters{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:flex-end;
-      flex-wrap: wrap;
-      margin: 10px 0 0;
-    }
-    .chip{
-      border:1px solid #e6eaf2;
-      background: #fff;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 12px;
-      color: rgba(15,23,42,.72);
-      cursor:pointer;
-    }
-    .chip.active{
-      border-color: rgba(45,99,255,.25);
-      background: rgba(45,99,255,.06);
-      color: var(--primary);
-    }
-
-    /* ===== NEW: Burnout Quiz Feature Section ===== */
-    .featureWrap{
-      border: 1px solid #e6eaf2;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(45,99,255,.06), rgba(45,99,255,.02));
-      box-shadow: 0 12px 30px rgba(15,23,42,.08);
-      padding: 16px;
-    }
-    .featureGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 14px;
-      align-items:start;
-    }
-    .featureTitle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:0 0 6px;
-      font-size: 18px;
-      letter-spacing: -.3px;
-      color:#0f172a;
-      font-weight: 900;
-    }
-    .featureDesc{
-      margin:0 0 12px;
-      color:#475569;
-      font-weight: 650;
-      font-size: 13px;
-      line-height: 1.65;
-      max-width: 76ch;
-    }
-
-    .howGrid{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .howStep{
-      border: 1px solid #e6eaf2;
-      background: #fff;
-      border-radius: 16px;
-      padding: 10px;
-      min-height: 92px;
-      box-shadow: 0 8px 18px rgba(15,23,42,.06);
-    }
-    .howStep .k{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: 26px;
-      height: 26px;
-      border-radius: 10px;
-      background: rgba(45,99,255,.10);
-      color: var(--primary);
-      font-weight: 900;
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-    .howStep p{
-      margin:0;
-      color:#475569;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .miniNote{
-      margin-top: 10px;
-      color:#64748b;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .ctaRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-    }
-    .ctaBtn{
-      border: 1px solid rgba(45,99,255,.25);
-      background: rgba(45,99,255,.06);
-      color: var(--primary);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 13px;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      white-space: nowrap;
-    }
-    .ctaBtn:hover{ transform: translateY(-1px); background: rgba(45,99,255,.10); border-color: rgba(45,99,255,.32); }
-    .ctaBtn.primary{
-      background: linear-gradient(90deg, var(--primary), var(--primary2));
-      border-color: transparent;
-      color:#fff;
-      box-shadow: 0 14px 36px rgba(45,99,255,.28);
-    }
-
-    .charGrid{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .charCard{
-      border: 1px solid #e6eaf2;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow: 0 8px 18px rgba(15,23,42,.06);
-    }
-    .charTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .charName{
-      margin:0;
-      font-weight: 950;
-      letter-spacing: -.2px;
-      font-size: 13px;
-      color:#0f172a;
-    }
-    .charEmoji{
-      font-size: 18px;
-      line-height: 1;
-    }
-    .charTip{
-      margin: 6px 0 0;
-      color:#475569;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .previewBox{
-      border:1px solid #e6eaf2;
-      background:#fff;
-      border-radius: var(--radius-xl);
-      overflow:hidden;
-      box-shadow: 0 10px 26px rgba(15,23,42,.08);
-    }
-    .previewHead{
-      padding: 12px 12px 10px;
-      border-bottom:1px solid #e6eaf2;
-      background:#f8fafc;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .previewHead strong{
-      font-size: 13px;
-      letter-spacing: -.2px;
-      color:#0f172a;
-    }
-    .previewHead span{
-      font-size: 12px;
-      font-weight: 800;
-      color:#64748b;
-    }
-    .previewImg{
-      display:block;
-      width: 100%;
-      height: auto;
-      background:#fff;
-    }
-    .rewardList{
-      padding: 12px;
-      display:grid;
-      gap: 8px;
-    }
-    .rewardItem{
-      display:flex;
-      align-items:flex-start;
-      gap: 10px;
-      color:#475569;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-    .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(45,99,255,.45);
-      margin-top: 6px;
-      flex: 0 0 auto;
-    }
-    .miniSlogan{
-      margin-top: 10px;
-      color:#1d4ed8;
-      font-weight: 950;
-      font-size: 12px;
-      letter-spacing: -.2px;
-    }
-
-    @media (max-width: 980px){
-      .grid-3{ grid-template-columns: 1fr; }
-      .nav{ display:none; }
-      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
-      .footer__inner{ grid-template-columns: 1fr 1fr; }
-
-      .featureGrid{ grid-template-columns: 1fr; }
-      .howGrid{ grid-template-columns: 1fr 1fr; }
-      .charGrid{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 520px){
-      .footer__inner{ grid-template-columns: 1fr; }
-      .metaRow{ flex-wrap: wrap; justify-content:flex-start; }
-      .howGrid{ grid-template-columns: 1fr; }
-      .charGrid{ grid-template-columns: 1fr; }
-    }
-
-    /* Footer */
     footer{
       margin-top: 18px;
       background: #0b1220;
@@ -634,6 +368,17 @@
       gap:12px;
       flex-wrap:wrap;
     }
+
+    @media (max-width: 980px){
+      .grid-3{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+      .metaRow{ flex-wrap: wrap; justify-content:flex-start; }
+    }
   </style>
 </head>
 
@@ -650,7 +395,7 @@
         </a>
 
         <nav class="nav" aria-label="Primary">
-          <a href="popup-events.html" class="active">Events</a>
+          <a href="events.html" class="active">Events</a>
           <a href="hybrid-learning.html">Hybrid Learning</a>
           <a href="rewardsPage.html">Rewards</a>
           <a href="ambassadors.html">Ambassadors</a>
@@ -664,7 +409,7 @@
       </div>
 
       <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
-        <a href="popup-events.html" onclick="closeMobileNav()">Events</a>
+        <a href="events.html" onclick="closeMobileNav()">Events</a>
         <a href="hybrid-learning.html" onclick="closeMobileNav()">Hybrid Learning</a>
         <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
         <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
@@ -677,206 +422,85 @@
     <div class="container">
       <h1>Events</h1>
       <p>
-        Discover youth-friendly events that fit your schedule — quick pop-up missions and hands-on workshops.
-        Scan a QR at events to earn points and track your progress.
+        Hands-on sessions designed to be fun and quick. Sign up for workshops and we’ll guide you through the next steps.
       </p>
 
       <!-- Sub tabs -->
       <div class="eventsTabs" aria-label="Events navigation">
-        <a class="tabLink active" href="popup-events.html">Pop-up Events</a>
-        <a class="tabLink" href="workshops.html">Workshops</a>
+        <a class="tabLink" href="events.html">Pop-up Events</a>
+        <a class="tabLink active" href="workshops.html">Workshops</a>
       </div>
     </div>
   </div>
 
   <main>
-    <!-- ✅ NEW FEATURED POP-UP ACTIVITY -->
-    <section id="burnout-quiz">
+    <!-- WORKSHOPS ONLY -->
+    <section id="workshops">
       <div class="container">
         <div class="section-head">
           <div>
-            <h2>Which Burnt-Out Character Are You?</h2>
-            <p>
-              Take a quick 3-minute quiz, get a relatable result, and collect your character sticker at our pop-ups.
-            </p>
+            <h2>Workshops</h2>
+            <p>Hands-on sessions designed to be fun and quick. Trend-based activities that feel practical and youth-friendly.</p>
           </div>
         </div>
 
-        <div class="featureWrap">
-          <div class="featureGrid">
-            <!-- Left: details -->
-            <div>
-              <div class="featureTitle">Collect & Learn 🎟️</div>
-              <p class="featureDesc">
-                This pop-up is self-guided — youth ambassadors are nearby only if you need help.
-                Complete the quiz, get matched with a burnout character, then redeem a sticker on-site.
-              </p>
-
-              <div class="howGrid" aria-label="How it works">
-                <div class="howStep"><div class="k">1</div><p>Scan the QR code at the pop-up</p></div>
-                <div class="howStep"><div class="k">2</div><p>Complete a 2–3 minute quiz</p></div>
-                <div class="howStep"><div class="k">3</div><p>Get matched with a burnout character</p></div>
-                <!-- <div class="howStep"><div class="k">4</div><p>Receive a short description + 1 coping tip</p></div> -->
-                <div class="howStep"><div class="k">4</div><p>Show your result screen & redeem a sticker</p></div>
-              </div>
-
-              <div class="miniNote">
-                <strong>How stickers work:</strong> each burnout character has one unique sticker. Collect different stickers across events to unlock bonus points or rewards.
-              </div>
-
-              <div class="charGrid" aria-label="Character cards">
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Zombie</p><span class="charEmoji">🧟‍♂️</span>
-                  </div>
-                  <!-- <p class="charTip">Take a 3-minute pause to reset.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Overthinker</p><span class="charEmoji">💭</span>
-                  </div>
-                  <!-- <p class="charTip">Write down one task and focus only on that.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Caffeine Addict</p><span class="charEmoji">☕</span>
-                  </div>
-                  <!-- <p class="charTip">Swap one coffee for water today.</p> -->
-                </div>
-
-                <div class="charCard">
-                  <div class="charTop">
-                    <p class="charName">The Avoider</p><span class="charEmoji">⏱️</span>
-                  </div>
-                  <!-- <p class="charTip">Set a 10-minute timer and just start.</p> -->
-                </div>
-              </div>
-
-              <div class="miniSlogan">Collect them. Earn points. Learn something useful.</div>
-
-              <div class="ctaRow">
-                <!-- <button class="ctaBtn" type="button" onclick="scrollToPopups()">Find a pop-up near you</button> -->
-
-                <!-- 🔁 Replace this with your real quiz link (Opinion Stage etc.) -->
-                <a class="ctaBtn primary" href="https://opinionstage.com/page/96358dbd-54ce-4183-a078-4d6e055a1055" id="quizLink" target="_blank" rel="noopener">Take the Quiz</a>
-
-                <button class="ctaBtn" type="button" onclick="findPopUpNearMe()">Find a Pop-Up Near Me</button>
-              </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
             </div>
-
-            <!-- Right: sticker preview + rewards -->
-            <div>
-              <div class="previewBox">
-                <div class="previewHead">
-                  <strong>Sticker preview</strong>
-                  <span>Redeem on-site</span>
-                </div>
-
-                <!-- ✅ Put your image file in the same folder as this HTML and rename here if needed -->
-                <img class="previewImg" src="burnout-stickers.jpg" alt="Burnt-out character sticker previews">
-
-                <div class="rewardList" aria-label="Rewards">
-                  <div class="rewardItem"><span class="dot"></span><span><strong>1 sticker</strong> → +10 points</span></div>
-                  <div class="rewardItem"><span class="dot"></span><span><strong>3 different stickers</strong> → digital certificate</span></div>
-                  <div class="rewardItem"><span class="dot"></span><span><strong>All characters collected</strong> → featured on leaderboard</span></div>
-                </div>
-              </div>
-
-              <div class="infoBox" style="margin-top:12px;">
-                <strong style="color:#0f172a;">Staffing:</strong> Youth ambassadors stay nearby only if participants need help. Most of the activity is self-guided.
-              </div>
+            <h3>Fitness Mini Challenge</h3>
+            <p>10–20 min guided movement with a simple goal + friendly coaching.</p>
+            <div class="metaRow">
+              <span class="pill">💪 20 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Fitness Mini Challenge', 'Workshop')">Sign up →</button>
             </div>
-          </div>
+          </article>
+
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Nutrition Swap Game</h3>
+            <p>Learn quick food swaps using interactive picks + real examples.</p>
+            <div class="metaRow">
+              <span class="pill">🥗 15 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Nutrition Swap Game', 'Workshop')">Sign up →</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M5 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Build a 1-Day Reset Plan</h3>
+            <p>Quick planning activity for exam stress + burnout. Ends with one takeaway prompt.</p>
+            <div class="metaRow">
+              <span class="pill">🗓 15–20 mins</span>
+              <button class="linkBtn" type="button" onclick="openJoin('Build a 1-Day Reset Plan', 'Workshop')">Sign up →</button>
+            </div>
+          </article>
         </div>
 
-        <!-- <div class="infoBox" style="margin-top:14px;">
-          <strong style="color:#0f172a;">Tip for your QR:</strong>
-          Put the QR right next to the sticker display so the flow is clear: <strong>Scan → Quiz → Result → Sticker</strong>.
-        </div> -->
+        <div class="infoBox">
+          <strong style="color:#0f172a;">Quality + retention:</strong>
+          Standardise facilitator scripts + training (especially youth ambassadors), keep workshops <strong>10–20 mins</strong>,
+          and end with a <strong>reflection prompt</strong> + recommended next step (e.g. “Take this week’s quiz”).
+          This reinforces meaning without adding time.
+        </div>
       </div>
     </section>
 
-    <!-- POP-UP EVENTS ONLY -->
-    <section id="popupList">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Pop-up Events</h2>
-            <p>
-              Short, engaging missions that can be completed on-site. Keep it quick, reward the action, then guide the next step
-              through a QR scan.
-            </p>
-          </div>
-
-          <div class="filters" aria-label="Filters (demo)">
-            <button class="chip active" type="button" data-filter="all">All</button>
-            <button class="chip" type="button" data-filter="school">School</button>
-            <button class="chip" type="button" data-filter="cc">Community Club</button>
-            <button class="chip" type="button" data-filter="public">Public Space</button>
-          </div>
-        </div>
-
-        <div class="grid-3" id="popupGrid">
-          <article class="card" data-type="school">
-            <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Stress Reset Station</h3>
-            <p>10-minute guided reset: breathing + grounding. Ends with 1 reflection prompt.</p>
-            <div class="metaRow">
-              <span class="pill">🏫 School • 10 mins</span>
-              <span class="locationPill">📍 Ngee Ann Polytechnic</span>
-              <span class="timePill">🕒 2pm–6pm</span>
-            </div>
-          </article>
-
-          <article class="card" data-type="cc">
-            <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 21V3h10v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Burnout Score Check</h3>
-            <p>Fast 3–5 question check-in. Get a quick “next step” recommendation.</p>
-            <div class="metaRow">
-              <span class="pill">🏘 CC • 12 mins</span>
-              <span class="locationPill">📍 Bukit Panjang CC</span>
-              <span class="timePill">🕒 11am–3pm</span>
-            </div>
-          </article>
-
-          <article class="card" data-type="public">
-            <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3>Healthy Swap Challenge</h3>
-            <p>Quick interactive choices: drinks/snacks swaps. Ends with a QR scan for points.</p>
-            <div class="metaRow">
-              <span class="pill">🛍 Public • 15 mins</span>
-              <span class="locationPill">📍 Tampines Mall Atrium</span>
-              <span class="timePill">🕒 4pm–8pm</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- <div class="infoBox">
-          <strong style="color:#0f172a;">Design note (for feasibility + engagement):</strong>
-          Keep pop-ups <strong>10–15 minutes</strong>, avoid “roadshow booth” vibes, and always end with a <strong>clear next step</strong>
-          (QR scan → points → “Try a quiz” / “Join a micro-webinar”). Pilot during real school/CC events to test space + time flow.
-        </div> -->
-      </div>
-    </section>
-
-    <!-- Modal kept here so shared functions remain consistent across pages -->
+    <!-- Join modal -->
     <section aria-label="Hidden modal">
       <div id="joinModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 999; padding: 24px;">
         <div style="max-width: 560px; margin: 8vh auto; background:#fff; border-radius: 18px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); overflow:hidden;">
@@ -907,8 +531,8 @@
             </div>
 
             <div style="display:flex; gap:10px; justify-content:flex-end; margin-top: 14px; flex-wrap:wrap;">
-              <button class="tabLink" type="button" onclick="closeJoin()" style="border-color:#e6eaf2; background:#fff; color:#334155;">Cancel</button>
-              <button class="tabLink" type="button" onclick="confirmJoin()" style="background: linear-gradient(90deg, var(--primary), var(--primary2)); border-color: transparent;">Confirm →</button>
+              <button class="linkBtn" type="button" onclick="closeJoin()" style="border-color:#e6eaf2; background:#fff; color:#334155;">Cancel</button>
+              <button class="linkBtn" type="button" onclick="confirmJoin()">Confirm →</button>
             </div>
           </div>
         </div>
@@ -916,7 +540,7 @@
     </section>
   </main>
 
-  <footer>
+  <!-- <footer>
     <div class="container">
       <div class="footer__inner">
         <div>
@@ -965,12 +589,75 @@
         <span>All rights reserved.</span>
       </div>
     </div>
+  </footer> -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;">
+              <img class="footerlogo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+            </div>
+            <span class="footer__brandName">Project Thrive</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="index.html#top">Help Center</a>
+          <a href="index.html#top">Contact Us</a>
+          <a href="index.html#top">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> NHG Youth</span>
+        <span>All rights reserved.</span>
+      </div>
+    </div>
   </footer>
 
   <script src="pt-firebase.js"></script>
 
   <script>
-    // Navbar auth UI (Sign in / Logout)
     PT.applyNavAuthUI({
       signInId: "navSignIn",
       logoutId: "navLogout",
@@ -978,60 +665,13 @@
       logoutRedirect: "login.html"
     });
 
-    // Mobile nav
     const hamburger = document.getElementById("hamburger");
     const mobileNav = document.getElementById("mobileNav");
     function closeMobileNav(){ mobileNav?.classList.remove("show"); }
     hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
 
-    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Filter chips (demo)
-    const chips = document.querySelectorAll(".chip");
-    const popupGrid = document.getElementById("popupGrid");
-    chips.forEach(chip => {
-      chip.addEventListener("click", () => {
-        chips.forEach(c => c.classList.toggle("active", c === chip));
-        const filter = chip.dataset.filter;
-
-        popupGrid.querySelectorAll(".card").forEach(card => {
-          const type = card.dataset.type;
-          const show = (filter === "all") || (type === filter);
-          card.style.display = show ? "flex" : "none";
-        });
-      });
-    });
-
-    // Smooth scroll to pop-up list
-    function scrollToPopups(){
-      const el = document.getElementById("popupList");
-      if(el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    // Find a pop-up near me (opens Google Maps search)
-    function findPopUpNearMe(){
-      const query = encodeURIComponent("Project Thrive pop-up event near me");
-      if(!navigator.geolocation){
-        window.open("https://www.google.com/maps/search/?api=1&query=" + query, "_blank");
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          const url = "https://www.google.com/maps/search/?api=1&query=" + query + "&query_place_id=&center=" + latitude + "," + longitude;
-          window.open(url, "_blank");
-        },
-        () => {
-          // Permission denied / error → fallback
-          window.open("https://www.google.com/maps/search/?api=1&query=" + query, "_blank");
-        },
-        { enableHighAccuracy:false, timeout:8000, maximumAge:600000 }
-      );
-    }
-
-    // Join modal (kept for consistency across pages)
     const joinModal = document.getElementById("joinModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalType = document.getElementById("modalType");
