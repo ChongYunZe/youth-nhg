@@ -538,58 +538,25 @@
         </div>
       </div>
     </section>
-  </main>
+    <!-- ✅ Success animation modal -->
+    <div id="successModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 1000; padding: 24px;">
+      <div style="max-width: 360px; margin: 20vh auto; background:#fff; border-radius: 22px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); text-align:center; padding: 26px 22px;">
 
-  <!-- <footer>
-    <div class="container">
-      <div class="footer__inner">
-        <div>
-          <div class="footer__brandRow">
-            <div class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:10px;">
-              <img class="footerlogo" src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
-            </div>
-            <span class="footer__brandName">Project Thrive</span>
-          </div>
-          <p class="footer__desc">
-            Empowering Singapore’s youth through innovative health programmes and community engagement.
-          </p>
-        </div>
+        <!-- Lottie container -->
+        <div id="successAnimation" style="width:140px; height:140px; margin: 0 auto 12px;"></div>
 
-        <div class="footerCol">
-          <h5>Programme</h5>
-          <a href="popup-events.html">Events</a>
-          <a href="hybrid-learning.html">Hybrid Learning</a>
-          <a href="rewardsPage.html">Rewards</a>
-          <a href="ambassadors.html">Ambassadors</a>
-        </div>
+        <h3 style="margin:0 0 6px; font-size: 18px; letter-spacing:-.2px; color:#0f172a;">
+          Successfully registered!
+        </h3>
 
-        <div class="footerCol">
-          <h5>Support</h5>
-          <a href="index.html#top">Help Center</a>
-          <a href="index.html#top">Contact Us</a>
-          <a href="index.html#top">FAQ</a>
-        </div>
-
-        <div class="footerCol">
-          <h5>Connect</h5>
-          <div class="footer__social" aria-label="Social links">
-            <a class="socialBtn" href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footerBottom">
-        <span>© <span id="year"></span> NHG Youth</span>
-        <span>All rights reserved.</span>
+        <p style="margin:0; color:#64748b; font-weight:700; font-size:13px;">
+          We’ll send you a reminder before the workshop.
+        </p>
       </div>
     </div>
-  </footer> -->
+
+  </main>
+
   <footer>
     <div class="container">
       <div class="footer__inner">
@@ -649,14 +616,13 @@
       </div>
 
       <div class="footerBottom">
-        <span>© <span id="year"></span> NHG Youth</span>
-        <span>All rights reserved.</span>
+        <span>© <span id="year"></span> Project Thrive</span>
       </div>
     </div>
   </footer>
 
   <script src="pt-firebase.js"></script>
-
+  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
   <script>
     PT.applyNavAuthUI({
       signInId: "navSignIn",
@@ -708,16 +674,51 @@
 
     function closeJoin(){ joinModal.style.display = "none"; }
 
+    // function confirmJoin(){
+    //   const name = (joinName?.value || "").trim();
+    //   const email = (joinEmail?.value || "").trim();
+    //   if(!name || !email){
+    //     alert("Please enter your name and email.");
+    //     return;
+    //   }
+    //   closeJoin();
+    //   alert("Registered.");
+    // }
+    const successModal = document.getElementById("successModal");
+
     function confirmJoin(){
       const name = (joinName?.value || "").trim();
       const email = (joinEmail?.value || "").trim();
+
       if(!name || !email){
         alert("Please enter your name and email.");
         return;
       }
+
+      // Close form modal
       closeJoin();
-      alert("Registered.");
+
+      // Show success animation modal
+      successModal.style.display = "block";
+
+      // Load and play Lottie animation (checkmark)
+      const animContainer = document.getElementById("successAnimation");
+      animContainer.innerHTML = ""; // reset if opened before
+
+      lottie.loadAnimation({
+        container: animContainer,
+        renderer: "svg",
+        loop: false,
+        autoplay: true,
+        path: "https://lottie.host/9e385b85-1c09-4390-a04c-10b5cd2ecb0d/n0cFFjYwZz.json"
+      });
+
+      // Auto close after 2 seconds
+      setTimeout(() => {
+        successModal.style.display = "none";
+      }, 2000);
     }
+
 
     joinModal.addEventListener("click", (e) => {
       if(e.target === joinModal) closeJoin();

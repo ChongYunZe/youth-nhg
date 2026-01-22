@@ -332,12 +332,45 @@
     .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
     .footerCol a:not(.socialBtn){ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
     .footerCol a:not(.socialBtn):hover{ color:#fff; }
-    .footer__social{ display:flex; gap:10px; }
+    /* .footer__social{ display:flex; gap:10px; }
     .footerCol a.socialBtn{
       width: 28px; height: 28px; display:grid; place-items:center;
       border-radius: 8px; border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04); color: rgba(255,255,255,.78);
+    } */
+
+    .footer__social{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 2px;
     }
+
+    .footerCol a.socialBtn{
+      width: 28px;
+      height: 28px;
+      display:grid;
+      place-items:center;
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+
+    .footerCol a.socialBtn:hover{
+      background: rgba(255,255,255,.08);
+      color:#fff;
+    }
+
+    .footerCol a.socialBtn svg{
+      width: 14px;
+      height: 14px;
+      display:block;
+    }
+
+
     .footerBottom{
       border-top: 1px solid rgba(255,255,255,.08);
       padding: 12px 0 14px;
@@ -504,17 +537,40 @@
 
         <div class="footerCol">
           <h5>Connect</h5>
-          <div class="footer__social" aria-label="Social links">
+          <!-- <div class="footer__social" aria-label="Social links">
             <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
             <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
             <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
+          </div> -->
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a>
           </div>
+
         </div>
       </div>
 
       <div class="footerBottom">
-        <span>© <span id="year"></span> NHG Youth</span>
-        <span>All rights reserved.</span>
+        <span>© <span id="year"></span> Project Thrive</span>
       </div>
     </div>
   </footer>

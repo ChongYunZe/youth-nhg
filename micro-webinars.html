@@ -482,9 +482,8 @@
         </div>
 
         <div class="infoBox">
-          <strong style="color:#0f172a;">Make it meaningful (without adding time):</strong>
-          Each micro-webinar ends with <strong>one reflection question</strong> + <strong>one next step</strong>
-          (e.g., “Try the weekly quiz next” or “Do the 5-min short course”). That’s what boosts retention.
+          <strong style="color:#0f172a;">Make it meaningful:</strong>
+          Each micro-webinar ends with <strong>one reflection question</strong>
         </div>
       </div>
     </section>
@@ -509,12 +508,12 @@
             <div style="display:grid; gap:10px;">
               <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
                 Name
-                <input id="joinName" type="text" placeholder="e.g. Name" autocomplete="name"
+                <input id="joinName" type="text" placeholder="Name" autocomplete="name"
                        style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
               </label>
               <label style="display:grid; gap:6px; font-weight:800; font-size:12px; color:#334155;">
                 Email
-                <input id="joinEmail" type="email" placeholder="e.g. name@email.com" autocomplete="email"
+                <input id="joinEmail" type="email" placeholder="name@email.com" autocomplete="email"
                        style="padding: 12px; border-radius: 12px; border:1px solid #e6eaf2; font-weight:650;">
               </label>
             </div>
@@ -527,6 +526,23 @@
         </div>
       </div>
     </section>
+    <!-- ✅ Success animation modal -->
+    <div id="successModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 1000; padding: 24px;">
+      <div style="max-width: 360px; margin: 20vh auto; background:#fff; border-radius: 22px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); text-align:center; padding: 26px 22px;">
+
+        <!-- Lottie container -->
+        <div id="successAnimation" style="width:140px; height:140px; margin: 0 auto 12px;"></div>
+
+        <h3 style="margin:0 0 6px; font-size: 18px; letter-spacing:-.2px; color:#0f172a;">
+          Successfully registered!
+        </h3>
+
+        <p style="margin:0; color:#64748b; font-weight:700; font-size:13px;">
+          We’ll send you a reminder before the session.
+        </p>
+      </div>
+    </div>
+
   </main>
 
   <footer>
@@ -588,14 +604,13 @@
       </div>
 
       <div class="footerBottom">
-        <span>© <span id="year"></span> NHG Youth</span>
-        <span>All rights reserved.</span>
+        <span>© <span id="year"></span> Project Thrive</span>
       </div>
     </div>
   </footer>
 
   <script src="pt-firebase.js"></script>
-
+  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
   <script>
     // Navbar auth UI (Sign in / Logout) - same as events.html
     PT.applyNavAuthUI({
@@ -631,11 +646,11 @@
       if (joinName) joinName.value = "";
       if (joinEmail) joinEmail.value = "";
 
-      if (joinHint) joinHint.textContent = "Sign in to auto-fill your details.";
+      if (joinHint) joinHint.textContent = "Sign in to auto-fill details.";
 
       try{
         if (window.PT && PT.isLoggedIn && PT.isLoggedIn()){
-          if (joinHint) joinHint.textContent = "Auto-filled from your account. You can edit if needed.";
+          if (joinHint) joinHint.textContent = "Auto-filled from your account. Edit details if needed.";
 
           // ensure record exists (safe)
           if (PT.ensureUser) await PT.ensureUser();
@@ -659,6 +674,21 @@
       joinModal.style.display = "none";
     }
 
+    // function confirmJoin(){
+    //   const name = (joinName?.value || "").trim();
+    //   const email = (joinEmail?.value || "").trim();
+
+    //   if(!name || !email){
+    //     alert("Please enter your name and email.");
+    //     return;
+    //   }
+
+    //   closeJoin();
+    //   alert("Registered.");
+    // }
+
+    const successModal = document.getElementById("successModal");
+
     function confirmJoin(){
       const name = (joinName?.value || "").trim();
       const email = (joinEmail?.value || "").trim();
@@ -668,9 +698,33 @@
         return;
       }
 
+      // Close form modal
       closeJoin();
-      alert("Registered.");
+
+      // Show success animation modal
+      successModal.style.display = "block";
+
+      // Load and play Lottie animation (checkmark)
+      const animContainer = document.getElementById("successAnimation");
+      animContainer.innerHTML = ""; // reset if opened before
+
+      lottie.loadAnimation({
+        container: animContainer,
+        renderer: "svg",
+        loop: false,
+        autoplay: true,
+
+        // ✅ Clean checkmark animation (very popular & lightweight)
+        path: "https://lottie.host/9e385b85-1c09-4390-a04c-10b5cd2ecb0d/n0cFFjYwZz.json"
+      });
+
+      // Auto close after 2 seconds
+      setTimeout(() => {
+        successModal.style.display = "none";
+      }, 2000);
     }
+
+
 
     // Close modal by clicking background
     joinModal.addEventListener("click", (e) => {
