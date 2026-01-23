@@ -744,18 +744,16 @@ FILE: rewardsPage.html (UPDATED)
 
           </div>
 
-          <div class="card leaderCard">
+          <!-- <div class="card leaderCard">
             <h3>🏁 &nbsp;Friends</h3>
-            <!-- <ul class="leaderList">
-              <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> hupseng</li>
-              <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> thonguan</li>
-              <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> iueming</li>
-              <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> johnsonsuit</li>
-              <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> swisschoco</li>
-            </ul> -->
             <ul class="leaderList" id="friendsLeaderboard"></ul>
+          </div> -->
 
+          <div class="card leaderCard" id="friendsCard">
+            <h3>🏁 &nbsp;Friends</h3>
+            <ul class="leaderList" id="friendsLeaderboard"></ul>
           </div>
+
         </div>
       </div>
 
@@ -941,13 +939,8 @@ FILE: rewardsPage.html (UPDATED)
               </svg>
             </a>
 
-            <!-- <a class="socialBtn" href="#" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
-              </svg>
-            </a> -->
-            <a class="socialBtn" href="#" aria-label="Telegram">
+            
+            <a class="socialBtn" href="https://t.me/ProjectThrive" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M21 5L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M21 5L15 21L10 12L3 9L21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -1147,13 +1140,32 @@ FILE: rewardsPage.html (UPDATED)
       });
 
       // Logged out UI
+      // if(!PT.isLoggedIn()){
+      //   if(subTabsWrapEl) subTabsWrapEl.style.display = "none";
+      //   if(loggedInOnlyEl) loggedInOnlyEl.style.display = "none";
+      //   if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "block";
+      //   renderButtonsForLoggedOut();
+      //   return;
+      // }
+      // Logged out UI
       if(!PT.isLoggedIn()){
         if(subTabsWrapEl) subTabsWrapEl.style.display = "none";
         if(loggedInOnlyEl) loggedInOnlyEl.style.display = "none";
         if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "block";
+
+        // ✅ Always show Singapore leaderboard (seed)
+        const sgEl = document.getElementById("sgLeaderboard");
+        renderLeaderboard(sgEl, LEADERBOARD_SEED.singapore);
+
+        // ✅ Hide Friends leaderboard when logged out
+        const friendsCard = document.getElementById("friendsCard");
+        if(friendsCard) friendsCard.style.display = "none";
+
+        // Keep redeem buttons disabled
         renderButtonsForLoggedOut();
         return;
       }
+
 
       // Logged in UI
       if(subTabsWrapEl) subTabsWrapEl.style.display = "";
