@@ -1,0 +1,567 @@
+<!-- faq.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ – Project Thrive</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+
+      --primary: #2D63FF;
+      --primary2:#4B7BFF;
+      --accent: #76E4FF;
+
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+
+      --container: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#ffffff;
+      color:#0f172a;
+
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    main{ flex:1; }
+
+    a{ color:inherit; text-decoration:none; }
+    button, input{ font-family:inherit; }
+
+    .container{
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ===== NAVBAR ===== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, .70);
+      border-bottom: 1px solid var(--border);
+      color:#fff;
+    }
+    .topbar-inner{
+      height: 64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; }
+    .logo{
+      width:44px;height:44px;border-radius:10px;
+      overflow:hidden;
+      display:grid; place-items:center;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+      flex: 0 0 auto;
+    }
+    .logo img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      color: rgba(255,255,255,.72);
+      font-weight:600;
+      font-size: 14px;
+    }
+    .nav a{ padding:10px 10px; border-radius: 10px; }
+    .nav a:hover{ background: rgba(255,255,255,.06); color:#fff; }
+    .nav a.active{ color:#fff; background: rgba(255,255,255,.08); }
+
+    .actions{ display:flex; align-items:center; gap:10px; }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 14px 36px rgba(45,99,255,.35);
+    }
+
+    .hamburger{
+      display:none;
+      width:42px;height:42px;border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:#fff;
+      cursor:pointer;
+    }
+
+    .mobile-nav{
+      display:none;
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--border);
+    }
+    .mobile-nav a{
+      display:block;
+      padding: 10px 4px;
+      color: rgba(255,255,255,.72);
+      font-weight:700;
+    }
+    .mobile-nav a:hover{ color:#fff; }
+    .mobile-nav.show{ display:block; }
+
+    /* ===== HERO ===== */
+    .pageHero{
+      background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
+      color:#fff;
+      box-shadow: var(--shadow);
+    }
+    .pageHero .container{ padding: 46px 0 22px; }
+    .pageHero h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      letter-spacing: -0.8px;
+      line-height: 1.12;
+    }
+    .pageHero p{
+      margin:0;
+      color: rgba(255,255,255,.86);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 78ch;
+      font-weight: 600;
+    }
+
+    section{ padding: 28px 0; }
+
+    .searchRow{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .searchRow input{
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid #e6eaf2;
+      font-weight: 650;
+      outline:none;
+    }
+    .chip{
+      border:1px solid #e6eaf2;
+      background:#f8fafc;
+      color: rgba(15,23,42,.72);
+      font-weight: 900;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      cursor:pointer;
+    }
+    .chip.active{
+      border-color: rgba(45,99,255,.32);
+      background: rgba(45,99,255,.08);
+      color: var(--primary);
+    }
+
+    .faqGrid{
+      display:grid;
+      gap: 10px;
+    }
+    details{
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-lg);
+      background:#fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 14px 14px;
+      font-weight: 900;
+      font-size: 13px;
+      color:#0f172a;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .caret{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      border:1px solid #e6eaf2;
+      background:#f8fafc;
+      display:grid;
+      place-items:center;
+      color:#334155;
+      font-weight: 900;
+      flex: 0 0 auto;
+      transition: transform .15s ease;
+    }
+    details[open] .caret{ transform: rotate(90deg); }
+
+    .answer{
+      padding: 0 14px 14px;
+      color:#475569;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.65;
+    }
+    .answer a{ color: var(--primary); font-weight: 900; }
+
+    .note{
+      margin-top: 14px;
+      border:1px solid #e6eaf2;
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      background:#fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,.08);
+      color:#475569;
+      font-weight:650;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .note strong{ color:#0f172a; }
+
+    /* ===== FOOTER ===== */
+    footer{ margin-top: 18px; background:#0b1220; color: rgba(255,255,255,.82); }
+    .footer__inner{
+      padding: 28px 0 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr;
+      gap: 26px;
+      align-items:start;
+    }
+    .footer__brandRow{ display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .footer__brandName{ font-weight: 900; font-size: 14px; letter-spacing: .2px; }
+    .footer__desc{ margin:0; max-width:34ch; color: rgba(255,255,255,.58); font-size:12px; line-height:1.7; font-weight:600; }
+    .footerCol h5{ margin:0 0 10px; font-size:12px; font-weight:900; color: rgba(255,255,255,.86); }
+    .footerCol a{ display:block; padding: 6px 0; color: rgba(255,255,255,.58); font-size:12px; font-weight:600; }
+    .footerCol a:hover{ color:#fff; }
+
+    .footerlogo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+      box-shadow: 0 10px 26px rgba(45,99,255,.35);
+      overflow:hidden;
+      display:grid; place-items:center;
+      flex: 0 0 auto;
+    }
+    .footerlogo img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    .footer__social{ display:flex; gap: 12px; align-items:center; justify-content:flex-start; margin-top: 2px; }
+    .footerCol a.socialBtn{
+      width: 40px; height: 40px;
+      display:grid; place-items:center;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+    .footerCol a.socialBtn:hover{ background: rgba(255,255,255,.08); color:#fff; }
+    .footerCol a.socialBtn svg{ display:block; width:20px; height:20px; }
+
+    .footerBottom{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 12px 0 14px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 600;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .hamburger{ display:inline-flex; align-items:center; justify-content:center; }
+      .footer__inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .footer__inner{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true">
+            <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+          </div>
+          <span>Project Thrive</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
+          <button class="btn" type="button" id="navLogout" title="Logout">Logout</button>
+          <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav" aria-label="Mobile">
+        <a href="events.html" onclick="closeMobileNav()">Events</a>
+        <a href="hybrid-learning.html" onclick="closeMobileNav()">Hybrid Learning</a>
+        <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
+        <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
+        <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+        <a href="faq.html" onclick="closeMobileNav()">FAQ</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="pageHero">
+    <div class="container">
+      <h1>FAQ</h1>
+      <p>Quick answers about events, workshops, points, and how Project Thrive works.</p>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="container">
+        <div class="searchRow" aria-label="FAQ controls">
+          <input id="faqSearch" type="text" placeholder="Search" />
+          <button class="chip active" type="button" data-filter="all">All</button>
+          <button class="chip" type="button" data-filter="events">Events</button>
+          <button class="chip" type="button" data-filter="workshops">Workshops</button>
+          <button class="chip" type="button" data-filter="rewards">Rewards</button>
+          <button class="chip" type="button" data-filter="account">Account</button>
+        </div>
+
+        <div class="faqGrid" id="faqGrid">
+          <!-- Events -->
+          <details data-cat="events">
+            <summary>
+              How do I sign up for an event?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              Go to <a href="events.html">Events</a> or <a href="workshops.html">Workshops</a>, click <strong>Sign up</strong>,
+              and fill in your name + email. If you’re signed in, your details may auto-fill.
+            </div>
+          </details>
+
+          <details data-cat="events">
+            <summary>
+              Can I edit my details after signing up?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              Yes — before you confirm, you can edit your name and email in the sign-up popup. If you made a mistake after confirming,
+              use <a href="contact.html">Contact Us</a> with the event name + time.
+            </div>
+          </details>
+
+          <!-- Workshops -->
+          <details data-cat="workshops">
+            <summary>
+              How long are workshops?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              Most workshops are designed to be short and youth-friendly (usually <strong>10–20 minutes</strong>).
+            </div>
+          </details>
+
+          
+
+          <!-- Rewards -->
+          <details data-cat="rewards">
+            <summary>
+              How do points and streaks work?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              Points are earned by completing activities (events/workshops/quizzes). Streaks reward consistency over time.
+              You can use points to redeem rewards in the <a href="rewardsPage.html">Rewards</a> page.
+            </div>
+          </details>
+
+          <details data-cat="rewards">
+            <summary>
+              When do rewards update?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              Rewards may update weekly depending on availability and partners. Check the <a href="rewardsPage.html">Rewards</a> page.
+            </div>
+          </details>
+
+          <!-- Account -->
+          <details data-cat="account">
+            <summary>
+              Do I need an account to join?
+              <span class="caret">›</span>
+            </summary>
+            <div class="answer">
+              You can sign up without an account by typing your name/email. Creating an account helps with auto-fill,
+              tracking progress, and rewards.
+            </div>
+          </details>
+
+          
+        </div>
+
+        <div class="note">
+          <strong>Still need help?</strong> Send us a message on the <a href="contact.html" style="color:var(--primary);font-weight:900;">Contact Us</a> page.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__brandRow">
+            <div class="footerlogo" aria-hidden="true">
+              <img src="ProjectThriveLogo.jpg" alt="Project Thrive Logo"/>
+            </div>
+            <span class="footer__brandName">Project Thrive</span>
+          </div>
+          <p class="footer__desc">
+            Empowering Singapore’s youth through innovative health programmes and community engagement.
+          </p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Programme</h5>
+          <a href="events.html">Events</a>
+          <a href="hybrid-learning.html">Hybrid Learning</a>
+          <a href="rewardsPage.html">Rewards</a>
+          <a href="ambassadors.html">Ambassadors</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Support</h5>
+          <a href="contact.html">Contact Us</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Connect</h5>
+          <div class="footer__social" aria-label="Social links">
+            <a class="socialBtn" href="https://www.instagram.com/project_.thrive?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="https://www.tiktok.com/@project.thrive0?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 3v10.5a4.5 4.5 0 1 1-4-4.47" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 3c1.3 2.2 3.2 3.6 6 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a class="socialBtn" href="https://t.me/ProjectThrive" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 5L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 5L15 21L10 12L3 9L21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M10 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerBottom">
+        <span>© <span id="year"></span> Project Thrive</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="pt-firebase.js"></script>
+  <script>
+    // Auth UI
+    if(window.PT && PT.applyNavAuthUI){
+      PT.applyNavAuthUI({
+        signInId: "navSignIn",
+        logoutId: "navLogout",
+        showWhenLoggedInIds: [],
+        logoutRedirect: "login.html"
+      });
+    }
+
+    // Mobile nav
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+    function closeMobileNav(){ mobileNav?.classList.remove("show"); }
+    hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // FAQ filter + search
+    const chips = Array.from(document.querySelectorAll(".chip"));
+    const search = document.getElementById("faqSearch");
+    const items = Array.from(document.querySelectorAll("#faqGrid details"));
+
+    let activeCat = "all";
+
+    function applyFilters(){
+      const q = (search.value || "").trim().toLowerCase();
+
+      items.forEach(d => {
+        const cat = d.getAttribute("data-cat") || "all";
+        const text = (d.innerText || "").toLowerCase();
+
+        const matchCat = (activeCat === "all") || (cat === activeCat);
+        const matchText = !q || text.includes(q);
+
+        d.style.display = (matchCat && matchText) ? "block" : "none";
+      });
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.toggle("active", c === chip));
+        activeCat = chip.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    search.addEventListener("input", applyFilters);
+    applyFilters();
+  </script>
+</body>
+</html>
