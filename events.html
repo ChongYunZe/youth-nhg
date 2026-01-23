@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 
   <style>
     :root{
@@ -42,6 +44,13 @@
     .container{
       width: min(var(--container), calc(100% - 40px));
       margin: 0 auto;
+    }
+
+
+    .material-symbols-outlined{
+      font-size: 20px;
+      line-height: 1;
+      display: block;
     }
 
     /* Top bar */
@@ -761,7 +770,7 @@
               </p>
 
               <div class="howGrid" aria-label="How it works">
-                <div class="howStep"><div class="k">1</div><p>Scan the QR code at the pop-up</p></div>
+                <div class="howStep"><div class="k">1</div><p>Scan the QR code</p></div>
                 <div class="howStep"><div class="k">2</div><p>Complete a 2–3 minute quiz</p></div>
                 <div class="howStep"><div class="k">3</div><p>Get matched with a burnout character</p></div>
                 <div class="howStep"><div class="k">4</div><p>Show your result screen & redeem a sticker</p></div>
@@ -852,10 +861,13 @@
         <div class="grid-3" id="popupGrid">
           <article class="card" data-type="school">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                home
+              </span>
             </div>
             <h3>Stress Reset Station</h3>
             <p>10-minute guided reset: breathing + grounding. Ends with 1 reflection prompt.</p>
@@ -868,10 +880,13 @@
 
           <article class="card" data-type="cc">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M7 21V3h10v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                score
+              </span>
             </div>
             <h3>Burnout Score Check</h3>
             <p>Fast 3–5 question check-in. Get a quick “next step” recommendation.</p>
@@ -884,10 +899,13 @@
 
           <article class="card" data-type="public">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
                 <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                emoji_food_beverage
+              </span>
             </div>
             <h3>Healthy Swap Challenge</h3>
             <p>Quick interactive choices: drinks/snacks swaps. Ends with a QR scan for points.</p>
@@ -989,10 +1007,17 @@
               </svg>
             </a>
 
-            <a class="socialBtn" href="#" aria-label="YouTube">
+            <!-- <a class="socialBtn" href="#" aria-label="YouTube">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
                 <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a> -->
+            <a class="socialBtn" href="#" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 5L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 5L15 21L10 12L3 9L21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M10 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </a>
           </div>

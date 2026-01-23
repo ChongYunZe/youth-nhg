@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
   <style>
     /* Same CSS as popup-events.html (kept identical for consistent UI) */
@@ -83,6 +84,14 @@
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
       box-shadow: 0 10px 26px rgba(45,99,255,.35);
     }
+
+
+    .material-symbols-outlined{
+      font-size: 20px;
+      line-height: 1;
+      display: block;
+    }
+
 
     .nav{
       display:flex;
@@ -447,10 +456,13 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                fitness_center
+              </span>
             </div>
             <h3>Fitness Mini Challenge</h3>
             <p>10–20 min guided movement with a simple goal + friendly coaching.</p>
@@ -462,10 +474,13 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                calendar_meal
+              </span>
             </div>
             <h3>Nutrition Swap Game</h3>
             <p>Learn quick food swaps using interactive picks + real examples.</p>
@@ -477,10 +492,13 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
+              <!-- <svg viewBox="0 0 24 24" fill="none">
                 <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M5 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              </svg> -->
+              <span class="material-symbols-outlined">
+                assignment_add
+              </span>
             </div>
             <h3>Build a 1-Day Reset Plan</h3>
             <p>Quick planning activity for exam stress + burnout. Ends with one takeaway prompt.</p>
@@ -605,10 +623,17 @@
               </svg>
             </a>
 
-            <a class="socialBtn" href="#" aria-label="YouTube">
+            <!-- <a class="socialBtn" href="#" aria-label="YouTube">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M21 12s0-3.6-.5-5.1a3 3 0 0 0-2.1-2.1C16.9 4.2 12 4.2 12 4.2s-4.9 0-6.4.6A3 3 0 0 0 3.5 6.9C3 8.4 3 12 3 12s0 3.6.5 5.1a3 3 0 0 0 2.1 2.1c1.5.6 6.4.6 6.4.6s4.9 0 6.4-.6a3 3 0 0 0 2.1-2.1c.5-1.5.5-5.1.5-5.1Z" stroke="currentColor" stroke-width="2"/>
                 <path d="M10 15.2V8.8L16 12l-6 3.2Z" fill="currentColor"/>
+              </svg>
+            </a> -->
+            <a class="socialBtn" href="#" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 5L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 5L15 21L10 12L3 9L21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M10 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </a>
           </div>
@@ -716,7 +741,7 @@
       // Auto close after 2 seconds
       setTimeout(() => {
         successModal.style.display = "none";
-      }, 2000);
+      }, 2500);
     }
 
 
