@@ -1,8 +1,3 @@
-<!-- =========================
-FILE: rewardsPage.html (UPDATED)
-✅ Footer added back
-✅ Navbar still uses Sign in / Logout only
-========================= -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -386,6 +381,85 @@ FILE: rewardsPage.html (UPDATED)
       justify-content:center;
     }
 
+    /* ===== Your Rank bar ===== */
+    .rankWrap{
+      padding: 10px 0 4px;
+      display:flex;
+      justify-content:center;
+    }
+    .rankBar{
+      width: min(980px, 100%);
+      border:1px solid #e6eaf2;
+      border-radius: 16px;
+      background:#fff;
+      box-shadow: 0 10px 26px rgba(15,23,42,.08);
+      padding: 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .rankLeft{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .rankIcon{
+      width: 42px;
+      height: 42px;
+      display:grid;
+      place-items:center;
+      border-radius: 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      font-size: 18px;
+    }
+    .rankTitle{
+      font-size: 20px;
+      font-weight: 900;
+      color:#0f172a;
+    }
+    .rankHint{
+      font-size: 10px;
+      font-weight: 700;
+      color:#94a3b8;
+      margin-top: 2px;
+    }
+
+    .rankStats{
+      display:flex;
+      gap: 12px;
+      align-items:stretch;
+    }
+    .rankStat{
+      min-width: 140px;
+      text-align:center;
+      background: #eef5ff;
+      border: 1px solid #dbeafe;
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .rankNum{
+      font-size: 28px;
+      line-height: 1.05;
+      font-weight: 900;
+      color:#0f172a;
+    }
+    .rankSub{
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 800;
+      color:#334155;
+      opacity: .85;
+    }
+
+    @media (max-width: 980px){
+      .rankBar{ flex-direction:column; align-items:stretch; }
+      .rankStats{ justify-content:space-between; }
+      .rankStat{ flex:1; min-width: 0; }
+    }
+
+
     /* ===== Redeem section ===== */
     .pageMain{
        padding-bottom: 22px;
@@ -660,9 +734,7 @@ FILE: rewardsPage.html (UPDATED)
     </div>
 
     <!-- ================= TAB: OVERVIEW ================= -->
-    <section id="tab-overview" class="tabPanel show">
-
-      <!-- ✅ Logged-in only -->
+    <section id="tab-overview" class="tabPanel show">      
       <div id="loggedInOnly">
         <section class="pointsHero" aria-label="Current points banner">
           <div class="container">
@@ -709,8 +781,7 @@ FILE: rewardsPage.html (UPDATED)
           </div>
         </div>
       </div>
-
-      <!-- ✅ Logged-out only -->
+     
       <div id="loggedOutOnly" style="display:none;">
         <div class="container">
           <div class="guestWrap">
@@ -724,8 +795,7 @@ FILE: rewardsPage.html (UPDATED)
           </div>
         </div>
       </div>
-
-      <!-- ✅ Leaderboard ALWAYS visible -->
+      
       <div class="container">
         <div class="sectionTitle"><h2>Leaderboard</h2></div>
         <div class="leaderMeta">Updated as of: 2026 - 01 - 15 &nbsp; 12:37</div>
@@ -733,28 +803,40 @@ FILE: rewardsPage.html (UPDATED)
         <div class="leaderGrid">
           <div class="card leaderCard">
             <h3>🇸🇬 &nbsp;Singapore</h3>
-            <!-- <ul class="leaderList">
-              <li class="leaderRow"><span class="rankNo">1</span><span class="badge">🏆</span> pratwala</li>
-              <li class="leaderRow"><span class="rankNo">2</span><span class="badge">🥈</span> cheeseprata</li>
-              <li class="leaderRow"><span class="rankNo">3</span><span class="badge">🥉</span> thosai3999</li>
-              <li class="leaderRow"><span class="rankNo">4</span><span class="badge"></span> aladinins</li>
-              <li class="leaderRow"><span class="rankNo">5</span><span class="badge"></span> yanrenzhong</li>
-            </ul> -->
+            
             <ul class="leaderList" id="sgLeaderboard"></ul>
 
           </div>
-
-          <!-- <div class="card leaderCard">
-            <h3>🏁 &nbsp;Friends</h3>
-            <ul class="leaderList" id="friendsLeaderboard"></ul>
-          </div> -->
-
+        
           <div class="card leaderCard" id="friendsCard">
             <h3>🏁 &nbsp;Friends</h3>
             <ul class="leaderList" id="friendsLeaderboard"></ul>
           </div>
-
         </div>
+        
+        <div class="rankWrap" id="rankWrap" style="display:none;">
+          <div class="rankBar">
+            <div class="rankLeft">
+              <span class="rankIcon" aria-hidden="true">🏆</span>
+              <div>
+                <div class="rankTitle">Your Rank</div>                 
+              </div>
+            </div>
+
+            <div class="rankStats">
+              <div class="rankStat">
+                <div class="rankNum" id="rankSG">—</div>
+                <div class="rankSub">in singapore</div>
+              </div>
+
+              <div class="rankStat">
+                <div class="rankNum" id="rankFR">—</div>
+                <div class="rankSub">among friends</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </section>
@@ -959,8 +1041,7 @@ FILE: rewardsPage.html (UPDATED)
 
   <script src="pt-firebase.js"></script>
 
-  <script>
-    // footer year
+  <script>    
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // ===== toast =====
@@ -972,7 +1053,7 @@ FILE: rewardsPage.html (UPDATED)
       showToast._t = setTimeout(()=>toastEl.classList.remove("show"), 1800);
     }
 
-    // ===== Smooth scroll helper =====
+    // ===== scroll =====
     function scrollToId(id){
       const el = document.getElementById(id);
       if(!el) return;
@@ -1093,23 +1174,9 @@ FILE: rewardsPage.html (UPDATED)
       }).join("");
     }
 
-    // function getDisplayName(){
-    //   // Try to show something nice for the signed-in user
-    //   // 1) if pt-firebase stores a display name
-    //   // 2) else use email prefix if available
-    //   try{
-    //     if(window.PT && PT.getCurrentUser){
-    //       const u = PT.getCurrentUser();
-    //       if(u?.displayName) return u.displayName;
-    //       if(u?.email) return u.email.split("@")[0];
-    //     }
-    //   }catch(_){}
-    //   return "you";
-    // }
-
     async function getUserNameFromProfile(){
       try{
-        const p = await PT.getProfile();   // { email, name, createdAt }
+        const p = await PT.getProfile();  
         if(p && p.name) return String(p.name).trim();
       }catch(_){}
       return "User";
@@ -1117,21 +1184,48 @@ FILE: rewardsPage.html (UPDATED)
 
 
     function mergeUserIntoLeaderboard(seedArr, userObj){
-      // Avoid duplicates (if user's name matches an existing entry)
       const filtered = seedArr.filter(e => e.name.toLowerCase() !== userObj.name.toLowerCase());
       const combined = [...filtered, userObj];
 
-      // Sort by points desc
       combined.sort((a,b) => (b.points || 0) - (a.points || 0));
 
-      // Keep top 5
       return combined.slice(0,5);
+    }
+
+    function combineLeaderboards(dbList, seedList){
+      const map = new Map();
+
+      [...(seedList || []), ...(dbList || [])].forEach(item => {
+        const name = String(item?.name || "").trim();
+        if(!name) return;
+        const points = Number(item?.points || 0);
+        const safePts = Number.isFinite(points) ? points : 0;
+
+        const key = name.toLowerCase();
+        const existing = map.get(key);
+
+        if(!existing || safePts > existing.points){
+          map.set(key, { name, points: safePts });
+        }
+      });
+
+      return Array.from(map.values()).sort((a,b) => (b.points||0) - (a.points||0));
+    }
+
+    function getRankFromList(sortedList, userName){
+      const key = String(userName || "").trim().toLowerCase();
+      if(!key) return null;
+
+      const idx = (sortedList || []).findIndex(x =>
+        String(x?.name || "").trim().toLowerCase() === key
+      );
+
+      return idx >= 0 ? (idx + 1) : null;
     }
 
 
 
     async function init(){
-      // Navbar auth UI
       PT.applyNavAuthUI({
         signInId: "navSignIn",
         logoutId: "navLogout",
@@ -1139,33 +1233,30 @@ FILE: rewardsPage.html (UPDATED)
         logoutRedirect: "login.html"
       });
 
-      // Logged out UI
-      // if(!PT.isLoggedIn()){
-      //   if(subTabsWrapEl) subTabsWrapEl.style.display = "none";
-      //   if(loggedInOnlyEl) loggedInOnlyEl.style.display = "none";
-      //   if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "block";
-      //   renderButtonsForLoggedOut();
-      //   return;
-      // }
-      // Logged out UI
+
       if(!PT.isLoggedIn()){
         if(subTabsWrapEl) subTabsWrapEl.style.display = "none";
         if(loggedInOnlyEl) loggedInOnlyEl.style.display = "none";
         if(loggedOutOnlyEl) loggedOutOnlyEl.style.display = "block";
 
-        // ✅ Always show Singapore leaderboard (seed)
-        const sgEl = document.getElementById("sgLeaderboard");
-        renderLeaderboard(sgEl, LEADERBOARD_SEED.singapore);
-
-        // ✅ Hide Friends leaderboard when logged out
-        const friendsCard = document.getElementById("friendsCard");
-        if(friendsCard) friendsCard.style.display = "none";
-
-        // Keep redeem buttons disabled
         renderButtonsForLoggedOut();
+
+        try{
+          const sgEl = document.getElementById("sgLeaderboard");
+          const dbTop = await PT.getSingaporeLeaderboardTop(50); // get more to sort properly
+          const combined = combineLeaderboards(dbTop, LEADERBOARD_SEED.singapore);
+          renderLeaderboard(sgEl, combined.slice(0,5));
+        }catch(e){
+          console.warn(e);
+          renderLeaderboard(document.getElementById("sgLeaderboard"), LEADERBOARD_SEED.singapore);
+        }
+
+        const friendsCardEl = document.getElementById("friendsCard");
+        if(friendsCardEl) friendsCardEl.style.display = "none";
+
+
         return;
       }
-
 
       // Logged in UI
       if(subTabsWrapEl) subTabsWrapEl.style.display = "";
@@ -1179,24 +1270,45 @@ FILE: rewardsPage.html (UPDATED)
         redeemedMap = await PT.getRedeemed();
         applyRedeemedUI();
         renderPointsAndButtons();
-        // ===== Render leaderboards (include logged-in user if they qualify) =====
+                // ===== Render leaderboards =====
         const sgEl = document.getElementById("sgLeaderboard");
         const frEl = document.getElementById("friendsLeaderboard");
+        const friendsCardEl = document.getElementById("friendsCard");
+       
+        let dbSG = [];
+        try{
+          dbSG = await PT.getSingaporeLeaderboardTop(200); 
+        }catch(e){
+          console.warn("SG DB read failed, using seed only.", e);
+          dbSG = [];
+        }
 
-        const baseSG = [...LEADERBOARD_SEED.singapore];
-        const baseFR = [...LEADERBOARD_SEED.friends];
-
-        // if logged in, attempt to insert user into both boards
-        // const userEntry = { name: getDisplayName(), points: Number(currentPoints || 0) };
         const userName = await getUserNameFromProfile();
         const userEntry = { name: userName, points: Number(currentPoints || 0) };
 
+        const sgFull = combineLeaderboards(
+          combineLeaderboards(dbSG, LEADERBOARD_SEED.singapore),
+          [userEntry]
+        );
+        renderLeaderboard(sgEl, sgFull.slice(0,5));
+        
+        const frFull = combineLeaderboards(LEADERBOARD_SEED.friends, [userEntry]);
+        renderLeaderboard(frEl, frFull.slice(0,5));
+        if(friendsCardEl) friendsCardEl.style.display = "";
+        
+        const rankWrap = document.getElementById("rankWrap");
+        const rankSGEl = document.getElementById("rankSG");
+        const rankFREl = document.getElementById("rankFR");
 
-        const finalSG = mergeUserIntoLeaderboard(baseSG, userEntry);
-        const finalFR = mergeUserIntoLeaderboard(baseFR, userEntry);
+        const rSG = getRankFromList(sgFull, userName);
+        const rFR = getRankFromList(frFull, userName);
 
-        renderLeaderboard(sgEl, finalSG);
-        renderLeaderboard(frEl, finalFR);
+        if(rankSGEl) rankSGEl.textContent = rSG ? String(rSG) : "—";
+        if(rankFREl) rankFREl.textContent = rFR ? String(rFR) : "—";
+        if(rankWrap) rankWrap.style.display = "";
+
+
+
 
       }catch(e){
         console.error(e);
@@ -1238,7 +1350,7 @@ FILE: rewardsPage.html (UPDATED)
           }catch(e){
             console.error(e);
             showToast("Redeem failed (DB error).");
-            // resync
+           
             try{
               currentPoints = await PT.getPoints();
               redeemedMap = await PT.getRedeemed();

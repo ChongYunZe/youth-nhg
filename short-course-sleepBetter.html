@@ -224,6 +224,12 @@
     }
     .primaryAction:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
 
+    
+    .checkList.quizBlock{
+      margin-bottom: 16px;
+    }
+
+
     .toast{
       margin-top: 10px;
       display:none;
@@ -386,11 +392,7 @@
           <h1>Sleep Better</h1>
           <p>Small sleep hygiene habits that help even during exam periods and late nights.</p>
         </div>
-        <div class="heroPills">
-          <span class="heroPill">⏱ 7 mins</span>
-          <span class="heroPill">⭐⭐ Level 2</span>
-          <span class="heroPill">😴 Sleep</span>
-        </div>
+
       </div>
     </div>
   </div>
@@ -426,7 +428,7 @@
             </div>
 
             <div class="lessonCard">
-              <h3>2) Stimulation keeps you “awake-mode”</h3>
+              <h3>2) Stimulation keeps you awake</h3>
               <p>
                 Intense scrolling, games, and bright screens can keep your brain alert.
                 You don’t need to be perfect — switching to <b>calmer content</b> is already a win.
@@ -434,20 +436,20 @@
 
               <div class="miniGrid">
                 <div class="miniBox">
-                  <div class="miniLabel">❌ High stimulation</div>
+                  <div class="miniLabel">✘ High stimulation</div>
                   <div class="miniText">Fast videos, competitive games, heated chats</div>
                 </div>
                 <div class="miniBox">
-                  <div class="miniLabel">✅ Low stimulation</div>
+                  <div class="miniLabel">✔ Low stimulation</div>
                   <div class="miniText">Music, light reading, journaling, stretching</div>
                 </div>
               </div>
             </div>
 
             <div class="lessonCard">
-              <h3>3) The biggest hack: wake time consistency</h3>
+              <h3>3) Wake time consistency</h3>
               <p>
-                If you want one lever: wake up around the <b>same time</b> most days.
+                Wake up around the <b>same time</b> most days.
                 Big swings make it harder to feel sleepy at night.
               </p>
             </div>
@@ -463,7 +465,7 @@
             <div class="divider"></div>
 
             <h2>Pick your “Tonight Plan” (2 mins)</h2>
-            <p class="sub">Check what you can realistically do today. Aim for <b>2 choices</b>.</p>
+            <p class="sub">Check what you can do today. Aim for <b>2 choices</b>.</p>
 
             <div class="checkList" id="checks">
               <label class="checkRow">
@@ -484,7 +486,7 @@
               </label>
 
               <div class="hint">
-                Tip: If exams make you sleep late, keep the plan simple: calmer last 20 mins + consistent wake time.
+                Tip: If exams make you sleep late, keep the plan simple: consistent wake time.
               </div>
             </div>
 
@@ -492,20 +494,20 @@
 
             <h2>Quick quiz (30s)</h2>
             <p class="sub">Which is most helpful for sleep consistency?</p>
-            <div class="checkList">
+            <div class="checkList quizBlock">
               <label class="checkRow"><input type="radio" name="q1" value="a"><span>Sleeping at totally different times every day</span></label>
               <label class="checkRow"><input type="radio" name="q1" value="b"><span>Waking up around the same time most days</span></label>
               <label class="checkRow"><input type="radio" name="q1" value="c"><span>Only sleeping more on weekends</span></label>
             </div>
 
             <h2>Reflection (30s)</h2>
-            <p class="sub">What 1 change will you try tonight — and what might block you?</p>
-            <textarea id="reflection" placeholder="e.g., Dim lights earlier. Blocker: phone. Fix: charge phone away from bed."></textarea>
+            <p class="sub">What 1 change will you try tonight and what might block you?</p>
+            <textarea id="reflection" placeholder=""></textarea>
 
             <div class="divider"></div>
 
             <button class="primaryAction" id="completeBtn" type="button" disabled>Complete course</button>
-            <div class="toast" id="toast">✅ Completed! You’re ready to try quizzes + streaks next.</div>
+            <div class="toast" id="toast">Completed! Try out the quizzes.</div>
           </div>
 
           <aside class="sideCard">
@@ -527,15 +529,7 @@
               1) Calm mode 20 mins before bed<br/>
               2) Wake time around the same time
             </p>
-
-            <div class="divider"></div>
-
-            <h3 class="sideTitle">What’s next?</h3>
-            <p class="sideText">Try <b>Quizzes & Challenges</b> to track progress and build streaks.</p>
-
-            <a href="quizzes.html" style="display:inline-flex;justify-content:center;width:100%;margin-top:12px;border:1px solid #e6eaf2;border-radius:14px;padding:12px 14px;background:#fff;color:#334155;font-weight:950;text-decoration:none;">
-              Go to quizzes →
-            </a>
+           
           </aside>
         </div>
       </div>
@@ -637,7 +631,7 @@
       });
     })();
 
-    // Progress (demo)
+    // Progress
     const STORAGE_KEY = "course_sleep_better_v2";
     const barFill = document.getElementById("barFill");
     const pctText = document.getElementById("pctText");
@@ -656,7 +650,7 @@
 
     function calcPct(s){
       const checkedCount = (s.checked && Array.isArray(s.checked)) ? s.checked.length : 0;
-      // Encourage "pick 2": first 2 checks worth more, extras less
+      
       let checklist = 0;
       if(checkedCount >= 1) checklist += 20;
       if(checkedCount >= 2) checklist += 20;
@@ -670,13 +664,11 @@
 
     function render(){
       const s = getState();
-
-      // restore checks
+      
       checks.querySelectorAll("input[type='checkbox']").forEach(cb => {
         cb.checked = (s.checked || []).includes(cb.value);
       });
-
-      // restore reflection (avoid overwriting while typing)
+      
       if(s.reflection && reflection.value !== s.reflection) reflection.value = s.reflection;
 
       const pct = calcPct(s);
@@ -685,7 +677,7 @@
       completeBtn.disabled = !(pct >= 90);
 
       if(s.completed){
-        completeBtn.textContent = "Completed ✅";
+        completeBtn.textContent = "Completed";
         completeBtn.disabled = true;
         toast.classList.add("show");
       }
@@ -703,7 +695,7 @@
     document.querySelectorAll("input[name='q1']").forEach(r => {
       r.addEventListener("change", () => {
         const s = getState();
-        s.quiz = (r.value === "b"); // correct
+        s.quiz = (r.value === "b"); 
         setState(s);
         render();
       });
@@ -716,28 +708,19 @@
       render();
     });
 
-    // completeBtn.addEventListener("click", () => {
-    //   const s = getState();
-    //   s.completed = true;
-    //   setState(s);
-    //   render();
-    // });
-
     completeBtn.addEventListener("click", async () => {
     const s = getState();
     if(s.completed) return;
 
-    // mark completed locally first (UI updates immediately)
+    // mark completed 
     s.completed = true;
     s.completedAt = Date.now();
     setState(s);
     render();
 
-    try{
-      // make sure user exists in DB
+    try{  
       if(window.PT && PT.ensureUser) await PT.ensureUser();
 
-      // award points ONCE only
       const res = await PT.awardCourseOnce({
         courseId: COURSE_ID,
         courseName: COURSE_NAME,
@@ -745,15 +728,15 @@
       });
 
       if(res.awarded){
-        toast.textContent = `🎉 Completed! You earned +${COURSE_POINTS} points. Total: ${res.total}`;
+        toast.textContent = `Completed! You earned +${COURSE_POINTS} points. Total: ${res.total}`;
       } else {
-        toast.textContent = `✅ Completed! (Points already awarded before) Total: ${res.total}`;
+        toast.textContent = `Completed! (Points already awarded before) Total: ${res.total}`;
       }
 
       toast.classList.add("show");
     }catch(err){
       console.warn(err);
-      toast.textContent = "✅ Completed! (Could not update points in database.)";
+      toast.textContent = "Completed! (Could not update points in database.)";
       toast.classList.add("show");
     }
   });

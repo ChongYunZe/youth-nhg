@@ -29,7 +29,6 @@
       background:#fff;
       color:#0f172a;
 
-      /* ✅ sticky footer */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -39,7 +38,7 @@
     a{ color:inherit; text-decoration:none; }
     .container{ width:min(var(--container), calc(100% - 40px)); margin:0 auto; }
 
-    /* ===== Navbar (same) ===== */
+    /* ===== Navbar ===== */
     .topbar{
       position: sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
@@ -49,11 +48,6 @@
     }
     .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
     .brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
-    /* .logo{
-      width:34px;height:34px;border-radius:10px;
-      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
-      box-shadow: 0 10px 26px rgba(45,99,255,.35);
-    } */
      .logo{
       width:44px;height:44px;border-radius:10px;
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
@@ -419,16 +413,10 @@
     <section>
       <div class="container">
         <div class="layout">
-          <!-- Left: steps -->
           <div class="panel">
             <h2>Your 1-Day Reset Plan</h2>
             <p class="muted">Complete all steps to finish.</p>
 
-            <!-- <div class="badgeRow">
-              <span class="pill">📌 Planning</span>
-              <span class="pill">✅ Must complete all</span>
-              <span class="pill">💾 Saved on device</span>
-            </div> -->
 
             <!-- Step 1 -->
             <div class="step" id="step1">
@@ -531,7 +519,6 @@
             <div class="success" id="successBox" role="status"></div>
           </div>
 
-          <!-- Right: progress + summary -->
           <div class="panel">
             <h2>Progress</h2>
             <p class="muted">Complete all 4 steps to earn a “skill badge” (demo).</p>
@@ -562,9 +549,6 @@
               </div>
             </div>
 
-            <!-- <div class="note" style="margin-top:12px;">
-              <strong>Next step idea:</strong> After finishing, show a “What’s next?” button to recommend the quiz or sleep challenge.
-            </div> -->
           </div>
         </div>
       </div>
@@ -600,14 +584,6 @@
           <a href="index.html#top">FAQ</a>
         </div>
 
-        <!-- <div class="footerCol">
-          <h5>Connect</h5>
-          <div class="footer__social" aria-label="Social links">
-            <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
-            <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
-            <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div> -->
         <div class="footerCol">
           <h5>Connect</h5>
 
@@ -661,7 +637,7 @@
     hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ===== Mini Challenge Logic =====
+    // ===== Mini Challenge =====
     const STORAGE_KEY = "nhg_planning_mini_v1";
 
     const els = {
@@ -786,12 +762,10 @@
       computeProgress(d);
     }
 
-    // Init
     const stored = load();
     if (stored) setData(stored);
     persist();
 
-    // Listen changes (autosave)
     ["input", "change"].forEach(evt => {
       document.addEventListener(evt, (e) => {
         if (
@@ -819,14 +793,11 @@
 
       showSuccess("Completed! You earned a Badge.");
 
-      // Optional: disable inputs after completion
-      // If you want users to still edit after finishing, remove the block below.
       [els.p1, els.p2, els.p3, els.t1, els.t2, els.t3, els.quickWin, els.reflection].forEach(x => x.disabled = true);
       els.finishBtn.disabled = true;
       els.statusText.textContent = "Completed";
     });
 
-    // Reset
     els.resetBtn.addEventListener("click", () => {
       const ok = confirm("Reset your mini challenge plan? This clears your saved inputs.");
       if (!ok) return;

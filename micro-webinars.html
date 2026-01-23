@@ -56,7 +56,7 @@
       margin: 0 auto;
     }
 
-    /* Top bar (same as events.html) */
+    /* Top bar  */
     .topbar{
       position: sticky;
       top: 0;
@@ -158,7 +158,7 @@
     .mobile-nav a:hover{ color:#fff; }
     .mobile-nav.show{ display:block; }
 
-    /* Page hero (same as events.html) */
+    /* Page hero  */
     .pageHero{
       background: linear-gradient(90deg, #1E4DFF 0%, #2D63FF 45%, #2A5BFF 100%);
       color:#fff;
@@ -204,7 +204,7 @@
       max-width: 72ch;
     }
 
-    /* Cards grid (same style) */
+    /* Cards grid */
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -301,7 +301,7 @@
       line-height:1.65;
     }
 
-    /* Footer (same as events.html) */
+    /* Footer  */
     footer{
       margin-top: 18px;
       background: #0b1220;
@@ -387,7 +387,6 @@
 </head>
 
 <body>
-  <!-- ✅ Navbar same pattern as events.html -->
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
@@ -445,10 +444,6 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
-              </svg> -->
               <span class="material-symbols-outlined">
               sentiment_stressed
               </span>
@@ -463,10 +458,6 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
               partly_cloudy_night
               </span>
@@ -481,10 +472,6 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
               event_list
               </span>
@@ -505,7 +492,6 @@
       </div>
     </section>
 
-    <!-- ✅ Join modal (same as events.html) -->
     <section aria-label="Hidden modal">
       <div id="joinModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 999; padding: 24px;">
         <div style="max-width: 560px; margin: 8vh auto; background:#fff; border-radius: 18px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); overflow:hidden;">
@@ -543,11 +529,11 @@
         </div>
       </div>
     </section>
-    <!-- ✅ Success animation modal -->
+   
     <div id="successModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 1000; padding: 24px;">
       <div style="max-width: 360px; margin: 20vh auto; background:#fff; border-radius: 22px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); text-align:center; padding: 26px 22px;">
 
-        <!-- Lottie container -->
+       
         <div id="successAnimation" style="width:140px; height:140px; margin: 0 auto 12px;"></div>
 
         <h3 style="margin:0 0 6px; font-size: 18px; letter-spacing:-.2px; color:#0f172a;">
@@ -631,7 +617,6 @@
   <script src="pt-firebase.js"></script>
   <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
   <script>
-    // Navbar auth UI (Sign in / Logout) - same as events.html
     PT.applyNavAuthUI({
       signInId: "navSignIn",
       logoutId: "navLogout",
@@ -648,7 +633,6 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Join modal (auto-fill if logged in) - same as events.html
     const joinModal = document.getElementById("joinModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalType = document.getElementById("modalType");
@@ -661,7 +645,7 @@
       modalType.textContent = type;
       joinModal.style.display = "block";
 
-      // reset fields each time
+      
       if (joinName) joinName.value = "";
       if (joinEmail) joinEmail.value = "";
 
@@ -671,10 +655,10 @@
         if (window.PT && PT.isLoggedIn && PT.isLoggedIn()){
           if (joinHint) joinHint.textContent = "Auto-filled from your account. Edit details if needed.";
 
-          // ensure record exists (safe)
+          
           if (PT.ensureUser) await PT.ensureUser();
 
-          // fetch profile + fill
+          
           if (PT.getProfile){
             const profile = await PT.getProfile();
             if (profile){
@@ -693,19 +677,6 @@
       joinModal.style.display = "none";
     }
 
-    // function confirmJoin(){
-    //   const name = (joinName?.value || "").trim();
-    //   const email = (joinEmail?.value || "").trim();
-
-    //   if(!name || !email){
-    //     alert("Please enter your name and email.");
-    //     return;
-    //   }
-
-    //   closeJoin();
-    //   alert("Registered.");
-    // }
-
     const successModal = document.getElementById("successModal");
 
     function confirmJoin(){
@@ -716,36 +687,30 @@
         alert("Please enter your name and email.");
         return;
       }
-
-      // Close form modal
+      
       closeJoin();
-
-      // Show success animation modal
+     
       successModal.style.display = "block";
 
-      // Load and play Lottie animation (checkmark)
       const animContainer = document.getElementById("successAnimation");
-      animContainer.innerHTML = ""; // reset if opened before
+      animContainer.innerHTML = ""; 
 
       lottie.loadAnimation({
         container: animContainer,
         renderer: "svg",
         loop: false,
         autoplay: true,
-
-        // ✅ Clean checkmark animation (very popular & lightweight)
+        
         path: "https://lottie.host/9e385b85-1c09-4390-a04c-10b5cd2ecb0d/n0cFFjYwZz.json"
       });
 
-      // Auto close after 2 seconds
+      // Auto close 
       setTimeout(() => {
         successModal.style.display = "none";
       }, 2000);
     }
 
 
-
-    // Close modal by clicking background
     joinModal.addEventListener("click", (e) => {
       if(e.target === joinModal) closeJoin();
     });

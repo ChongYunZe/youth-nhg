@@ -67,7 +67,7 @@
       display:block;
     }
 
-    /* ===== Navigation Tabs (TOP) ===== */
+    /* ===== Navigation Tabs ===== */
     .modeNav{
       padding: 0 14px;
       background: #fff;
@@ -109,7 +109,7 @@
       box-shadow: 0 10px 20px rgba(45,99,255,.18);
     }
 
-    /* ===== Header BELOW nav ===== */
+    
     .cardHead{
       padding: 16px 18px 2px;
       text-align:center;
@@ -186,7 +186,7 @@
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
-    /* ✅ Secondary button style for "Continue without account" */
+    
     .btn-secondary{
       background: #ffffff;
       color: #0f172a;
@@ -219,14 +219,14 @@
 <body>
   <div class="card">
 
-    <!-- Logo -->
+ 
     <div class="cardTop">
       <div class="logoWrap">
         <img src="logoWithName.jpg" alt="Project Thrive Logo">
       </div>
     </div>
 
-    <!-- Tabs (Navigation FIRST) -->
+   
     <div class="modeNav">
       <div class="modeNavRow">
         <button class="modeLink active" id="tabLogin" type="button">Login</button>
@@ -234,7 +234,7 @@
       </div>
     </div>
 
-    <!-- Header BELOW tabs -->
+    
     <div class="cardHead">
       <h1 id="pageTitle">Login</h1>
       <p class="subtitle" id="subtitle">Sign in to view your points and redeem rewards.</p>
@@ -263,12 +263,12 @@
 
       <button class="btn" id="primaryBtn" type="button">Login</button>
 
-      <!-- ✅ NEW: Continue without account -->
+      
       <button class="btn btn-secondary" id="continueBtn" type="button">
         Continue as Guest
       </button>
 
-      <!-- <p class="muted">Demo login using open Firebase rules.</p> -->
+      
     </div>
   </div>
 
@@ -289,7 +289,7 @@
     const primaryBtn = document.getElementById("primaryBtn");
     const continueBtn = document.getElementById("continueBtn");
 
-    let mode = "login"; // login | signup
+    let mode = "login"; 
 
     function showErr(msg){
       errEl.textContent = msg;
@@ -315,7 +315,7 @@
       signupOnly.classList.toggle("hide", isLogin);
       primaryBtn.textContent = isLogin ? "Login" : "Create account";
 
-      // ✅ Continue button should always be available
+      
       continueBtn.style.display = "block";
 
       clearErr();
@@ -324,7 +324,7 @@
     tabLogin.addEventListener("click", () => setMode("login"));
     tabSignup.addEventListener("click", () => setMode("signup"));
 
-    // If already logged in, go rewards
+    
     if (PT.isLoggedIn()){
       window.location.href = "index.html";
     }
@@ -350,9 +350,9 @@
       }
     });
 
-    // ✅ Continue without account
+    
     continueBtn.addEventListener("click", () => {
-      // Send users to your homepage (change if you want another page)
+      
       window.location.href = "index.html";
     });
 

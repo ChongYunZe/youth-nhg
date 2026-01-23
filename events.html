@@ -312,6 +312,20 @@
       font-size: 12px;
       white-space: nowrap;
     }
+    .dayPill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(94,228,165,.35);
+      background: rgba(94,228,165,.16);
+      color: #0f766e;
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
 
     .filters{
       display:flex;
@@ -536,7 +550,7 @@
       flex: 0 0 auto;
     }
 
-    /* ✅ NEW: One clean action card (QR + buttons together) */
+    
     .actionCard{
       margin-top: 14px;
       border: 1px solid #e6eaf2;
@@ -788,7 +802,7 @@
                 <div class="charCard"><div class="charTop"><p class="charName">The Avoider</p><span class="charEmoji">⏱️</span></div></div>
               </div>
               <div class="miniSlogan">Collect them. Earn points. Learn something useful.</div>
-              <!-- ✅ NEW: Cohesive QR + Buttons Card -->
+             
               <div class="actionCard">
                 <div class="actionQR">
                   <img src="burnout-quiz-qr.jpg" alt="Scan QR to access burnout quiz">
@@ -861,10 +875,6 @@
         <div class="grid-3" id="popupGrid">
           <article class="card" data-type="school">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 home
               </span>
@@ -874,16 +884,13 @@
             <div class="metaRow">
               <span class="pill">🏫 School • 10 mins</span>
               <span class="locationPill">📍 Ngee Ann Polytechnic</span>
+              <span class="dayPill">📅 Tue</span>
               <span class="timePill">🕒 2pm–6pm</span>
             </div>
           </article>
 
           <article class="card" data-type="cc">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 21V3h10v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 score
               </span>
@@ -893,16 +900,13 @@
             <div class="metaRow">
               <span class="pill">🏘 CC • 12 mins</span>
               <span class="locationPill">📍 Bukit Panjang CC</span>
+              <span class="dayPill">📅 Sat</span>
               <span class="timePill">🕒 11am–3pm</span>
             </div>
           </article>
 
           <article class="card" data-type="public">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 emoji_food_beverage
               </span>
@@ -912,6 +916,7 @@
             <div class="metaRow">
               <span class="pill">🛍 Public • 15 mins</span>
               <span class="locationPill">📍 Tampines Mall Atrium</span>
+              <span class="dayPill">📅 Sun</span>
               <span class="timePill">🕒 4pm–8pm</span>
             </div>
           </article>
@@ -1109,7 +1114,7 @@
     window.open(url, "_blank");
   }
 
-  // ✅ Updated: finds nearest event based on GPS
+  // finds nearest event based on location
   function findPopUpNearMe(){
     if (!navigator.geolocation){
       alert("Geolocation is not supported on this device.");
@@ -1139,8 +1144,7 @@
         }
 
         const label = `${best.name} (${best.address})`;
-        // Optional: quick confirmation
-        // alert(`Nearest pop-up: ${label} (~${Math.round(bestDist)}m away)`);
+        
 
         openDirectionsTo(best.lat, best.lng, label);
       },
@@ -1152,7 +1156,7 @@
     );
   }
 
-    // Join modal (kept for consistency across pages)
+    // Join modal 
     const joinModal = document.getElementById("joinModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalType = document.getElementById("modalType");

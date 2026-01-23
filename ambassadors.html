@@ -135,7 +135,7 @@
       cursor:pointer;
     }
 
-    /* ✅ IMPORTANT: hide mobile menu on desktop to avoid the double-row issue */
+    /* hide mobile menu on desktop to avoid the double-row issue */
     .mobile-nav{
       display:none;
       padding: 12px 0 14px;
@@ -331,7 +331,7 @@
     }
 
     /* =========================
-       ✅ POPUP MODAL FORM
+       POPUP MODAL FORM
        ========================= */
     .modalOverlay{
       position: fixed;
@@ -497,7 +497,7 @@
         <a href="ambassadors.html">Ambassadors</a>
       </nav>
 
-      <!-- ✅ ONLY auth buttons now -->
+      <!-- ONLY auth buttons -->
       <div class="actions">
         <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
         <button class="btn" type="button" id="navLogout" title="Logout">Logout</button>
@@ -582,7 +582,7 @@
 
           <div style="height:16px"></div>
 
-          <!-- ✅ Open popup -->
+          <!-- Open popup -->
           <button class="btn btn-primary" id="openAmbassadorForm" type="button">
             Apply Now →
           </button>
@@ -603,7 +603,7 @@
 
 </main>
 
-<!-- ✅ POPUP MODAL -->
+<!-- POPUP MODAL -->
 <div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" role="document">
     <button class="modalClose" id="closeModalBtn" type="button" aria-label="Close">✕</button>
@@ -699,10 +699,10 @@
           
           <a class="socialBtn" href="https://t.me/ProjectThrive" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
             <svg viewBox="0 0 24 24" fill="none">
-              <!-- Paper plane -->
+            
               <path d="M21 5L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M21 5L15 21L10 12L3 9L21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <!-- Optional small tail detail -->
+              
               <path d="M10 12L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </a>
@@ -753,8 +753,8 @@
 
   const fullName = document.getElementById("fullName");
   const email = document.getElementById("email");
-  const school = document.getElementById("school");      // ✅ do NOT autofill
-  const telegram = document.getElementById("telegram");  // ✅ do NOT autofill
+  const school = document.getElementById("school");      
+  const telegram = document.getElementById("telegram");  
 
   let lastFocusedEl = null;
 
@@ -766,12 +766,11 @@
     errorBox.textContent = "";
     successMsg.style.display = "none";
 
-    // ✅ Reset only the fields we WANT to autofill each time
-    // (leave school/telegram untouched so user can keep typing if they reopen)
+    // Reset only the fields we WANT to autofill each time
     fullName.value = "";
     email.value = "";
 
-    // ✅ If logged in, auto-fill Full name + Email from profile
+    // If logged in, auto-fill Full name + Email from profile
     try{
       if (PT.isLoggedIn()){
         if (PT.ensureUser) await PT.ensureUser(); // safe
@@ -785,12 +784,12 @@
       }
     } catch(err){
       console.warn("Ambassador autofill failed:", err);
-      // silently fall back to manual entry
+    
     }
 
     validateLive();
 
-    // Focus: if logged in, go to School/Workplace (since name/email filled). Else focus name.
+    //if logged in, go to School/Workplace. Else focus name.
     setTimeout(() => {
       if (PT.isLoggedIn()) school.focus();
       else fullName.focus();

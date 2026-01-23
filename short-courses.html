@@ -29,7 +29,7 @@
       background:#fff;
       color:#0f172a;
 
-      /* ✅ sticky footer */
+      
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -185,7 +185,7 @@
       flex-wrap:wrap;
     }
 
-    /* 🔒 Login Gate Overlay */
+    
     .loginGate{
       position: fixed;
       inset: 0;
@@ -295,8 +295,7 @@
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
-        <div class="actions">
-          <!-- ✅ Only keep Back button -->
+        <div class="actions">          
           <a class="btn" href="hybrid-learning.html">Back</a>
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
@@ -354,7 +353,7 @@
 
         <div class="note">
           <strong style="color:#0f172a;">Retention + Progression:</strong>
-          Courses are grouped by level (Level 1 → Level 2). After each completion, show a visible skill badge
+          Courses are grouped by level (Level 1 → Level 2). After each completion, shows a visible skill badge
           to encourage repeat engagement beyond rewards.
         </div>
       </div>
@@ -436,7 +435,6 @@
     </div>
   </footer>
 
-  <!-- 🔒 Login Gate Overlay -->
   <div class="loginGate" id="loginGate" aria-hidden="true">
     <div class="gateCard" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
       <div>
@@ -465,7 +463,6 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // 🔒 Gate: show overlay if NOT logged in
     (function(){
       const loggedIn = (window.PT && PT.isLoggedIn && PT.isLoggedIn());
       if (loggedIn) return;
@@ -473,16 +470,13 @@
       const gate = document.getElementById("loginGate");
       const signInBtn = document.getElementById("gateSignIn");
       if(!gate) return;
-
-      // Save intended page so login.html can redirect back (optional)
+      
       try { localStorage.setItem("nhg_after_login_redirect", window.location.href); } catch(_){}
-
-      // Show overlay and freeze scroll
+     
       gate.classList.add("show");
       gate.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
-
-      // Ensure clicking sign-in keeps redirect
+      
       signInBtn?.addEventListener("click", () => {
         try { localStorage.setItem("nhg_after_login_redirect", window.location.href); } catch(_){}
       });

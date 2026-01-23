@@ -10,8 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-  <style>
-    /* Same CSS as popup-events.html (kept identical for consistent UI) */
+  <style>    
     :root{
       --border: rgba(255,255,255,.10);
       --shadow: 0 18px 50px rgba(0,0,0,.35);
@@ -277,6 +276,20 @@
       font-weight: 800;
       font-size: 12px;
     }
+    .dayPill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(94,228,165,.35);
+      background: rgba(94,228,165,.16);
+      color: #0f766e;
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
 
     .linkBtn{
       border: 1px solid rgba(45,99,255,.25);
@@ -392,7 +405,6 @@
 </head>
 
 <body>
-  <!-- Main navbar -->
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
@@ -456,10 +468,6 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 fitness_center
               </span>
@@ -468,16 +476,13 @@
             <p>10–20 min guided movement with a simple goal + friendly coaching.</p>
             <div class="metaRow">
               <span class="pill">💪 20 mins</span>
+              <span class="dayPill">📅 Wed 6pm</span>
               <button class="linkBtn" type="button" onclick="openJoin('Fitness Mini Challenge', 'Workshop')">Sign up →</button>
             </div>
           </article>
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 calendar_meal
               </span>
@@ -486,16 +491,13 @@
             <p>Learn quick food swaps using interactive picks + real examples.</p>
             <div class="metaRow">
               <span class="pill">🥗 15 mins</span>
+              <span class="dayPill">📅 Fri 4pm</span>
               <button class="linkBtn" type="button" onclick="openJoin('Nutrition Swap Game', 'Workshop')">Sign up →</button>
             </div>
           </article>
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <!-- <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg> -->
               <span class="material-symbols-outlined">
                 assignment_add
               </span>
@@ -504,6 +506,7 @@
             <p>Quick planning activity for exam stress + burnout. Ends with one takeaway prompt.</p>
             <div class="metaRow">
               <span class="pill">🗓 15–20 mins</span>
+              <span class="dayPill">📅 Sun 1pm</span>
               <button class="linkBtn" type="button" onclick="openJoin('Build a 1-Day Reset Plan', 'Workshop')">Sign up →</button>
             </div>
           </article>
@@ -556,11 +559,9 @@
         </div>
       </div>
     </section>
-    <!-- ✅ Success animation modal -->
     <div id="successModal" style="display:none; position:fixed; inset:0; background: rgba(15,23,42,.55); z-index: 1000; padding: 24px;">
       <div style="max-width: 360px; margin: 20vh auto; background:#fff; border-radius: 22px; border:1px solid #e6eaf2; box-shadow: 0 20px 60px rgba(15,23,42,.22); text-align:center; padding: 26px 22px;">
 
-        <!-- Lottie container -->
         <div id="successAnimation" style="width:140px; height:140px; margin: 0 auto 12px;"></div>
 
         <h3 style="margin:0 0 6px; font-size: 18px; letter-spacing:-.2px; color:#0f172a;">
@@ -694,16 +695,6 @@
 
     function closeJoin(){ joinModal.style.display = "none"; }
 
-    // function confirmJoin(){
-    //   const name = (joinName?.value || "").trim();
-    //   const email = (joinEmail?.value || "").trim();
-    //   if(!name || !email){
-    //     alert("Please enter your name and email.");
-    //     return;
-    //   }
-    //   closeJoin();
-    //   alert("Registered.");
-    // }
     const successModal = document.getElementById("successModal");
 
     function confirmJoin(){
@@ -715,15 +706,14 @@
         return;
       }
 
-      // Close form modal
+ 
       closeJoin();
 
-      // Show success animation modal
       successModal.style.display = "block";
 
-      // Load and play Lottie animation (checkmark)
+     
       const animContainer = document.getElementById("successAnimation");
-      animContainer.innerHTML = ""; // reset if opened before
+      animContainer.innerHTML = ""; 
 
       lottie.loadAnimation({
         container: animContainer,
@@ -733,7 +723,7 @@
         path: "https://lottie.host/9e385b85-1c09-4390-a04c-10b5cd2ecb0d/n0cFFjYwZz.json"
       });
 
-      // Auto close after 2 seconds
+      // Auto close 
       setTimeout(() => {
         successModal.style.display = "none";
       }, 2500);

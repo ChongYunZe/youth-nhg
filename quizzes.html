@@ -29,7 +29,7 @@
       background:#fff;
       color:#0f172a;
 
-      /* ✅ sticky footer */
+      
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -184,7 +184,7 @@
       flex-wrap:wrap;
     }
 
-    /* 🔒 Login Gate Overlay */
+    
     .loginGate{
       position: fixed;
       inset: 0;
@@ -290,8 +290,7 @@
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
-        <div class="actions">
-          <!-- ✅ Remove Hybrid Hub button; keep only Back -->
+        <div class="actions">         
           <a class="btn" href="hybrid-learning.html">Back</a>
           <button class="hamburger" type="button" id="hamburger" aria-label="Open menu">☰</button>
         </div>
@@ -349,7 +348,7 @@
 
         <div class="note">
           <strong style="color:#0f172a;">Motivation beyond rewards:</strong>
-          Add a simple “How helpful was this?” question after repeat participation, and show progress in skills gained
+          Show progress in skills gained
           to encourage sustained engagement.
         </div>
       </div>
@@ -431,7 +430,7 @@
     </div>
   </footer>
 
-  <!-- 🔒 Login Gate Overlay -->
+  
   <div class="loginGate" id="loginGate" aria-hidden="true">
     <div class="gateCard" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
       <div>
@@ -460,7 +459,6 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // 🔒 Gate: show overlay if NOT logged in
     (function(){
       const loggedIn = (window.PT && PT.isLoggedIn && PT.isLoggedIn());
       if (loggedIn) return;
@@ -469,7 +467,6 @@
       const signInBtn = document.getElementById("gateSignIn");
       if(!gate) return;
 
-      // Save intended page so login.html can redirect back (optional)
       try { localStorage.setItem("nhg_after_login_redirect", window.location.href); } catch(_){}
 
       // Show overlay and freeze scroll

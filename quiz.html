@@ -46,11 +46,6 @@
     }
     .topbar-inner{ height:64px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
     .brand{ display:flex; align-items:center; gap:10px; font-weight:800; }
-    /* .logo{
-      width:34px;height:34px;border-radius:10px;
-      background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
-      box-shadow: 0 10px 26px rgba(45,99,255,.35);
-    } */
      .logo{
       width:44px;height:44px;border-radius:10px;
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
@@ -376,14 +371,6 @@
         <div class="wrap">
           <div class="panel">
             <h2>Your Questions</h2>
-            <!-- <p class="muted">These 5 questions are locked for this attempt.</p> -->
-
-            <!-- <div class="badgeRow">
-              <span class="pill">🧠 Multiple choice</span>
-              <span class="pill">✅ Must answer all</span>
-              <span class="pill">🔒 Locked set</span>
-            </div> -->
-
             <form id="quizForm" novalidate>
               <div id="questionsMount"></div>
 
@@ -423,18 +410,13 @@
               <div class="sideStat" style="margin-top:12px;">
                 <div>
                   <div style="font-weight:950;">After Submit</div>
-                  <div class="small">You’ll see your score + review.</div>
+                  <div class="small">You’ll see your score.</div>
                 </div>
-                <div class="pill">📌 Quick feedback</div>
+                
               </div>
             </div>
 
-            <div class="panel" style="margin-top:14px;">
-              <h2>Note</h2>
-              <p class="muted">
-                This is a front-end demo (no database). If you want to prevent refresh changing the set, we already lock it for this session.
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -469,14 +451,6 @@
           <a href="index.html#top">FAQ</a>
         </div>
 
-        <!-- <div class="footerCol">
-          <h5>Connect</h5>
-          <div class="footer__social" aria-label="Social links">
-            <a class="socialBtn" href="#" aria-label="Instagram">◎</a>
-            <a class="socialBtn" href="#" aria-label="TikTok">♪</a>
-            <a class="socialBtn" href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div> -->
         <div class="footerCol">
           <h5>Connect</h5>
 
@@ -530,7 +504,7 @@
     hamburger?.addEventListener("click", () => mobileNav.classList.toggle("show"));
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ===== Quiz Data (20 questions) =====
+    // Quiz Data
     const QUESTION_BANK = [
       { id:"q1", question:"Which habit is most helpful for reducing stress quickly?", choices:["Skipping meals","Slow breathing for 60 seconds","Staying up late to finish work","Avoiding water all day"], correctIndex:1 },
       { id:"q2", question:"A good first step when you feel overwhelmed is to…", choices:["Do everything at once","Write a short list of top 3 tasks","Ignore deadlines","Scroll social media for 2 hours"], correctIndex:1 },
@@ -568,7 +542,7 @@
     const QUIZ_KEY = "nhg_quiz_locked_5_v1";
 
     let selectedQuestions = [];
-    let answers = {}; // { [questionId]: chosenIndex }
+    let answers = {}; 
     let submitted = false;
 
     const mount = document.getElementById("questionsMount");
@@ -711,8 +685,7 @@
       return Object.keys(answers).length === QUESTIONS_PER_QUIZ;
     }
 
-    function lockQuestionSetOncePerSession(){
-      // Try load locked set
+    function lockQuestionSetOncePerSession(){      
       try{
         const raw = sessionStorage.getItem(QUIZ_KEY);
         if (raw){
@@ -724,12 +697,12 @@
             return;
           }
         }
-      }catch(e){ /* ignore */ }
+      }catch(e){ }
 
-      // No valid locked set => create one and lock it
+      
       selectedQuestions = shuffle(QUESTION_BANK).slice(0, QUESTIONS_PER_QUIZ);
       const idsToStore = selectedQuestions.map(q => q.id);
-      try{ sessionStorage.setItem(QUIZ_KEY, JSON.stringify(idsToStore)); }catch(e){ /* ignore */ }
+      try{ sessionStorage.setItem(QUIZ_KEY, JSON.stringify(idsToStore)); }catch(e){  }
     }
 
     quizForm.addEventListener("submit", (e) => {
@@ -746,7 +719,7 @@
       const { score, details } = computeScore();
       submitted = true;
 
-      // lock inputs
+      
       renderQuestions();
 
       setSuccess(`Submitted! Your score: ${score} / ${QUESTIONS_PER_QUIZ}.`);
@@ -754,7 +727,7 @@
       updateProgress();
     });
 
-    // Init
+    
     lockQuestionSetOncePerSession();
     renderQuestions();
     updateProgress();

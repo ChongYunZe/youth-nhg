@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
   <style>
     :root{
@@ -43,6 +44,13 @@
       width: min(var(--container), calc(100% - 40px));
       margin: 0 auto;
     }
+
+    .material-symbols-outlined{
+      font-size: 20px;
+      line-height: 1;
+      display: block;
+    }
+
 
     /* Top bar */
     .topbar{
@@ -335,7 +343,7 @@
     }
     .moreBtn:hover{ color:#0f172a; }
 
-    /* ✅ Programme Features (2×2) */
+  
     .featuresWrap{ padding: 36px 0 40px; background: #ffffff; }
     .featuresTitle{
       text-align:center;
@@ -419,7 +427,7 @@
       display:block;
     }
 
-    /* Rewards section (big) */
+    /* Rewards section */
     .rewards-wrap{
       border:1px solid #e6eaf2;
       border-radius: var(--radius-xl);
@@ -591,7 +599,7 @@
       flex-wrap:wrap;
     }
 
-    /* ✅ Mobile nav should be hidden on desktop */
+    
     .mobile-nav{
       display:none;
       padding: 12px 0 14px;
@@ -660,7 +668,7 @@
           <a href="ambassadors.html">Ambassadors</a>
         </nav>
 
-        <!-- ✅ UPDATED: removed Explore/Get Started + added Sign in/Logout -->
+        
         <div class="actions">
           <a class="btn btn-primary" id="navSignIn" href="login.html">Sign in</a>
           <button class="btn" type="button" id="navLogout" title="Logout (demo)">Logout</button>
@@ -675,7 +683,7 @@
         <a href="rewardsPage.html" onclick="closeMobileNav()">Rewards</a>
         <a href="ambassadors.html" onclick="closeMobileNav()">Ambassadors</a>
 
-        <!-- optional: mobile auth links -->
+       
         <a id="mSignIn" href="login.html" onclick="closeMobileNav()">Sign in</a>
         <a href="#" id="mLogout" onclick="event.preventDefault(); closeMobileNav(); document.getElementById('navLogout')?.click();">Logout</a>
       </div>
@@ -718,57 +726,45 @@
       <nav class="subnav" aria-label="Modules tabs">
         <button type="button" class="tabBtn" data-tab="popup">
           <span class="subnav-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 3v3M17 3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M4 8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
+            <span class="material-symbols-outlined">
+            calendar_today
+            </span>
           </span>
           Pop-up Events
         </button>
 
         <button type="button" class="tabBtn active" data-tab="hybrid">
           <span class="subnav-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 5h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <span class="material-symbols-outlined">
+            monitor
+            </span>
           </span>
           Hybrid Learning
         </button>
 
         <button type="button" class="tabBtn" data-tab="workshops">
           <span class="subnav-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
+            <span class="material-symbols-outlined">
+            handyman
+            </span>
           </span>
           Workshops
         </button>
 
         <button type="button" class="tabBtn" data-tab="rewardsTab">
           <span class="subnav-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M20 12v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9" stroke="currentColor" stroke-width="2"/>
-              <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 22V7" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C10 2 12 7 12 7Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C14 2 12 7 12 7Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
+            <span class="material-symbols-outlined">
+            redeem
+            </span>
           </span>
           Rewards
         </button>
 
         <button type="button" class="tabBtn" data-tab="ambassadors">
           <span class="subnav-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M22 21v-2a3.5 3.5 0 0 0-2.5-3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M16.5 3.3a4 4 0 0 1 0 7.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <span class="material-symbols-outlined">
+            groups
+            </span>
           </span>
           Youth Ambassadors
         </button>
@@ -786,39 +782,32 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10M7 11h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              sentiment_stressed
+              </span>
             </div>
-            <h3>Stress Relief in 10 Minutes</h3>
+            <h3>Stress Reset</h3>
             <p>Quick breathing exercises and mindful techniques to reset your day instantly</p>
-            <div class="next">Next: Tomorrow 2PM</div>
           </article>
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 11h10M7 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              assignment_add
+              </span>
             </div>
-            <h3>Plan Your Week in 5 Steps</h3>
+            <h3>Plan Your Week</h3>
             <p>Master your schedule with a simple framework designed to boost focus and productivity</p>
-            <div class="next">Next: Saturday 10AM</div>
           </article>
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3a7 7 0 0 0-7 7c0 2.2 1 4.2 2.6 5.5V19a2 2 0 0 0 2 2h5.8a2 2 0 0 0 2-2v-3.5A7 7 0 0 0 12 3Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 21h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              partly_cloudy_night
+              </span>
             </div>
             <h3>Sleep Better</h3>
             <p>Discover the best sleep hygiene practices to wake up feeling refreshed and energised</p>
-            <div class="next">Next: Sunday 3PM</div>
           </article>
         </div>
 
@@ -839,10 +828,9 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              home_work
+              </span>
             </div>
             <h3>School Pop-ups</h3>
             <p>Interactive health missions during lunch breaks and after school hours</p>
@@ -851,26 +839,24 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M7 21V3h10v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              group
+              </span>
             </div>
             <h3>Community Clubs</h3>
             <p>Weekend wellness activities with youth ambassadors facilitating</p>
-            <div class="next">Next: Saturday 10AM</div>
+            <div class="next">Next: Saturday 11AM</div>
           </article>
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              location_on
+              </span>
             </div>
             <h3>Public Spaces</h3>
             <p>Flash activities at malls, parks, and community centers</p>
-            <div class="next">Next: Sunday 3PM</div>
+            <div class="next">Next: Sunday 4PM</div>
           </article>
         </div>
 
@@ -891,10 +877,9 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 14l4-4 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+                fitness_center
+              </span>
             </div>
             <h3>Fitness Mini Challenge</h3>
             <p>10–20 min guided movement with a simple goal and friendly coaching</p>
@@ -903,10 +888,9 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 7h12M6 17h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+                calendar_meal
+              </span>
             </div>
             <h3>Nutrition Swap Game</h3>
             <p>Learn quick food swaps using real examples and interactive picks</p>
@@ -915,10 +899,9 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+                assignment_add
+              </span>
             </div>
             <h3>Stress Reset Station</h3>
             <p>Short guided reset tools you can repeat anytime (breathing, grounding, journaling)</p>
@@ -943,11 +926,9 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 12v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9" stroke="currentColor" stroke-width="2"/>
-                <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M12 22V7" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              redeem
+              </span>
             </div>
             <h3>Rewards Store</h3>
             <p>Redeem points for vouchers, passes, or partner perks</p>
@@ -956,9 +937,9 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3l2.6 5.3L20 9l-4 3.9.95 5.6L12 16.9 7.05 18.5 8 12.9 4 9l5.4-.7L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              workspace_premium
+              </span>
             </div>
             <h3>Badges</h3>
             <p>Collect themed badges for different wellbeing topics and levels</p>
@@ -967,13 +948,13 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 2h12v20l-6-3-6 3V2Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              developer_guide
+              </span>
             </div>
             <h3>Certificates</h3>
-            <p>Downloadable certificates to support portfolios and applications</p>
-            <div class="next">After completion</div>
+            <p>Earn certificates through events</p>
+           
           </article>
         </div>
 
@@ -994,10 +975,9 @@
         <div class="grid-3">
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M9 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 21v-1a6 6 0 0 1 6-6h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              person
+              </span>
             </div>
             <h3>Host Drop-ins</h3>
             <p>Run quick 10–20 min activities that fit youth schedules</p>
@@ -1006,9 +986,9 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M3 12h7l2-3 2 6 2-3h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              home_repair_service
+              </span>
             </div>
             <h3>Facilitate Workshops</h3>
             <p>Support fitness, nutrition, and lifestyle challenges with trainers</p>
@@ -1017,10 +997,9 @@
 
           <article class="card">
             <div class="card-ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 20l9-5-9-5-9 5 9 5Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M3 10l9 5 9-5" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <span class="material-symbols-outlined">
+              diversity_3
+              </span>
             </div>
             <h3>Build Community</h3>
             <p>Encourage participation and gather feedback to improve the programme</p>
@@ -1121,7 +1100,7 @@
       <div class="section-head">
         <div>
           <h2>Rewards &amp; Recognition</h2>
-          <p>Earn points, unlock badges, and get recognition for showing up and applying what you learn.</p>
+          <p>Earn points, unlock badges, and apply what you learn.</p>
         </div>
       </div>
 
@@ -1129,15 +1108,15 @@
         <div class="mini-grid">
           <div class="mini">
             <strong>Points &amp; Streaks</strong>
-            <span>Complete missions and maintain weekly streaks to unlock bonuses.</span>
+            <span>Complete missions and maintain weekly streaks to earn points.</span>
           </div>
           <div class="mini">
             <strong>Badges</strong>
-            <span>Collect themed badges for different wellbeing topics and levels.</span>
+            <span>Collect badges for different wellbeing topics and levels.</span>
           </div>
           <div class="mini">
             <strong>Certificates</strong>
-            <span>Downloadable certificates to support portfolios and applications.</span>
+            <span>Receive certificates through events and tasks.</span>
           </div>
         </div>
 
@@ -1146,15 +1125,15 @@
         <div class="mini-grid">
           <div class="mini">
             <strong>Rewards Store</strong>
-            <span>Redeem points for perks, event passes, or partner rewards.</span>
+            <span>Redeem points for rewards.</span>
           </div>
           <div class="mini">
-            <strong>Community Shoutouts</strong>
-            <span>Get featured for consistent participation and leadership.</span>
+            <strong>Leaderboard</strong>
+            <span>Raise your ranks on the leaderboard.</span>
           </div>
           <div class="mini">
-            <strong>Team Missions</strong>
-            <span>Invite friends and complete group challenges for extra points.</span>
+            <strong>Missions</strong>
+            <span>Complete challenges for points.</span>
           </div>
         </div>
       </div>
@@ -1183,7 +1162,7 @@
 
             <div style="height:14px"></div>
             <button class="btn btn-primary" type="button" onclick="window.location.href='ambassadors.html'">
-              Apply as Ambassador
+              Become an Ambassador
             </button>
           </div>
         </div>
@@ -1192,7 +1171,7 @@
           <div style="padding:18px;">
             <h3 style="margin:0 0 8px; font-size:16px;">Why it matters</h3>
             <p style="margin:0; color:#475569; font-size:13px; font-weight:600; line-height:1.55;">
-              Ambassadors help make wellbeing approachable, relatable, and fun for peers — while gaining leadership experience.
+              Ambassadors help make wellbeing approachable, relatable, and fun for peers while gaining leadership experience.
             </p>
           </div>
         </div>
@@ -1212,8 +1191,8 @@
       <div class="social-grid">
         <div class="social">
           <div class="tag">🎬 Reels / TikTok</div>
-          <h4>Snackable learning clips</h4>
-          <p>15–30s videos that show simple habits and quick tips in a fun tone.</p>
+          <h4>Clips</h4>
+          <p>Quick 15–30s videos that show simple tips.</p>
         </div>
 
         <div class="social">
@@ -1224,8 +1203,8 @@
 
         <div class="social">
           <div class="tag">🤝 Partnerships</div>
-          <h4>Creators &amp; ambassadors</h4>
-          <p>Micro-influencers + youth leaders to make content relatable and shareable.</p>
+          <h4>Youth ambassadors</h4>
+          <p>Youth leaders to make content relatable and shareable.</p>
         </div>
       </div>
     </div>
@@ -1297,7 +1276,7 @@
     </div>
   </footer>
 
-  <!-- ✅ Needed for login state (Sign in vs Logout) -->
+ 
   <script src="pt-firebase.js"></script>
 
   <script>
@@ -1319,7 +1298,7 @@
       mobileNav.classList.toggle("show");
     });
 
-    // Tabs: swap content panels (no scrolling tabs)
+    
     const tabButtons = document.querySelectorAll(".tabBtn");
     const panels = {
       popup: document.getElementById("panel-popup"),
@@ -1341,24 +1320,24 @@
       btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
     });
 
-    // default active
+   
     setActiveTab("popup");
 
-    // year
+    
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ✅ Navbar auth UI (shows Sign in when logged out, shows Logout when logged in)
+    
     (function initNavAuth(){
       if(!window.PT || !PT.applyNavAuthUI) return;
 
       PT.applyNavAuthUI({
         signInId: "navSignIn",
         logoutId: "navLogout",
-        showWhenLoggedInIds: [],     // no extra buttons
-        logoutRedirect: "login.html" // where to go after logout
+        showWhenLoggedInIds: [],     
+        logoutRedirect: "login.html" 
       });
 
-      // optional mobile auth sync
+      
       const mSignIn = document.getElementById("mSignIn");
       const mLogout = document.getElementById("mLogout");
       if(mSignIn && mLogout){

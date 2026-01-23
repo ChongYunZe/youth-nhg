@@ -1,23 +1,9 @@
-/* =========================
-FILE: pt-firebase.js (UPDATED FULL)
-Shared helper for:
-- storing current login (email)
-- creating user in RTDB if missing
-- get/set points
-- get/set redeemed rewards
-- navbar auth UI toggle
-- get profile (for autofill)
-========================= */
-
 (function(){
-  // ✅ set this to your database root (NO trailing slash)
   const DB_URL = "https://proid-125a9-default-rtdb.asia-southeast1.firebasedatabase.app";
 
   const CURRENT_EMAIL_KEY = "nhg_current_user_email";
   const DEFAULT_POINTS = 7299;
 
-  // Firebase key rule: cannot contain . # $ [ ]
-  // You already used "." -> "," in your DB screenshot approach.
   function emailToKey(email){
     return String(email || "").trim().toLowerCase().replace(/\./g, ",");
   }
@@ -69,10 +55,6 @@ Shared helper for:
     return await res.json();
   }
 
-  // =========================================================
-  // DEMO AUTH (NOT real Firebase Auth)
-  // With open rules, we store a simple user record in RTDB.
-  // =========================================================
 
   async function signup({ email, password, name }){
     email = String(email || "").trim();
@@ -85,7 +67,7 @@ Shared helper for:
 
     const key = emailToKey(email);
 
-    // prevent overwriting existing users accidentally
+    
     const existing = await dbGet(`users/${key}/profile`);
     if(existing){
       throw new Error("Account already exists. Try Login.");
@@ -97,7 +79,7 @@ Shared helper for:
         name: name || (email.split("@")[0] || "User"),
         createdAt: Date.now()
       },
-      // NOTE: storing passwords in plain text is unsafe (demo only)
+      
       password,
       points: DEFAULT_POINTS,
       events: {},
@@ -137,9 +119,8 @@ Shared helper for:
     clearCurrentEmail();
   }
 
-  // =========================================================
-  // Ensure user exists (for pages that need points)
-  // =========================================================
+  
+  // Ensure user exists 
   async function ensureUser(){
     const email = getCurrentEmail();
     const key = getUserKey();
@@ -153,7 +134,7 @@ Shared helper for:
         events: {},
         rewardsRedeemed: {}
       });
-      // password is not set here (since this is fallback)
+      
     }
 
     const pts = await dbGet(`users/${key}/points`);
@@ -162,9 +143,7 @@ Shared helper for:
     }
   }
 
-  // =========================================================
   // Profile (for autofill)
-  // =========================================================
   async function getProfile(){
     const key = getUserKey();
     if(!key) throw new Error("Not logged in");
@@ -172,9 +151,8 @@ Shared helper for:
     return profile || null;
   }
 
-  // =========================================================
-  // Points
-  // =========================================================
+  
+  // Points  
   async function getPoints(){
     const key = getUserKey();
     if(!key) throw new Error("Not logged in");
@@ -195,7 +173,7 @@ Shared helper for:
     return safe;
   }
 
-    // Add points (safe-ish helper)
+    // Add points 
   async function addPoints(delta, meta){
     const key = getUserKey();
     if(!key) throw new Error("Not logged in");
@@ -203,13 +181,12 @@ Shared helper for:
     const add = Math.max(0, Math.floor(Number(delta) || 0));
     if(add <= 0) return await getPoints();
 
-    // Read current points, then write back
-    // (Note: REST RTDB doesn't give true atomic transactions, but this is fine for your prototype)
+
     const current = await getPoints();
     const next = current + add;
     await setPoints(next);
 
-    // Optional: log history
+    
     const logId = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
     await dbPut(`users/${key}/pointsHistory/${logId}`, {
       delta: add,
@@ -221,7 +198,7 @@ Shared helper for:
     return next;
   }
 
-  // Award course completion ONCE (prevents repeated points)
+  
   async function awardCourseOnce({ courseId, courseName, points }){
     const key = getUserKey();
     if(!key) throw new Error("Not logged in");
@@ -252,10 +229,8 @@ Shared helper for:
   }
 
 
-  // =========================================================
-  // Redeemed
-  // Structure: users/<key>/rewardsRedeemed/<rewardId> = { cost, redeemedAt }
-  // =========================================================
+  
+  // Redeemed  
   async function getRedeemed(){
     const key = getUserKey();
     if(!key) throw new Error("Not logged in");
@@ -277,9 +252,8 @@ Shared helper for:
     return payload;
   }
 
-  // =========================================================
-  // Navbar auth UI helper
-  // =========================================================
+  
+  // Navbar auth UI 
   function applyNavAuthUI({ signInId, logoutId, showWhenLoggedInIds = [], logoutRedirect = "login.html" }){
     const signInEl = document.getElementById(signInId);
     const logoutEl = document.getElementById(logoutId);
@@ -302,7 +276,32 @@ Shared helper for:
     }
   }
 
-  // expose
+    
+    // Leaderboard
+    async function getSingaporeLeaderboardTop(limit = 5){     
+      const users = await dbGet("users");
+      if(!users) return [];
+
+      const rows = Object.values(users)
+        .map(u => {
+          const name = u?.profile?.name || (u?.profile?.email ? u.profile.email.split("@")[0] : "User");
+          const points = Number(u?.points || 0);
+          return { name: String(name), points: Number.isFinite(points) ? points : 0 };
+        })
+        .sort((a,b) => b.points - a.points)
+        .slice(0, limit);
+
+      return rows;
+    }
+
+   
+    async function getFriendsLeaderboardTop(limit = 5){
+      if(!isLoggedIn()) return [];
+      return [];
+    }
+
+
+  
   window.PT = {
     // auth
     signup,
@@ -323,6 +322,10 @@ Shared helper for:
     // redeemed
     getRedeemed,
     setRedeemed,
+
+    // leaderboard
+    getSingaporeLeaderboardTop,
+    getFriendsLeaderboardTop,
 
     // ui helper
     applyNavAuthUI
