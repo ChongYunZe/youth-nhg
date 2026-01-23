@@ -2,7 +2,7 @@
   const DB_URL = "https://proid-125a9-default-rtdb.asia-southeast1.firebasedatabase.app";
 
   const CURRENT_EMAIL_KEY = "nhg_current_user_email";
-  const DEFAULT_POINTS = 7299;
+  const DEFAULT_POINTS = 50;
 
   function emailToKey(email){
     return String(email || "").trim().toLowerCase().replace(/\./g, ",");
