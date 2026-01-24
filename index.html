@@ -92,6 +92,127 @@
       display:block;
     }
 
+    /* ===== Social Media Launch CTA ===== */
+    .socialCtaWrap{
+      padding: 34px 0 40px;
+      background: #ffffff;
+    }
+
+    .socialCtaHead{
+      text-align:center;
+      margin-bottom: 18px;
+    }
+    .socialCtaHead h2{
+      margin:0 0 6px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.3px;
+      color:#0f172a;
+    }
+    .socialCtaHead p{
+      margin:0;
+      font-size: 13px;
+      font-weight: 700;
+      color:#64748b;
+    }
+
+    .socialCtaGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .socialCtaCard{
+      border-radius: 18px;
+      border: 1px solid #e6eaf2;
+      box-shadow: 0 10px 24px rgba(15,23,42,.06);
+      padding: 22px;
+      min-height: 160px;
+
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      text-align:center;
+      justify-content: center;
+    }
+
+    .socialCtaCard.pink{
+      background: linear-gradient(180deg, rgba(236,72,153,.10), rgba(236,72,153,.04));
+    }
+    .socialCtaCard.blue{
+      background: linear-gradient(180deg, rgba(45,99,255,.10), rgba(45,99,255,.04));
+    }
+
+
+    .socialCtaIcon{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      margin-bottom: 10px;
+      border: 1px solid rgba(15,23,42,.06);
+      background: rgba(255,255,255,.65);
+      overflow: hidden; /* important for rounded image */
+    }
+
+    .socialCtaIcon img{
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      display:block;
+    }
+
+    .socialCtaCard h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 900;
+      color:#0f172a;
+    }
+    .socialCtaCard p{
+      margin: 0;
+      max-width: 42ch;
+      font-size: 12px;
+      font-weight: 700;
+      color:#64748b;
+      line-height: 1.6;
+    }
+
+    .socialCtaBtn{
+      margin-top: 14px;
+      border:0;
+      cursor:pointer;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 900;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      transition: transform .12s ease, filter .12s ease, opacity .12s ease;
+    }
+    .socialCtaBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+
+    .socialCtaBtn.pink{
+      background: #ec4899;
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(236,72,153,.22);
+    }
+    .socialCtaBtn.blue{
+      background: #0f172a;
+      color:#fff;
+      box-shadow: 0 14px 28px rgba(15,23,42,.18);
+    }
+
+    /* Mobile */
+    @media (max-width: 780px){
+      .socialCtaGrid{ grid-template-columns: 1fr; }
+    }
+
+
     .footerlogo{
       width:34px;height:34px;border-radius:10px;
       background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
@@ -1209,6 +1330,43 @@
       </div>
     </div>
   </section>
+  <section class="socialCtaWrap" aria-label="Social media launch call to action">
+    <div class="container">
+      <div class="socialCtaHead">
+      </div>
+
+      <div class="socialCtaGrid">
+        <!-- Instagram -->
+        <div class="socialCtaCard pink">
+          <div class="socialCtaIcon" aria-hidden="true">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8lv-iEOWtRxGDqsOR-Pa1kIiqN298569zVA&s" alt="">
+          </div>
+          <h3>Instagram Campaign</h3>
+          <p>Share your health journey with <strong>#ProjectThrive</strong> and get featured on our official page.</p>
+          <a class="socialCtaBtn pink"
+            href="https://www.instagram.com/project_.thrive?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank" rel="noopener noreferrer">
+            Follow Us
+          </a>
+        </div>
+
+        <!-- TikTok -->
+        <div class="socialCtaCard blue">
+          <div class="socialCtaIcon" aria-hidden="true">
+            <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338432_1280.png" alt="">
+          </div>
+          <h3>TikTok Challenges</h3>
+          <p>Share your experience and stand a chance to win prizes! Use <strong>#ProjectThrive</strong>.</p>
+          <a class="socialCtaBtn blue"
+            href="https://www.tiktok.com/@project.thrive0?is_from_webapp=1&sender_device=pc"
+            target="_blank" rel="noopener noreferrer">
+            Join Challenge
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <footer>
     <div class="container">
