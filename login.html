@@ -325,9 +325,20 @@
     tabSignup.addEventListener("click", () => setMode("signup"));
 
     
-    if (PT.isLoggedIn()){
-      window.location.href = "index.html";
-    }
+    // if (PT.isLoggedIn()){
+    //   window.location.href = "index.html";
+    // }
+    (async () => {
+      if (PT.isLoggedIn()){
+        const next = new URLSearchParams(location.search).get("next");
+        if (await PT.isAdminUser()){
+          window.location.href = next || "admin-stickers.html";
+        } else {
+          window.location.href = next || "index.html";
+        }
+      }
+    })();
+
 
     primaryBtn.addEventListener("click", async () => {
       clearErr();
@@ -344,7 +355,15 @@
             password: passEl.value
           });
         }
-        window.location.href = "index.html";
+        // window.location.href = "index.html";
+        const next = new URLSearchParams(location.search).get("next");
+
+        if (await PT.isAdminUser()){
+          window.location.href = next || "admin-stickers.html";
+        } else {
+          window.location.href = next || "index.html";
+        }
+
       }catch(e){
         showErr(e.message || String(e));
       }

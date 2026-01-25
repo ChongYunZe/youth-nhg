@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – Sticker Redemption</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body{ font-family:Inter,system-ui; margin:0; background:#f8fafc; color:#0f172a; }
+    *{ box-sizing: border-box; }
+
+    .card{ overflow: hidden; }              /* keeps inputs inside rounded card */
+    input, select, button{ max-width:100%; } /* extra safety */
+    .wrap{ max-width:900px; margin:24px auto; padding:0 16px; }
+    .card{ background:#fff; border:1px solid #e6eaf2; border-radius:16px; padding:16px; box-shadow:0 10px 26px rgba(15,23,42,.08); }
+    h1{ margin:0 0 10px; font-size:18px; }
+    label{ display:block; font-weight:800; font-size:12px; margin:10px 0 6px; color:#334155; }
+    input,select{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #e6eaf2;
+  font-weight:600;
+  box-sizing:border-box; /* ✅ */
+}
+
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .btn{ margin-top:12px; padding:12px 14px; border-radius:12px; border:0; background:#2D63FF; color:#fff; font-weight:900; cursor:pointer; }
+    .btn2{ background:#0b1220; }
+    .msg{ margin-top:10px; font-weight:700; color:#475569; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px 16px; border-bottom:1px solid #e6eaf2; background:#fff;
+      position:sticky; top:0; z-index:10;
+    }
+    .brand{ font-weight:900; }
+    .nav{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+     .nav a{
+    padding:14px 20px;              /* bigger click area */
+    border-radius:999px;
+    border:1px solid #e6eaf2;
+    background:#fff;
+    font-weight:900;
+    font-size:14px;                /* bigger text */
+    color:#0f172a;
+    text-decoration:none;
+    min-width:140px;               /* makes buttons wider & uniform */
+    text-align:center;
+    }
+
+    .nav a.active{
+    background:#2D63FF;
+    border-color:#2D63FF;
+    color:#fff;
+    box-shadow:0 6px 16px rgba(45,99,255,.25);
+    }
+
+    .nav button{
+    padding:14px 20px;
+    border-radius:999px;
+    border:1px solid #0b1220;
+    background:#0b1220;
+    color:#fff;
+    font-weight:900;
+    font-size:14px;
+    cursor:pointer;
+    min-width:120px;
+    box-shadow:0 6px 16px rgba(15,23,42,.25);
+    }
+
+    @media (max-width:720px){
+      .row{ grid-template-columns:1fr; }
+      .topbar{ align-items:flex-start; flex-direction:column; }
+      .nav{ width:100%; }
+      .nav a, .nav button{ flex:1; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Admin top nav -->
+  <div class="topbar">
+    <div class="brand" id="adminTitle">Admin Panel</div>
+    <div class="nav" aria-label="Admin navigation">
+      <a class="active" href="admin-stickers.html">Sticker Entry</a>
+      <a href="admin-fulfillment.html">Fulfillment</a>
+      <button type="button" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h1>Record Sticker Collection</h1>
+
+      <div class="msg" id="loginMsg"></div>
+
+      <label>User Email</label>
+      <input id="userEmail" placeholder="user@email.com" />
+
+      <div class="row">
+        <div>
+          <label>Sticker</label>
+          <select id="stickerId">
+            <option value="zombie">The Zombie 🧟‍♂️</option>
+            <option value="overthinker">The Overthinker 💭</option>
+            <option value="caffeine">The Caffeine Addict ☕</option>
+            <option value="avoider">The Avoider ⏱️</option>
+          </select>
+        </div>
+        <div>
+          <label>Event / Location</label>
+          <select id="eventName">
+            <option value="Ngee Ann Polytechnic">Ngee Ann Polytechnic</option>
+            <option value="Bukit Panjang CC">Bukit Panjang CC</option>
+            <option value="Tampines Mall Atrium">Tampines Mall Atrium</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn" id="confirmBtn">Confirm Sticker</button>
+      <div class="msg" id="resultMsg"></div>
+    </div>
+  </div>
+
+  <script src="pt-firebase.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const setMsg = (el, text) => el.textContent = text || "";
+
+    // ✅ Protect page: must be logged in AND admin
+    (async () => {
+      if(!PT.isLoggedIn()){
+        // send back here after login
+        window.location.href = "login.html?next=admin-stickers.html";
+        return;
+      }
+      const ok = await PT.isAdminUser();
+      if(!ok){
+        alert("Access denied. Admins only.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      // show who is logged in (optional)
+      try{
+        const p = await PT.getProfile();
+        setMsg($("loginMsg"), `${p?.name || p?.email || "Admin"}`);
+        $("adminTitle").textContent = `Admin Panel — ${p?.name || "Admin"}`;
+      }catch(e){
+        setMsg($("loginMsg"), "Logged in as admin.");
+      }
+    })();
+
+    // ✅ Logout
+    $("logoutBtn").onclick = () => {
+      PT.logout();
+      window.location.href = "login.html";
+    };
+
+    // ✅ Sticker entry
+    $("confirmBtn").onclick = async () => {
+      setMsg($("resultMsg"), "");
+      try{
+        const out = await PT.adminGrantSticker({
+          userEmail: $("userEmail").value,
+          stickerId: $("stickerId").value,
+          eventName: $("eventName").value
+        });
+
+        if(out.duplicate){
+          setMsg($("resultMsg"), "Sticker already recorded for this user.");
+        }else{
+          setMsg($("resultMsg"), `Recorded! User now has ${out.uniqueCount} unique sticker(s). Rewards updated.`);
+        }
+      }catch(e){
+        setMsg($("resultMsg"), e.message || String(e));
+      }
+    };
+  </script>
+</body>
+</html>

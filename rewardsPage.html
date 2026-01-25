@@ -1339,7 +1339,7 @@
 
           try{
             currentPoints = await PT.setPoints(currentPoints - cost);
-            await PT.setRedeemed(rewardId, cost);
+            await PT.setRedeemed(rewardId, cost, name);
 
             redeemedMap[rewardId] = { cost, redeemedAt: Date.now() };
             btn.dataset.redeemed = "1";
